@@ -10,6 +10,7 @@ import SignUp from '../src/screens/SignUp';
 import Profile from '../src/screens/Profile';
 import MyPosts from '../src/screens/MyPosts';
 import MyDm from '../src/screens/MyDm';
+import CreatePost from '../src/screens/CreatePost';
 
 const Stack = createNativeStackNavigator();
 
@@ -19,6 +20,7 @@ const Navigation = () => {
             <Stack.Navigator>
                 <Stack.Screen name="Home" component={Home} />
                 <Stack.Screen name="Profile" component={Profile} />
+                <Stack.Screen name="CreatePost" component={CreatePost} />
                 <Stack.Screen name="SignUp" component={SignUp} />
                 <Stack.Screen name="SignIn" component={SignIn} />
                 <Stack.Screen name="MyPosts" component={MyPosts} />
