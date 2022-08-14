@@ -18,11 +18,11 @@ const Navigation = () => {
     return (
         <NavigationContainer>
             <Stack.Navigator>
+                <Stack.Screen name="SignUp" component={SignUp} />
+                <Stack.Screen name="SignIn" component={SignIn} />
                 <Stack.Screen name="Home" component={Home} />
                 <Stack.Screen name="Profile" component={Profile} />
                 <Stack.Screen name="CreatePost" component={CreatePost} />
-                <Stack.Screen name="SignUp" component={SignUp} />
-                <Stack.Screen name="SignIn" component={SignIn} />
                 <Stack.Screen name="MyPosts" component={MyPosts} />
                 <Stack.Screen name="DM" component={MyDm} />
                 <Stack.Screen name="Chat" component={Chat} />
