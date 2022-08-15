@@ -1,13 +1,22 @@
 import { View, Text, TextInput, TouchableOpacity } from 'react-native'
 import React, { useState } from 'react'
 import { signUp } from '../styles/signUpStyles'
-const SignUp = () => {
+const SignUp = ({ navigation }) => {
 
     const [name, setName] = useState('')
     const [surname, setSurname] = useState('')
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [rePassword, setRePassword] = useState('')
+
+    const signUpHandle = () => {
+        let signUpDatas = {
+            "name": name,
+            "surname": surname,
+            "email": email,
+            "password": password,
+        }
+    }
 
     return (
         <View style={signUp.main}>
@@ -44,7 +53,10 @@ const SignUp = () => {
             </View>
 
             <View style={signUp.signUpView}>
-                <TouchableOpacity style={signUp.signUpButton}>
+                <TouchableOpacity
+                    style={signUp.signUpButton}
+                    onPress={() => signUpHandle()}
+                >
                     <Text>Sign Up</Text>
                 </TouchableOpacity>
             </View>
