@@ -1,4 +1,4 @@
-import { View, Text, FlatList, Image, ScrollView } from 'react-native'
+import { View, Text, FlatList, Image, ScrollView, TouchableOpacity } from 'react-native'
 import React from 'react'
 import { postStyles } from './styles/postStyles'
 
@@ -24,6 +24,17 @@ const Post = () => {
 
     return (
         <View style={postStyles.main}>
+            <View style={postStyles.imgView}>
+                <FlatList
+                    horizontal
+                    data={listData}
+                    renderItem={({ item, index }) => {
+                        return (
+                            <Image style={postStyles.img} source={{ uri: item.img }} />
+                        )
+                    }}
+                />
+            </View>
             <View style={postStyles.name}>
                 <Text>Name</Text>
             </View>
@@ -31,17 +42,29 @@ const Post = () => {
                 <Text style={postStyles.titleText}>Title</Text>
                 <Text style={postStyles.descText}>Description</Text>
             </View>
-            <View style={postStyles.imgView}>
 
-                <FlatList
-                    contentContainerStyle={{ alignSelf: 'flex-start' }}
-                    showsVerticalScrollIndicator={false}
-                    showsHorizontalScrollIndicator={false}
-                    data={listData}
-                    renderItem={({ item, index }) => {
-                        <Text>adasdasdasd</Text>
-                    }}
-                />
+            <View style={postStyles.adressView}>
+                <View style={postStyles.adress}>
+                    <Text >Adress</Text>
+                </View>
+                <TouchableOpacity style={postStyles.location}>
+                    <Text>Location</Text>
+                </TouchableOpacity>
+            </View>
+            <View style={postStyles.featuresView}>
+                <View style={postStyles.features}>
+                    <View style={postStyles.featureView}>
+                        <Text>Eşyalı</Text>
+                        <Text>Eşyalı</Text>
+                        <Text>Eşyalı</Text>
+                    </View>
+                    <View>
+                        <Text>Price</Text>
+                    </View>
+                </View>
+                <TouchableOpacity style={postStyles.sendMessageView}>
+                    <Text>Send Message</Text>
+                </TouchableOpacity>
             </View>
         </View>
     )
