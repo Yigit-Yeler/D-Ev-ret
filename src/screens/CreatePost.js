@@ -1,8 +1,10 @@
-import { View, Text, TextInput } from 'react-native'
+import { View, Text, TextInput, TouchableOpacity } from 'react-native'
 import React, { useState } from 'react'
 import { createPostStyles } from '../styles/createPostStyles'
 import { textInputStyles } from '../components/styles/textInputStyles'
+
 import MyDropDownButton from '../components/MyDropDownButton'
+import ApproveButton from '../components/ApproveButton'
 const CreatePost = () => {
     const [text, setText] = useState({
         'title': '',
@@ -41,6 +43,10 @@ const CreatePost = () => {
         setRoomsValue(value)
     }
 
+    const submitPost = () => {
+        console.log("submitttt")
+    }
+
     return (
         <View style={createPostStyles.main}>
             <Text>CreatePost</Text>
@@ -60,6 +66,8 @@ const CreatePost = () => {
                 <MyDropDownButton data={furnished} value={furnishedValue} handleDropDown={handleDropDownF} />
                 <MyDropDownButton data={rooms} value={roomsValue} handleDropDown={handleDropDownR} />
             </View>
+
+            <ApproveButton onPress={submitPost} text={'Share'} />
 
         </View>
     )
