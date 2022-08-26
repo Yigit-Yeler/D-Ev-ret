@@ -1,16 +1,25 @@
 import { View, Text, TouchableOpacity, TextInput } from 'react-native'
 import React, { useState } from 'react'
 import { signIn } from '../styles/signInStyles'
+import ApproveButton from '../components/ApproveButton'
 
 const SignIn = ({ navigation }) => {
-    const [email, setEmail] = useState('')
-    const [password, setPassword] = useState('')
+    const [userInfo, setUserInfo] = useState({
+        'email': '',
+        'password': ''
+    })
+
+    const handleTextInputs = (value, name) => {
+        let updatedValue = { [name]: value };
+        setUserInfo(userInfo => ({
+            ...userInfo,
+            ...updatedValue
+        }));
+        console.log(userInfo)
+    }
 
     const signInHandle = () => {
-        let signInDatas = {
-            "email": email,
-            "password": password
-        }
+        console.log('Sign In')
     }
 
     return (
@@ -23,22 +32,17 @@ const SignIn = ({ navigation }) => {
                 <TextInput
                     placeholder='E-mail'
                     style={signIn.textInput}
-                    onChangeText={(text) => { setEmail(text) }}
+                    onChangeText={(text) => handleTextInputs(text, 'email')}
                 />
                 <TextInput
                     placeholder='Password'
                     style={signIn.textInput}
-                    onChangeText={(text) => { setPassword(text) }}
+                    onChangeText={(text) => handleTextInputs(text, 'password')}
                 />
             </View>
 
             <View style={signIn.signUpView}>
-                <TouchableOpacity
-                    style={signIn.signUpButton}
-                    onPress={() => signInHandle()}
-                >
-                    <Text>Sign In</Text>
-                </TouchableOpacity>
+                <ApproveButton text={'Sign In'} onPress={signInHandle} />
             </View>
 
         </View>

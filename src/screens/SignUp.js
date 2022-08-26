@@ -1,21 +1,29 @@
 import { View, Text, TextInput, TouchableOpacity } from 'react-native'
 import React, { useState } from 'react'
 import { signUp } from '../styles/signUpStyles'
+import ApproveButton from '../components/ApproveButton'
 const SignUp = ({ navigation }) => {
 
-    const [name, setName] = useState('')
-    const [surname, setSurname] = useState('')
-    const [email, setEmail] = useState('')
-    const [password, setPassword] = useState('')
     const [rePassword, setRePassword] = useState('')
+    const [userInfo, setUserInfo] = useState({
+        'name': '',
+        'surname': '',
+        'email': '',
+        'password': ''
+    })
 
     const signUpHandle = () => {
-        let signUpDatas = {
-            "name": name,
-            "surname": surname,
-            "email": email,
-            "password": password,
+        if (userInfo.password == rePassword) {
+            console.log("Correct")
         }
+    }
+
+    const handleTextInputs = (value, name) => {
+        let updatedValue = { [name]: value };
+        setUserInfo(userInfo => ({
+            ...userInfo,
+            ...updatedValue
+        }));
     }
 
     return (
@@ -28,22 +36,22 @@ const SignUp = ({ navigation }) => {
                 <TextInput
                     placeholder='Name'
                     style={signUp.textInput}
-                    onChangeText={(text) => { setName(text) }}
+                    onChangeText={(text) => handleTextInputs(text, 'name')}
                 />
                 <TextInput
                     placeholder='Surname'
                     style={signUp.textInput}
-                    onChangeText={(text) => { setSurname(text) }}
+                    onChangeText={(text) => handleTextInputs(text, 'surname')}
                 />
                 <TextInput
                     placeholder='E-mail'
                     style={signUp.textInput}
-                    onChangeText={(text) => { setEmail(text) }}
+                    onChangeText={(text) => handleTextInputs(text, 'email')}
                 />
                 <TextInput
                     placeholder='Password'
                     style={signUp.textInput}
-                    onChangeText={(text) => { setPassword(text) }}
+                    onChangeText={(text) => handleTextInputs(text, 'password')}
                 />
                 <TextInput
                     placeholder='Password Again'
@@ -53,12 +61,7 @@ const SignUp = ({ navigation }) => {
             </View>
 
             <View style={signUp.signUpView}>
-                <TouchableOpacity
-                    style={signUp.signUpButton}
-                    onPress={() => signUpHandle()}
-                >
-                    <Text>Sign Up</Text>
-                </TouchableOpacity>
+                <ApproveButton text={'Sign Up'} onPress={signUpHandle} />
             </View>
 
         </View>

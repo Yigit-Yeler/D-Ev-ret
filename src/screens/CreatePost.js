@@ -32,7 +32,6 @@ const CreatePost = () => {
             ...text,
             ...updatedValue
         }));
-        console.log(text)
     }
 
     const handleDropDownF = (value) => {
