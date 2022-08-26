@@ -10,7 +10,8 @@ export const postStyles = StyleSheet.create({
         height: usualWidth * 1.5,
         backgroundColor: 'red',
         borderWidth: 2,
-        borderColor: 'black'
+        borderColor: 'black',
+        marginVertical: hp('2%')
     },
     name: {
         width: contentUsualWidth,
