@@ -9,21 +9,21 @@ const CreatePost = () => {
     const [text, setText] = useState({
         'title': '',
         'desc': '',
-        'adress': ''
+        'adress': '',
+        'isFurnished': '',
+        'room': ''
     })
-    const [furnishedValue, setFurnishedValue] = useState(null);
-    const [roomsValue, setRoomsValue] = useState(null);
 
     const furnished = [
-        { label: 'Eşyalı', value: '1' },
-        { label: 'Eşyasız', value: '2' },
+        { label: 'Eşyalı', value: true },
+        { label: 'Eşyasız', value: false },
     ];
 
     const rooms = [
-        { label: '1+0', value: '1' },
-        { label: '1+1', value: '2' },
-        { label: '2+1', value: '3' },
-        { label: '3+1', value: '4' },
+        { label: '1+0', value: '1+0' },
+        { label: '1+1', value: '1+1' },
+        { label: '2+1', value: '2+1' },
+        { label: '3+1', value: '3+1' },
     ];
 
     const handleTextInputs = (value, name) => {
@@ -35,11 +35,20 @@ const CreatePost = () => {
     }
 
     const handleDropDownF = (value) => {
-        setFurnishedValue(value)
+        let updatedValue = { 'isFurnished': value };
+        setText(text => ({
+            ...text,
+            ...updatedValue
+        }));
+        console.log(text)
     }
 
     const handleDropDownR = (value) => {
-        setRoomsValue(value)
+        let updatedValue = { 'room': value };
+        setText(text => ({
+            ...text,
+            ...updatedValue
+        }));
     }
 
     const submitPost = () => {
@@ -62,8 +71,8 @@ const CreatePost = () => {
                 onChangeText={(text) => handleTextInputs(text, 'adress')}
             />
             <View style={createPostStyles.dropDownButtonsView}>
-                <MyDropDownButton data={furnished} value={furnishedValue} handleDropDown={handleDropDownF} />
-                <MyDropDownButton data={rooms} value={roomsValue} handleDropDown={handleDropDownR} />
+                <MyDropDownButton data={furnished} value={text.isFurnished} handleDropDown={handleDropDownF} />
+                <MyDropDownButton data={rooms} value={text.room} handleDropDown={handleDropDownR} />
             </View>
 
             <ApproveButton onPress={submitPost} text={'Share'} />
