@@ -2,6 +2,7 @@ import { View, Text, TouchableOpacity, TextInput } from 'react-native'
 import React, { useState } from 'react'
 import { signIn } from '../styles/signInStyles'
 import ApproveButton from '../components/ApproveButton'
+import { firebaseSignIn } from '../../core/firebase'
 
 const SignIn = ({ navigation }) => {
     const [userInfo, setUserInfo] = useState({
@@ -20,6 +21,7 @@ const SignIn = ({ navigation }) => {
 
     const signInHandle = () => {
         console.log('Sign In')
+        firebaseSignIn(userInfo, navigation)
     }
 
     return (

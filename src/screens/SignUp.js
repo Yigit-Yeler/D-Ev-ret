@@ -2,8 +2,7 @@ import { View, Text, TextInput, TouchableOpacity } from 'react-native'
 import React, { useState } from 'react'
 import { signUp } from '../styles/signUpStyles'
 import ApproveButton from '../components/ApproveButton'
-import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
-
+import { firebaseSignUp } from '../../core/firebase'
 
 
 const SignUp = ({ navigation }) => {
@@ -20,9 +19,8 @@ const SignUp = ({ navigation }) => {
         // console.log(createUserWithEmailAndPassword())
         if (userInfo.password == rePassword) {
             console.log("Correct")
-            createUserWithEmailAndPassword(getAuth(), userInfo.email, userInfo.password).then(() => {
-                console.log('olduuu')
-            })
+
+            firebaseSignUp(userInfo, navigation)
         }
     }
 

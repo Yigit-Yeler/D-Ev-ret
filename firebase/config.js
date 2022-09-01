@@ -1,16 +1,3 @@
-import { initializeApp } from 'firebase/app';
-
-const firebaseConfig = {
-    apiKey: "AIzaSyBZbQ_fABtuWlEc-PnmHghRuJvnoZxLeyk",
-    authDomain: "house-transferer.firebaseapp.com",
-    projectId: "house-transferer",
-    storageBucket: "house-transferer.appspot.com",
-    messagingSenderId: "922490365076",
-    appId: "1:922490365076:web:4f1ce178cc750f1a9f0081"
-};
-// console.log(firebase)
-
-export const app = initializeApp(firebaseConfig);
 
 // import 'dotenv/config';
 // export default {
