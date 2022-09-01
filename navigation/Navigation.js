@@ -17,9 +17,9 @@ const Navigation = () => {
     return (
         <NavigationContainer>
             <Stack.Navigator>
+                <Stack.Screen name="SignUp" component={SignUp} />
                 <Stack.Screen name="BottomTab" component={BottomTabNavigation} />
                 <Stack.Screen name="Update Profile" component={UpdateProfile} />
-                <Stack.Screen name="SignUp" component={SignUp} />
                 <Stack.Screen name="SignIn" component={SignIn} />
                 <Stack.Screen name="MyPosts" component={MyPosts} />
                 <Stack.Screen name="Chat" component={Chat} />
