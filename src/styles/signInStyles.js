@@ -4,17 +4,17 @@ import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-nat
 export const signIn = StyleSheet.create({
     main: {
         flex: 1,
-        alignItems: 'center'
+        alignItems: 'center',
+        justifyContent: 'space-evenly'
     },
     logo: {
         width: wp('100%'),
-        height: hp('27%'),
     },
     textInputView: {
         width: wp('100%'),
         height: hp('25%'),
-        justifyContent: 'space-evenly',
-        alignItems: 'center'
+        alignItems: 'center',
+        justifyContent: 'space-evenly'
     },
     textInput: {
         width: wp('90'),
@@ -25,14 +25,6 @@ export const signIn = StyleSheet.create({
     },
     signUpView: {
         width: wp('100%'),
-        height: hp('21%'),
-        justifyContent: 'center',
-        alignItems: 'center'
-    },
-    signUpButton: {
-        width: wp('27%'),
-        height: hp('7%'),
-        backgroundColor: 'purple',
         justifyContent: 'center',
         alignItems: 'center'
     }

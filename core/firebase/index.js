@@ -3,7 +3,7 @@ import {
     createUserWithEmailAndPassword,
     signInWithEmailAndPassword
 } from 'firebase/auth';
-import { NavigationPathEnum } from './enum/navigationPathEnum';
+import { NavigationPathEnum } from '../enum/navigationPathEnum';
 
 export const firebaseSignUp = ({ email, password }, navigation) => {
     createUserWithEmailAndPassword(getAuth(), email, password)
