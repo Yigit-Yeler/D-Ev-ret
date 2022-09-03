@@ -1,15 +1,18 @@
 import { View, Text, TextInput, TouchableOpacity } from 'react-native'
 import React, { useState } from 'react'
-import { signUp } from '../styles/signUpStyles'
+import { signUpStyles } from '../styles/signUpStyles'
 import ApproveButton from '../components/ApproveButton'
 import { firebaseSignUp } from '../../core/firebase'
 import { NavigationPathEnum } from '../../core/enum/navigationPathEnum'
+import { useDispatch, useSelector } from 'react-redux'
+import { signIn, signUp } from '../store/slices/authSlice'
 import BottomText from '../components/BottomText'
 import ErrorModal from '../../core/myModal/ErrorModal'
 import SuccessModal from '../../core/myModal/SuccessModal'
 
 const SignUp = ({ navigation }) => {
     // console.log(firebase.auth) // Undefined
+    const dispatch = useDispatch()
     const [a, setA] = useState()
     const [visible, setVisible] = useState(false)
 
@@ -38,14 +41,14 @@ const SignUp = ({ navigation }) => {
     }
 
     const navigateToSignIn = () => {
-        //navigation.navigate('SignIn')
-
-        setVisible(true)
+        // navigation.navigate('SignIn')
+        dispatch(signUp([userInfo, navigation]))
+        // setVisible(true)
     }
 
     return (
-        <View style={signUp.main}>
-            <View style={signUp.logo}>
+        <View style={signUpStyles.main}>
+            <View style={signUpStyles.logo}>
 
             </View>
             <SuccessModal
@@ -56,31 +59,31 @@ const SignUp = ({ navigation }) => {
             />
             <TextInput
                 placeholder='Name'
-                style={signUp.textInput}
+                style={signUpStyles.textInput}
                 onChangeText={(text) => handleTextInputs(text, 'name')}
             />
             <TextInput
                 placeholder='Surname'
-                style={signUp.textInput}
+                style={signUpStyles.textInput}
                 onChangeText={(text) => handleTextInputs(text, 'surname')}
             />
             <TextInput
                 placeholder='E-mail'
-                style={signUp.textInput}
+                style={signUpStyles.textInput}
                 onChangeText={(text) => handleTextInputs(text, 'email')}
             />
             <TextInput
                 placeholder='Password'
-                style={signUp.textInput}
+                style={signUpStyles.textInput}
                 onChangeText={(text) => handleTextInputs(text, 'password')}
             />
             <TextInput
                 placeholder='Password Again'
-                style={signUp.textInput}
+                style={signUpStyles.textInput}
                 onChangeText={(text) => { setRePassword(text) }}
             />
 
-            <View style={signUp.signUpView}>
+            <View style={signUpStyles.signUpView}>
                 <ApproveButton text={'Sign Up'} onPress={signUpHandle} />
             </View>
 

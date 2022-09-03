@@ -2,6 +2,8 @@ import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
 import Navigation from './navigation/Navigation';
 import { initializeApp } from 'firebase/app';
+import { Provider } from 'react-redux';
+import { store } from './src/store';
 
 const firebaseConfig = {
   apiKey: "AIzaSyBZbQ_fABtuWlEc-PnmHghRuJvnoZxLeyk",
@@ -18,7 +20,9 @@ initializeApp(firebaseConfig);
 
 export default function App() {
   return (
-    <Navigation />
+    <Provider store={store}>
+      <Navigation />
+    </Provider>
   );
 }
 
