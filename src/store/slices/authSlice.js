@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { createUserWithEmailAndPassword, getAuth } from "firebase/auth";
+import NavigationPathEnum from '../../../core/enum/navigationPathEnum'
 
 const initialState = {
     isSuccess: 0, // 0: loading, 1: success, 2: error
@@ -11,21 +12,8 @@ const authSlice = createSlice({
     initialState,
     reducers: {
         signUp: (state, action) => {
-            // createUserWithEmailAndPassword(getAuth(), email, password)
-            //     .then((res) => {
+            state.user = action.payload
 
-            //         navigation.replace(
-            //             NavigationPathEnum.bottomTab,
-            //             { screen: NavigationPathEnum.home }
-            //         )
-            //     })
-            //     .catch((e) => {
-            //         console.log('Firebase Errorr:: ', e)
-            //     })
-            // console.log(action.payload)
-            // console.log(action.payload)
-            console.log(action.payload[0])
-            action.payload[1].navigate('SignIn')
         },
         signIn: (state, action) => {
 

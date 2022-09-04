@@ -1,5 +1,5 @@
 import { View, Text, TextInput, TouchableOpacity } from 'react-native'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { signUpStyles } from '../styles/signUpStyles'
 import ApproveButton from '../components/ApproveButton'
 import { firebaseSignUp } from '../../core/firebase'
@@ -13,8 +13,10 @@ import SuccessModal from '../../core/myModal/SuccessModal'
 const SignUp = ({ navigation }) => {
     // console.log(firebase.auth) // Undefined
     const dispatch = useDispatch()
-    const [a, setA] = useState()
-    const [visible, setVisible] = useState(false)
+    const user = useSelector(state => state.auth.user)
+    const [isSuccess, setIsSuccess] = useState(0)
+    const [a, setA] = useState(0)
+    const [visible, setVisible] = useState(true)
 
     const [rePassword, setRePassword] = useState('')
     const [userInfo, setUserInfo] = useState({
@@ -24,11 +26,52 @@ const SignUp = ({ navigation }) => {
         'password': ''
     })
 
+    useEffect(() => {
+        // console.log(isSuccess)
+    }, [isSuccess])
+
+
+    const modalHandle = () => {
+        if (isSuccess == 1) {
+            return (
+                <SuccessModal
+                    isVisible={visible}
+                    onPress={() => {
+                        setIsSuccess(0)
+                        setVisible(false)
+                    }}
+                />
+            )
+        }
+        else if (isSuccess == 2) {
+            return (
+                <ErrorModal
+                    isVisible={visible}
+                    onPress={() => {
+                        setIsSuccess(0)
+                        setVisible(false)
+                    }}
+                />
+            )
+        }
+    }
+
     const signUpHandle = () => {
         // console.log(createUserWithEmailAndPassword())
         if (userInfo.password == rePassword) {
             console.log("Correct")
-            setA(firebaseSignUp(userInfo, navigation))
+            firebaseSignUp(userInfo)
+                .then((res) => {
+                    console.log(res)
+                    dispatch(signUp(res))
+                    setIsSuccess(1)
+                    setVisible(true)
+                })
+                .catch((e) => {
+                    setIsSuccess(2)
+                    console.log(e)
+                    setVisible(true)
+                })
         }
     }
 
@@ -42,7 +85,6 @@ const SignUp = ({ navigation }) => {
 
     const navigateToSignIn = () => {
         // navigation.navigate('SignIn')
-        dispatch(signUp([userInfo, navigation]))
         // setVisible(true)
     }
 
@@ -51,12 +93,10 @@ const SignUp = ({ navigation }) => {
             <View style={signUpStyles.logo}>
 
             </View>
-            <SuccessModal
-                isVisible={visible}
-                onPress={() => {
-                    setVisible(false)
-                }}
-            />
+            {
+                modalHandle()
+            }
+
             <TextInput
                 placeholder='Name'
                 style={signUpStyles.textInput}
