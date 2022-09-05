@@ -1,21 +1,26 @@
 import { View, Text, TouchableOpacity } from 'react-native'
 import React from 'react'
 import Modal from 'react-native-modal'
+import { successModalStyles } from './styles/successModalStyles'
 
 const SuccessModal = ({ onPress, title, text, isVisible }) => {
     return (
         <Modal
             isVisible={isVisible}
-            style={{ width: 200, height: 200 }}
+            style={{ alignItems: 'center', justifyContent: 'center' }}
         >
-            <View style={{ width: 200, height: 200 }}>
+            <View style={successModalStyles.main}>
+
+                <Text style={successModalStyles.titleText}>SUCCESS</Text>
+                <Text>Signed In</Text>
+
                 <TouchableOpacity
+                    style={successModalStyles.button}
                     onPress={() => {
                         onPress()
                     }}
                 >
-                    <Text>Giriş Yapıldı</Text>
-
+                    <Text>Close</Text>
                 </TouchableOpacity>
             </View>
         </Modal>
