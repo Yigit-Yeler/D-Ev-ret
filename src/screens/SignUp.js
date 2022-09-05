@@ -5,10 +5,8 @@ import ApproveButton from '../components/ApproveButton'
 import { firebaseSignUp } from '../../core/firebase'
 import { NavigationPathEnum } from '../../core/enum/navigationPathEnum'
 import { useDispatch, useSelector } from 'react-redux'
-import { signIn, signUp } from '../store/slices/authSlice'
+import { signUp } from '../store/slices/authSlice'
 import BottomText from '../components/BottomText'
-import ErrorModal from '../../core/myModal/ErrorModal'
-import SuccessModal from '../../core/myModal/SuccessModal'
 import { modalHandle } from '../../core/myModal/ModalHandle'
 
 const SignUp = ({ navigation }) => {

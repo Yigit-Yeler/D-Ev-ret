@@ -1,4 +1,4 @@
-import { View, Text, TouchableOpacity, TextInput } from 'react-native'
+import { View, TextInput } from 'react-native'
 import React, { useState } from 'react'
 import { signInStyles } from '../styles/signInStyles'
 import ApproveButton from '../components/ApproveButton'
