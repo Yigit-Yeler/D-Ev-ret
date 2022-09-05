@@ -14,7 +14,7 @@ const ErrorModal = ({ onPress, title, text, isVisible }) => {
                         onPress()
                     }}
                 >
-                    <Text>Errrorrrrr</Text>
+                    <Text>{text}</Text>
 
                 </TouchableOpacity>
             </View>

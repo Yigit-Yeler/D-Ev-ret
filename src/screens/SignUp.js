@@ -9,13 +9,16 @@ import { signIn, signUp } from '../store/slices/authSlice'
 import BottomText from '../components/BottomText'
 import ErrorModal from '../../core/myModal/ErrorModal'
 import SuccessModal from '../../core/myModal/SuccessModal'
+import { modalHandle } from '../../core/myModal/ModalHandle'
 
 const SignUp = ({ navigation }) => {
     // console.log(firebase.auth) // Undefined
     const dispatch = useDispatch()
     const user = useSelector(state => state.auth.user)
+
     const [isSuccess, setIsSuccess] = useState(0)
     const [a, setA] = useState(0)
+    const [resText, setResText] = useState('')
     const [visible, setVisible] = useState(true)
 
     const [rePassword, setRePassword] = useState('')
@@ -26,32 +29,18 @@ const SignUp = ({ navigation }) => {
         'password': ''
     })
 
-    useEffect(() => {
-        // console.log(isSuccess)
-    }, [isSuccess])
+    // useEffect(() => {
+    //     console.log(isSuccess)
+    // }, [isSuccess])
 
 
-    const modalHandle = () => {
+    const modalEvents = () => {
+        setIsSuccess(0)
+        setVisible(false)
         if (isSuccess == 1) {
-            return (
-                <SuccessModal
-                    isVisible={visible}
-                    onPress={() => {
-                        setIsSuccess(0)
-                        setVisible(false)
-                    }}
-                />
-            )
-        }
-        else if (isSuccess == 2) {
-            return (
-                <ErrorModal
-                    isVisible={visible}
-                    onPress={() => {
-                        setIsSuccess(0)
-                        setVisible(false)
-                    }}
-                />
+            navigation.navigate(
+                NavigationPathEnum.bottomTab,
+                { screen: NavigationPathEnum.home }
             )
         }
     }
@@ -62,14 +51,13 @@ const SignUp = ({ navigation }) => {
             console.log("Correct")
             firebaseSignUp(userInfo)
                 .then((res) => {
-                    console.log(res)
-                    dispatch(signUp(res))
                     setIsSuccess(1)
+                    dispatch(signUp(res))
                     setVisible(true)
                 })
                 .catch((e) => {
+                    setResText(e.toString())
                     setIsSuccess(2)
-                    console.log(e)
                     setVisible(true)
                 })
         }
@@ -84,8 +72,7 @@ const SignUp = ({ navigation }) => {
     }
 
     const navigateToSignIn = () => {
-        // navigation.navigate('SignIn')
-        // setVisible(true)
+        navigation.navigate(NavigationPathEnum.signIn)
     }
 
     return (
@@ -94,7 +81,7 @@ const SignUp = ({ navigation }) => {
 
             </View>
             {
-                modalHandle()
+                modalHandle(resText, visible, isSuccess, modalEvents)
             }
 
             <TextInput

@@ -1,7 +1,7 @@
 import { StyleSheet } from 'react-native';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 
-export const signIn = StyleSheet.create({
+export const signInStyles = StyleSheet.create({
     main: {
         flex: 1,
         alignItems: 'center',

@@ -14,7 +14,7 @@ const SuccessModal = ({ onPress, title, text, isVisible }) => {
                         onPress()
                     }}
                 >
-                    <Text>Successsss</Text>
+                    <Text>Giriş Yapıldı</Text>
 
                 </TouchableOpacity>
             </View>

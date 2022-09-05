@@ -16,7 +16,7 @@ const authSlice = createSlice({
 
         },
         signIn: (state, action) => {
-
+            state.user = action.payload
         }
     }
 })
