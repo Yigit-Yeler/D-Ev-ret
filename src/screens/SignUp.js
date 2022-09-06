@@ -4,7 +4,7 @@ import { signUpStyles } from '../styles/signUpStyles'
 import ApproveButton from '../components/ApproveButton'
 import { firebaseSignUp } from '../../core/firebase'
 import { NavigationPathEnum } from '../../core/enum/navigationPathEnum'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { signUp } from '../store/slices/authSlice'
 import BottomText from '../components/BottomText'
 import { modalHandle } from '../../core/myModal/ModalHandle'
@@ -12,10 +12,8 @@ import { modalHandle } from '../../core/myModal/ModalHandle'
 const SignUp = ({ navigation }) => {
     // console.log(firebase.auth) // Undefined
     const dispatch = useDispatch()
-    const user = useSelector(state => state.auth.user)
 
     const [isSuccess, setIsSuccess] = useState(0)
-    const [a, setA] = useState(0)
     const [resText, setResText] = useState('')
     const [visible, setVisible] = useState(true)
 
@@ -26,11 +24,6 @@ const SignUp = ({ navigation }) => {
         'email': '',
         'password': ''
     })
-
-    // useEffect(() => {
-    //     console.log(isSuccess)
-    // }, [isSuccess])
-
 
     const modalEvents = () => {
         setIsSuccess(0)
@@ -44,7 +37,6 @@ const SignUp = ({ navigation }) => {
     }
 
     const signUpHandle = () => {
-        // console.log(createUserWithEmailAndPassword())
         if (userInfo.password == rePassword) {
             console.log("Correct")
             firebaseSignUp(userInfo)
