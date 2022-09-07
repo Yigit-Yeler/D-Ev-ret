@@ -14,7 +14,7 @@ const SignUp = ({ navigation }) => {
     const dispatch = useDispatch()
     const user = useSelector(state => state.auth.user)
 
-    const [isSuccess, setIsSuccess] = useState(0)
+    const [isSuccess, setIsSuccess] = useState(0) // 0: loading, 1: success, 2: error
     const [resText, setResText] = useState('')
     const [visible, setVisible] = useState(true)
 
@@ -29,12 +29,12 @@ const SignUp = ({ navigation }) => {
     const modalEvents = () => {
         setIsSuccess(0)
         setVisible(false)
-        // if (isSuccess == 1) {
-        //     navigation.navigate(
-        //         NavigationPathEnum.bottomTab,
-        //         { screen: NavigationPathEnum.home }
-        //     )
-        // }
+        if (isSuccess == 1) {
+            navigation.navigate(
+                NavigationPathEnum.bottomTab,
+                { screen: NavigationPathEnum.home }
+            )
+        }
     }
 
     const signUpHandle = async () => {
@@ -45,13 +45,13 @@ const SignUp = ({ navigation }) => {
                     setIsSuccess(1)
                     dispatch(signUp(res))
                     setVisible(true)
+                    insertDataFirestore('users', user.uid, userInfo)
                 })
                 .catch((e) => {
                     setResText(e.toString())
                     setIsSuccess(2)
                     setVisible(true)
                 })
-            insertDataFirestore('users', user.uid, userInfo)
         }
     }
 

@@ -1,3 +1,25 @@
+import { initializeApp } from 'firebase/app';
+import {
+    initializeAuth,
+    getReactNativePersistence
+} from 'firebase/auth/react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
+
+const firebaseConfig = {
+    apiKey: "AIzaSyBZbQ_fABtuWlEc-PnmHghRuJvnoZxLeyk",
+    authDomain: "house-transferer.firebaseapp.com",
+    projectId: "house-transferer",
+    storageBucket: "house-transferer.appspot.com",
+    messagingSenderId: "922490365076",
+    appId: "1:922490365076:web:4f1ce178cc750f1a9f0081"
+};
+// console.log(firebase)
+export const app = initializeApp(firebaseConfig);
+export const initAuth = initializeAuth(app, {
+    persistence: getReactNativePersistence(AsyncStorage)
+});
+// export const fireAuth = getAuth()
 
 // import 'dotenv/config';
 // export default {

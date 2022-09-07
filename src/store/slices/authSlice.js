@@ -3,7 +3,6 @@ import { createUserWithEmailAndPassword, getAuth } from "firebase/auth";
 import NavigationPathEnum from '../../../core/enum/navigationPathEnum'
 
 const initialState = {
-    isSuccess: 0, // 0: loading, 1: success, 2: error
     user: []
 }
 

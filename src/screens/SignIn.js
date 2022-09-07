@@ -8,6 +8,9 @@ import { modalHandle } from '../../core/myModal/ModalHandle'
 import { NavigationPathEnum } from '../../core/enum/navigationPathEnum'
 import { useDispatch } from 'react-redux'
 import { signIn } from '../store/slices/authSlice'
+import { signInWithEmailAndPassword } from 'firebase/auth'
+import { initAuth } from '../../firebase/config'
+
 
 const SignIn = ({ navigation }) => {
     const [userInfo, setUserInfo] = useState({
@@ -32,25 +35,38 @@ const SignIn = ({ navigation }) => {
         setIsSuccess(0)
         setVisible(false)
         if (isSuccess == 1) {
-            navigation.navigate(
+            navigation.replace(
                 NavigationPathEnum.bottomTab,
                 { screen: NavigationPathEnum.home }
             )
         }
     }
 
+    // "firebase": "^9.9.3",
     const signInHandle = () => {
-        firebaseSignIn(userInfo)
+        signInWithEmailAndPassword(initAuth, userInfo.email, userInfo.password)
             .then((res) => {
                 setIsSuccess(1)
-                dispatch(signIn(res))
+                // dispatch(signIn(res))
                 setVisible(true)
             })
             .catch((e) => {
+                console.log(e)
                 setResText(e.toString())
                 setIsSuccess(2)
                 setVisible(true)
             })
+        // firebaseSignIn(userInfo)
+        //     .then((res) => {
+        //         setIsSuccess(1)
+        //         dispatch(signIn(res))
+        //         setVisible(true)
+        //     })
+        //     .catch((e) => {
+        //         setResText(e.toString())
+        //         setIsSuccess(2)
+        //         setVisible(true)
+        //     })
     }
 
     const navigateToSignUp = () => {
