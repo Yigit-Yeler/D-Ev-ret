@@ -2,16 +2,17 @@ import { View, Text, TextInput, TouchableOpacity } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { signUpStyles } from '../styles/signUpStyles'
 import ApproveButton from '../components/ApproveButton'
-import { firebaseSignUp } from '../../core/firebase'
+import { firebaseSignUp } from '../../core/firebase/firebaseAuth'
+import { insertDataFirestore } from '../../core/firebase/firebaseFirestore'
 import { NavigationPathEnum } from '../../core/enum/navigationPathEnum'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { signUp } from '../store/slices/authSlice'
 import BottomText from '../components/BottomText'
 import { modalHandle } from '../../core/myModal/ModalHandle'
 
 const SignUp = ({ navigation }) => {
-    // console.log(firebase.auth) // Undefined
     const dispatch = useDispatch()
+    const user = useSelector(state => state.auth.user)
 
     const [isSuccess, setIsSuccess] = useState(0)
     const [resText, setResText] = useState('')
@@ -28,18 +29,18 @@ const SignUp = ({ navigation }) => {
     const modalEvents = () => {
         setIsSuccess(0)
         setVisible(false)
-        if (isSuccess == 1) {
-            navigation.navigate(
-                NavigationPathEnum.bottomTab,
-                { screen: NavigationPathEnum.home }
-            )
-        }
+        // if (isSuccess == 1) {
+        //     navigation.navigate(
+        //         NavigationPathEnum.bottomTab,
+        //         { screen: NavigationPathEnum.home }
+        //     )
+        // }
     }
 
-    const signUpHandle = () => {
+    const signUpHandle = async () => {
         if (userInfo.password == rePassword) {
             console.log("Correct")
-            firebaseSignUp(userInfo)
+            await firebaseSignUp(userInfo)
                 .then((res) => {
                     setIsSuccess(1)
                     dispatch(signUp(res))
@@ -50,6 +51,7 @@ const SignUp = ({ navigation }) => {
                     setIsSuccess(2)
                     setVisible(true)
                 })
+            insertDataFirestore('users', user.uid, userInfo)
         }
     }
 
