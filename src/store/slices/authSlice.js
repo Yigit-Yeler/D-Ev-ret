@@ -1,9 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { createUserWithEmailAndPassword, getAuth } from "firebase/auth";
-import NavigationPathEnum from '../../../core/enum/navigationPathEnum'
 
 const initialState = {
-    user: []
+    userAuth: []
 }
 
 const authSlice = createSlice({
@@ -11,11 +9,11 @@ const authSlice = createSlice({
     initialState,
     reducers: {
         signUp: (state, action) => {
-            state.user = action.payload
+            state.userAuth = action.payload
 
         },
         signIn: (state, action) => {
-            state.user = action.payload
+            state.userAuth = action.payload
         }
     }
 })

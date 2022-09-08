@@ -30,7 +30,7 @@ const SignUp = ({ navigation }) => {
         setIsSuccess(0)
         setVisible(false)
         if (isSuccess == 1) {
-            navigation.navigate(
+            navigation.replace(
                 NavigationPathEnum.bottomTab,
                 { screen: NavigationPathEnum.home }
             )
@@ -39,13 +39,12 @@ const SignUp = ({ navigation }) => {
 
     const signUpHandle = async () => {
         if (userInfo.password == rePassword) {
-            console.log("Correct")
             await firebaseSignUp(userInfo)
                 .then((res) => {
                     setIsSuccess(1)
                     dispatch(signUp(res))
                     setVisible(true)
-                    insertDataFirestore('users', user.uid, userInfo)
+                    insertDataFirestore('users', res.uid, userInfo)
                 })
                 .catch((e) => {
                     setResText(e.toString())

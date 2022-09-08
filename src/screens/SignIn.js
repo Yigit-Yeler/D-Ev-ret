@@ -8,8 +8,6 @@ import { modalHandle } from '../../core/myModal/ModalHandle'
 import { NavigationPathEnum } from '../../core/enum/navigationPathEnum'
 import { useDispatch } from 'react-redux'
 import { signIn } from '../store/slices/authSlice'
-import { signInWithEmailAndPassword } from 'firebase/auth'
-import { initAuth } from '../../firebase/config'
 
 
 const SignIn = ({ navigation }) => {
@@ -44,29 +42,17 @@ const SignIn = ({ navigation }) => {
 
     // "firebase": "^9.9.3",
     const signInHandle = () => {
-        signInWithEmailAndPassword(initAuth, userInfo.email, userInfo.password)
+        firebaseSignIn(userInfo)
             .then((res) => {
                 setIsSuccess(1)
-                // dispatch(signIn(res))
+                dispatch(signIn(res))
                 setVisible(true)
             })
             .catch((e) => {
-                console.log(e)
                 setResText(e.toString())
                 setIsSuccess(2)
                 setVisible(true)
             })
-        // firebaseSignIn(userInfo)
-        //     .then((res) => {
-        //         setIsSuccess(1)
-        //         dispatch(signIn(res))
-        //         setVisible(true)
-        //     })
-        //     .catch((e) => {
-        //         setResText(e.toString())
-        //         setIsSuccess(2)
-        //         setVisible(true)
-        //     })
     }
 
     const navigateToSignUp = () => {

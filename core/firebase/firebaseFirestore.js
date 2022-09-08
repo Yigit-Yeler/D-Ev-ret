@@ -1,4 +1,4 @@
-import { setDoc, getDoc, doc, getFirestore, collection } from 'firebase/firestore'
+import { setDoc, getDoc, doc, getFirestore } from 'firebase/firestore'
 
 
 export const insertDataFirestore = (
@@ -16,16 +16,23 @@ export const insertDataFirestore = (
 
     setDoc(doc(db, coll, docReference), insert)
         .then(() => {
-            console.log('data girdidii')
+            console.log('Inserted Data')
         })
         .catch((e) => {
-            console.log('eeorrooro', e)
+            console.log('Erroorr', e)
         })
 }
 
-export const getDataFirestore = async (coll, docReference) => {
+export const getDataFirestore = (coll, docReference) => {
     const db = getFirestore()
-    console.log(docReference)
-    const data = await getDoc(doc(db, coll, docReference))
-    console.log(data.data())
+    return new Promise((resolve, rej) => {
+        getDoc(doc(db, coll, docReference))
+            .then((res) => {
+                resolve(res.data())
+            })
+            .catch((e) => {
+                rej(e)
+            })
+    })
+
 }
