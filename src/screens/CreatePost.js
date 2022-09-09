@@ -15,8 +15,8 @@ const CreatePost = () => {
     })
 
     const furnished = [
-        { label: 'Eşyalı', value: true },
-        { label: 'Eşyasız', value: false },
+        { label: 'Eşyalı', value: 'Eşyalı' },
+        { label: 'Eşyasız', value: 'Eşyasız' },
     ];
 
     const rooms = [
@@ -57,7 +57,6 @@ const CreatePost = () => {
 
     return (
         <View style={createPostStyles.main}>
-            <Text>CreatePost</Text>
             <TextInput
                 style={textInputStyles.textInput}
                 onChangeText={(text) => handleTextInputs(text, 'title')}
@@ -74,6 +73,7 @@ const CreatePost = () => {
                 <MyDropDownButton data={furnished} value={text.isFurnished} handleDropDown={handleDropDownF} />
                 <MyDropDownButton data={rooms} value={text.room} handleDropDown={handleDropDownR} />
             </View>
+            <Text>CreatePost</Text>
 
             <ApproveButton onPress={submitPost} text={'Share'} />
 

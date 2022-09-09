@@ -56,7 +56,7 @@ const SignIn = ({ navigation }) => {
     }
 
     const navigateToSignUp = () => {
-        navigation.navigate(NavigationPathEnum.signUp)
+        navigation.replace(NavigationPathEnum.signUp)
     }
 
     return (

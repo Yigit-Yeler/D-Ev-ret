@@ -8,6 +8,7 @@ import SignIn from '../src/screens/SignIn';
 import SignUp from '../src/screens/SignUp';
 import MyPosts from '../src/screens/MyPosts';
 import UpdateProfile from '../src/screens/UpdateProfile';
+import SelectLocation from '../src/screens/SelectLocation';
 
 import BottomTabNavigation from './BottomTabNavigation';
 
@@ -18,9 +19,10 @@ const Navigation = () => {
         <NavigationContainer>
             <Stack.Navigator>
                 <Stack.Screen name="SignUp" component={SignUp} />
+                <Stack.Screen name="SignIn" component={SignIn} />
                 <Stack.Screen name="BottomTab" component={BottomTabNavigation} />
                 <Stack.Screen name="Update Profile" component={UpdateProfile} />
-                <Stack.Screen name="SignIn" component={SignIn} />
+                <Stack.Screen name="Select Location" component={SelectLocation} />
                 <Stack.Screen name="MyPosts" component={MyPosts} />
                 <Stack.Screen name="Chat" component={Chat} />
             </Stack.Navigator>
