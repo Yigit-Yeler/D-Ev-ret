@@ -8,5 +8,6 @@ export const NavigationPathEnum = {
     'signIn': 'SignIn',
     'myPosts': 'MyPosts',
     'updateProfile': 'Update Profile',
-    'bottomTab': 'BottomTab'
+    'bottomTab': 'BottomTab',
+    'selectLocation': 'Select Location'
 }

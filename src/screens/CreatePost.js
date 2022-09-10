@@ -1,11 +1,14 @@
 import { View, Text, TextInput, TouchableOpacity } from 'react-native'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { createPostStyles } from '../styles/createPostStyles'
 import { textInputStyles } from '../components/styles/textInputStyles'
 
 import MyDropDownButton from '../components/MyDropDownButton'
 import ApproveButton from '../components/ApproveButton'
-const CreatePost = () => {
+import MapView, { Marker } from 'react-native-maps'
+import { NavigationPathEnum } from '../../core/enum/navigationPathEnum'
+const CreatePost = ({ navigation, route }) => {
+    const [location, setLocation] = useState()
     const [text, setText] = useState({
         'title': '',
         'desc': '',
@@ -13,6 +16,15 @@ const CreatePost = () => {
         'isFurnished': '',
         'room': ''
     })
+
+    useEffect(() => {
+        if (route.params != undefined) {
+            setLocation(route.params.coordinates)
+            console.log(route.params.coordinates)
+        }
+
+    }, [])
+
 
     const furnished = [
         { label: 'Eşyalı', value: 'Eşyalı' },
@@ -73,7 +85,34 @@ const CreatePost = () => {
                 <MyDropDownButton data={furnished} value={text.isFurnished} handleDropDown={handleDropDownF} />
                 <MyDropDownButton data={rooms} value={text.room} handleDropDown={handleDropDownR} />
             </View>
-            <Text>CreatePost</Text>
+            <TouchableOpacity
+                onPress={() => { navigation.navigate(NavigationPathEnum.selectLocation) }}
+                style={createPostStyles.selectLocation}>
+                {
+                    location ? (
+                        <MapView
+                            style={createPostStyles.mapView}
+                            region={{
+                                latitude: location.latitude,
+                                longitude: location.longitude,
+                                latitudeDelta: 0.0001,
+                                longitudeDelta: 0.0001,
+                            }}
+                        >
+                            <Marker
+                                coordinate={location}
+                            />
+                        </MapView>
+                    ) :
+                        (
+                            <MapView
+                                style={createPostStyles.mapView}
+
+                            />
+                        )
+                }
+
+            </TouchableOpacity>
 
             <ApproveButton onPress={submitPost} text={'Share'} />
 

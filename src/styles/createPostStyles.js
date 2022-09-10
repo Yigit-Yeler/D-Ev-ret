@@ -14,5 +14,14 @@ export const createPostStyles = StyleSheet.create({
         width: usualWidth,
         flexDirection: 'row',
         justifyContent: 'space-around'
+    },
+    selectLocation: {
+        width: usualWidth * 0.6,
+        height: hp('15%'),
+        backgroundColor: 'black'
+    },
+    mapView: {
+        width: usualWidth * 0.6,
+        height: hp('15%')
     }
 });
