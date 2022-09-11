@@ -1,5 +1,5 @@
 import { View, Text, TextInput, TouchableOpacity } from 'react-native'
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { createPostStyles } from '../styles/createPostStyles'
 import { textInputStyles } from '../components/styles/textInputStyles'
 
@@ -7,8 +7,9 @@ import MyDropDownButton from '../components/MyDropDownButton'
 import ApproveButton from '../components/ApproveButton'
 import MapView, { Marker } from 'react-native-maps'
 import { NavigationPathEnum } from '../../core/enum/navigationPathEnum'
-const CreatePost = ({ navigation, route }) => {
-    const [location, setLocation] = useState()
+import { useSelector } from 'react-redux'
+const CreatePost = ({ navigation }) => {
+    const location = useSelector(state => state.location.location)
     const [text, setText] = useState({
         'title': '',
         'desc': '',
@@ -16,15 +17,6 @@ const CreatePost = ({ navigation, route }) => {
         'isFurnished': '',
         'room': ''
     })
-
-    useEffect(() => {
-        if (route.params != undefined) {
-            setLocation(route.params.coordinates)
-            console.log(route.params.coordinates)
-        }
-
-    }, [])
-
 
     const furnished = [
         { label: 'Eşyalı', value: 'Eşyalı' },
@@ -89,7 +81,7 @@ const CreatePost = ({ navigation, route }) => {
                 onPress={() => { navigation.navigate(NavigationPathEnum.selectLocation) }}
                 style={createPostStyles.selectLocation}>
                 {
-                    location ? (
+                    location.latitude ? (
                         <MapView
                             style={createPostStyles.mapView}
                             region={{
@@ -107,7 +99,12 @@ const CreatePost = ({ navigation, route }) => {
                         (
                             <MapView
                                 style={createPostStyles.mapView}
-
+                                region={{
+                                    latitude: 17.6868,
+                                    longitude: 83.2185,
+                                    latitudeDelta: 10,
+                                    longitudeDelta: 10
+                                }}
                             />
                         )
                 }

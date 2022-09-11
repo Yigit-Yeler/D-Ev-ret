@@ -3,21 +3,23 @@ import MapView, { Marker } from 'react-native-maps';
 import { StyleSheet, Text, View, Dimensions, TouchableOpacity } from 'react-native';
 import ApproveButton from '../components/ApproveButton';
 import { NavigationPathEnum } from '../../core/enum/navigationPathEnum';
-
+import { useDispatch, useSelector } from 'react-redux';
+import { setLocation } from '../store/slices/locationSlice';
 const SelectLocation = ({ navigation }) => {
-    const [location, setLocation] = useState()
-    const [xy, setXy] = useState()
-    const mapEvent = (e) => {
-        console.log(e.nativeEvent.coordinate)
-        setLocation(e.nativeEvent.coordinate)
 
+    const dispatch = useDispatch()
+    const location = useSelector(state => state.location.location)
+    const [xy, setXy] = useState()
+
+    const mapEvent = (e) => {
+        dispatch(setLocation(e.nativeEvent.coordinate))
         setXy(e.nativeEvent.position)
     }
 
     const done = () => {
         navigation.navigate(
             NavigationPathEnum.bottomTab,
-            { screen: NavigationPathEnum.createPost, params: { coordinates: location } },
+            { screen: NavigationPathEnum.createPost },
         )
     }
 
@@ -43,7 +45,7 @@ const SelectLocation = ({ navigation }) => {
                     }}
             >
                 {
-                    location ? (
+                    location.latitude ? (
                         <Marker
                             coordinate={location}
                         />
@@ -58,7 +60,7 @@ const SelectLocation = ({ navigation }) => {
                 style={styles.buttonView}
             >
                 {
-                    location ? (
+                    location.latitude ? (
                         <ApproveButton text={'Done'} onPress={done} />
 
                     )
