@@ -16,12 +16,25 @@ export const createPostStyles = StyleSheet.create({
         justifyContent: 'space-around'
     },
     selectLocation: {
-        width: usualWidth * 0.6,
-        height: hp('15%'),
+        width: usualWidth * 0.37,
+        height: usualWidth * 0.37,
         backgroundColor: 'black'
     },
     mapView: {
-        width: usualWidth * 0.6,
-        height: hp('15%')
+        width: usualWidth * 0.37,
+        height: usualWidth * 0.37
+    },
+    mapAndPhotoView: {
+        flexDirection: 'row',
+        justifyContent: 'space-evenly',
+        width: usualWidth,
+        alignItems: 'center'
+    },
+    selectPhotoView: {
+        width: usualWidth * 0.37,
+        height: usualWidth * 0.37,
+        backgroundColor: 'black',
+        justifyContent: 'center',
+        alignItems: 'center'
     }
 });

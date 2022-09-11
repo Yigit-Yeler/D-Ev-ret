@@ -5,6 +5,7 @@ import ApproveButton from '../components/ApproveButton';
 import { NavigationPathEnum } from '../../core/enum/navigationPathEnum';
 import { useDispatch, useSelector } from 'react-redux';
 import { setLocation } from '../store/slices/locationSlice';
+import { selectLocationStyles } from '../styles/selectLocationStyles';
 const SelectLocation = ({ navigation }) => {
 
     const dispatch = useDispatch()
@@ -24,12 +25,12 @@ const SelectLocation = ({ navigation }) => {
     }
 
     return (
-        <View style={styles.container}>
+        <View style={selectLocationStyles.container}>
             <MapView
                 onPress={(e) => {
                     mapEvent(e)
                 }}
-                style={styles.map}
+                style={selectLocationStyles.map}
 
                 region={
                     xy ? {
@@ -57,7 +58,7 @@ const SelectLocation = ({ navigation }) => {
 
             </MapView>
             <View
-                style={styles.buttonView}
+                style={selectLocationStyles.buttonView}
             >
                 {
                     location.latitude ? (
@@ -77,23 +78,3 @@ const SelectLocation = ({ navigation }) => {
 }
 
 export default SelectLocation
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: '#fff',
-        alignItems: 'center',
-        justifyContent: 'flex-end',
-    },
-    map: {
-        width: Dimensions.get('window').width,
-        height: Dimensions.get('window').height,
-    },
-    buttonView: {
-        width: Dimensions.get('window').width,
-        height: Dimensions.get('window').height * 0.1,
-        position: 'absolute',
-        justifyContent: 'center',
-        alignItems: 'center'
-    }
-});

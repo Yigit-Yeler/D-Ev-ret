@@ -1,4 +1,4 @@
-import { View, Text, TextInput, TouchableOpacity } from 'react-native'
+import { View, Text, TextInput, TouchableOpacity, ScrollView } from 'react-native'
 import React, { useState } from 'react'
 import { createPostStyles } from '../styles/createPostStyles'
 import { textInputStyles } from '../components/styles/textInputStyles'
@@ -60,6 +60,7 @@ const CreatePost = ({ navigation }) => {
     }
 
     return (
+
         <View style={createPostStyles.main}>
             <TextInput
                 style={textInputStyles.textInput}
@@ -77,39 +78,46 @@ const CreatePost = ({ navigation }) => {
                 <MyDropDownButton data={furnished} value={text.isFurnished} handleDropDown={handleDropDownF} />
                 <MyDropDownButton data={rooms} value={text.room} handleDropDown={handleDropDownR} />
             </View>
-            <TouchableOpacity
-                onPress={() => { navigation.navigate(NavigationPathEnum.selectLocation) }}
-                style={createPostStyles.selectLocation}>
-                {
-                    location.latitude ? (
-                        <MapView
-                            style={createPostStyles.mapView}
-                            region={{
-                                latitude: location.latitude,
-                                longitude: location.longitude,
-                                latitudeDelta: 0.0001,
-                                longitudeDelta: 0.0001,
-                            }}
-                        >
-                            <Marker
-                                coordinate={location}
-                            />
-                        </MapView>
-                    ) :
-                        (
+            <View
+                style={createPostStyles.mapAndPhotoView}
+            >
+                <TouchableOpacity
+                    onPress={() => { navigation.navigate(NavigationPathEnum.selectLocation) }}
+                    style={createPostStyles.selectLocation}>
+                    {
+                        location.latitude ? (
                             <MapView
                                 style={createPostStyles.mapView}
                                 region={{
-                                    latitude: 17.6868,
-                                    longitude: 83.2185,
-                                    latitudeDelta: 10,
-                                    longitudeDelta: 10
+                                    latitude: location.latitude,
+                                    longitude: location.longitude,
+                                    latitudeDelta: 0.0001,
+                                    longitudeDelta: 0.0001,
                                 }}
-                            />
-                        )
-                }
+                            >
+                                <Marker
+                                    coordinate={location}
+                                />
+                            </MapView>
+                        ) :
+                            (
+                                <MapView
+                                    style={createPostStyles.mapView}
+                                    region={{
+                                        latitude: 17.6868,
+                                        longitude: 83.2185,
+                                        latitudeDelta: 10,
+                                        longitudeDelta: 10
+                                    }}
+                                />
+                            )
+                    }
 
-            </TouchableOpacity>
+                </TouchableOpacity>
+                <TouchableOpacity style={createPostStyles.selectPhotoView}>
+                    <Text>Select Photos</Text>
+                </TouchableOpacity>
+            </View>
 
             <ApproveButton onPress={submitPost} text={'Share'} />
 
