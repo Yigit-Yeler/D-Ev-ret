@@ -8,6 +8,7 @@ import ApproveButton from '../components/ApproveButton'
 import MapView, { Marker } from 'react-native-maps'
 import { NavigationPathEnum } from '../../core/enum/navigationPathEnum'
 import { useSelector } from 'react-redux'
+import SelectPhotoButton from '../components/SelectPhotoButton'
 const CreatePost = ({ navigation }) => {
     const location = useSelector(state => state.location.location)
     const [text, setText] = useState({
@@ -57,6 +58,7 @@ const CreatePost = ({ navigation }) => {
 
     const submitPost = () => {
         console.log("submitttt")
+        // TODO: delete location data in redux
     }
 
     return (
@@ -114,9 +116,7 @@ const CreatePost = ({ navigation }) => {
                     }
 
                 </TouchableOpacity>
-                <TouchableOpacity style={createPostStyles.selectPhotoView}>
-                    <Text>Select Photos</Text>
-                </TouchableOpacity>
+                <SelectPhotoButton />
             </View>
 
             <ApproveButton onPress={submitPost} text={'Share'} />

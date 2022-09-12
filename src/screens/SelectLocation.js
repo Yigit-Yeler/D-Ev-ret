@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import MapView, { Marker } from 'react-native-maps';
-import { StyleSheet, Text, View, Dimensions, TouchableOpacity } from 'react-native';
+import { View } from 'react-native';
 import ApproveButton from '../components/ApproveButton';
 import { NavigationPathEnum } from '../../core/enum/navigationPathEnum';
 import { useDispatch, useSelector } from 'react-redux';

@@ -21,20 +21,13 @@ export const createPostStyles = StyleSheet.create({
         backgroundColor: 'black'
     },
     mapView: {
-        width: usualWidth * 0.37,
-        height: usualWidth * 0.37
+        width: usualWidth * 0.38,
+        height: usualWidth * 0.38
     },
     mapAndPhotoView: {
         flexDirection: 'row',
         justifyContent: 'space-evenly',
         width: usualWidth,
-        alignItems: 'center'
-    },
-    selectPhotoView: {
-        width: usualWidth * 0.37,
-        height: usualWidth * 0.37,
-        backgroundColor: 'black',
-        justifyContent: 'center',
         alignItems: 'center'
     }
 });
