@@ -1,4 +1,4 @@
-import { setDoc, getDoc, doc, getFirestore } from 'firebase/firestore'
+import { setDoc, getDoc, doc, getFirestore, collection, collectionGroup, getDocs } from 'firebase/firestore'
 
 
 export const insertDataFirestore = (
@@ -25,14 +25,33 @@ export const insertDataFirestore = (
 
 export const getDataFirestore = (coll, docReference) => {
     const db = getFirestore()
-    return new Promise((resolve, rej) => {
-        getDoc(doc(db, coll, docReference))
-            .then((res) => {
-                resolve(res.data())
+
+    return new Promise(async (resolve, rej) => {
+        if (docReference == null) {
+            let elements = await getDocs(collection(db, 'posts'))
+            elements.forEach((item) => {
+                console.log(item.data())
             })
-            .catch((e) => {
-                rej(e)
-            })
+
+            // getDoc(postRef) 
+            //     .then((res) => {
+            //         resolve(res.data())
+            //         console.log(res)
+            //     })
+            //     .catch((e) => {
+            //         rej(e)
+            //     })
+        }
+        else {
+            getDoc(doc(db, coll, docReference))
+                .then((res) => {
+                    resolve(res.data())
+                })
+                .catch((e) => {
+                    rej(e)
+                })
+        }
+
     })
 
 }

@@ -2,7 +2,7 @@ import { View, Text, FlatList, Image, ScrollView, TouchableOpacity } from 'react
 import React from 'react'
 import { postStyles } from './styles/postStyles'
 
-const Post = () => {
+const Post = ({ title, desc }) => {
     const listData = [
         {
             'img': 'https://static.wikia.nocookie.net/hunterxhunter/images/b/bd/HxH2011_EP147_Killua_Portrait.png/revision/latest?cb=20220624211000'
@@ -39,7 +39,7 @@ const Post = () => {
                 <Text>Name</Text>
             </View>
             <View style={postStyles.titleView}>
-                <Text style={postStyles.titleText}>Title</Text>
+                <Text style={postStyles.titleText}>{title ? title : 'Title'}</Text>
                 <Text style={postStyles.descText}>Description</Text>
             </View>
 
