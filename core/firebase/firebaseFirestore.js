@@ -28,10 +28,19 @@ export const getDataFirestore = (coll, docReference) => {
 
     return new Promise(async (resolve, rej) => {
         if (docReference == null) {
-            let elements = await getDocs(collection(db, 'posts'))
-            elements.forEach((item) => {
-                console.log(item.data())
-            })
+            getDocs(collection(db, coll))
+                .then((elements) => {
+                    let datas = []
+                    elements.forEach((item) => {
+                        datas.push(item.data())
+                    })
+                    resolve(datas)
+
+                })
+                .catch((e) => {
+                    rej(e)
+                })
+
 
             // getDoc(postRef) 
             //     .then((res) => {

@@ -70,6 +70,10 @@ const CreatePost = ({ navigation }) => {
             />
             <TextInput
                 style={textInputStyles.textInput}
+                onChangeText={(text) => handleTextInputs(text, 'title')}
+            />
+            <TextInput
+                style={textInputStyles.textInput}
                 onChangeText={(text) => handleTextInputs(text, 'desc')}
             />
             <TextInput
