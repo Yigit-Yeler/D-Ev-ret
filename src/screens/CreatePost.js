@@ -7,16 +7,26 @@ import MyDropDownButton from '../components/MyDropDownButton'
 import ApproveButton from '../components/ApproveButton'
 import MapView, { Marker } from 'react-native-maps'
 import { NavigationPathEnum } from '../../core/enum/navigationPathEnum'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import SelectPhotoButton from '../components/SelectPhotoButton'
+import { insertDataFirestore } from '../../core/firebase/firebaseFirestore'
+import { clearLocation } from '../store/slices/locationSlice'
 const CreatePost = ({ navigation }) => {
+    const dispatch = useDispatch()
     const location = useSelector(state => state.location.location)
+    const userInfo = useSelector(state => state.userInfo.userInfo)
     const [text, setText] = useState({
         'title': '',
         'desc': '',
         'adress': '',
+        'price': '',
         'isFurnished': '',
-        'room': ''
+        'room': '',
+        'images': [
+            'https://static.wikia.nocookie.net/hunterxhunter/images/b/bd/HxH2011_EP147_Killua_Portrait.png/revision/latest?cb=20220624211000',
+            'https://p16-sign-sg.tiktokcdn.com/aweme/720x720/tos-alisg-avt-0068/e7c5dbd4a9ede04b7ceaf66add81d335.jpeg?x-expires=1663340400&x-signature=ACeX4aFt3TWoqYXXHCQ1%2FoUO6kU%3D',
+            'https://i.pinimg.com/564x/07/9e/6b/079e6b3220ef9b4994c58b560f64ea25.jpg'
+        ]
     })
 
     const furnished = [
@@ -58,6 +68,10 @@ const CreatePost = ({ navigation }) => {
 
     const submitPost = () => {
         console.log("submitttt")
+        let tmpData = { ...text, location }
+        tmpData = { ...tmpData, 'name': userInfo.name }
+        insertDataFirestore('posts', tmpData)
+        dispatch(clearLocation())
         // TODO: delete location data in redux
     }
 
@@ -65,20 +79,25 @@ const CreatePost = ({ navigation }) => {
 
         <View style={createPostStyles.main}>
             <TextInput
+                placeholder='Başlık'
                 style={textInputStyles.textInput}
                 onChangeText={(text) => handleTextInputs(text, 'title')}
             />
             <TextInput
-                style={textInputStyles.textInput}
-                onChangeText={(text) => handleTextInputs(text, 'title')}
-            />
-            <TextInput
+                placeholder='Açıklama'
                 style={textInputStyles.textInput}
                 onChangeText={(text) => handleTextInputs(text, 'desc')}
             />
             <TextInput
+                placeholder='Adres'
                 style={textInputStyles.textInput}
                 onChangeText={(text) => handleTextInputs(text, 'adress')}
+            />
+
+            <TextInput
+                placeholder='Fiyat'
+                style={textInputStyles.textInput}
+                onChangeText={(text) => handleTextInputs(text, 'price')}
             />
             <View style={createPostStyles.dropDownButtonsView}>
                 <MyDropDownButton data={furnished} value={text.isFurnished} handleDropDown={handleDropDownF} />

@@ -8,12 +8,22 @@ import { setUser } from '../store/slices/userInfoSlice'
 import { setPosts } from '../store/slices/postsSlice'
 import { useState } from 'react'
 
-const Home = () => {
+const Home = ({ navigation }) => {
     const dispatch = useDispatch()
     const userAuth = useSelector(state => state.auth.userAuth)
     // const posts = useSelector(state => state.posts.posts)
     const [posts, setPosts] = useState([])
     useEffect(() => {
+        const unsubscribe = navigation.addListener('focus', () => {
+            getDataFirestore('posts')
+                .then((res) => {
+                    // dispatch(setPosts(res))
+                    setPosts(res)
+                })
+                .catch((e) => {
+                    console.log(e)
+                })
+        });
         getDataFirestore('users', userAuth.uid)
             .then((res) => {
                 dispatch(setUser(res))
@@ -21,15 +31,10 @@ const Home = () => {
             .catch((e) => {
                 console.log(e)
             })
-        getDataFirestore('posts')
-            .then((res) => {
-                console.log(res)
-                // dispatch(setPosts(res))
-                setPosts(res)
-            })
-            .catch((e) => {
-                console.log(e)
-            })
+
+
+        return unsubscribe;
+
     }, [])
 
     return (
@@ -40,7 +45,15 @@ const Home = () => {
                     <FlatList
                         data={posts}
                         renderItem={({ item, index }) => (
-                            <Post title={item.title} key={item.title} desc={item.desc} name={item.username} link={item.link} />
+                            <Post
+                                title={item.title}
+                                key={item.title}
+                                desc={item.desc}
+                                name={item.name}
+                                photos={item.images}
+                                adress={item.adress}
+                                price={item.price}
+                            />
                         )}
                     />
                 ) : (<View><Text>Loading...</Text></View>)

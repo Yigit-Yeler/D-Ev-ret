@@ -2,7 +2,7 @@ import { View, Text, FlatList, Image, ScrollView, TouchableOpacity } from 'react
 import React from 'react'
 import { postStyles } from './styles/postStyles'
 
-const Post = ({ title, desc, name, link }) => {
+const Post = ({ title, desc, name, photos, adress, price }) => {
     const listData = [
         {
             'img': 'https://static.wikia.nocookie.net/hunterxhunter/images/b/bd/HxH2011_EP147_Killua_Portrait.png/revision/latest?cb=20220624211000'
@@ -27,10 +27,10 @@ const Post = ({ title, desc, name, link }) => {
             <View style={postStyles.imgView}>
                 <FlatList
                     horizontal
-                    data={listData}
+                    data={photos}
                     renderItem={({ item, index }) => {
                         return (
-                            <Image style={postStyles.img} source={{ uri: item.img }} />
+                            <Image style={postStyles.img} source={{ uri: item }} />
                         )
                     }}
                 />
@@ -45,7 +45,7 @@ const Post = ({ title, desc, name, link }) => {
 
             <View style={postStyles.adressView}>
                 <View style={postStyles.adress}>
-                    <Text >{link}</Text>
+                    <Text >{adress}</Text>
                 </View>
                 <TouchableOpacity style={postStyles.location}>
                     <Text>Location</Text>
@@ -59,7 +59,7 @@ const Post = ({ title, desc, name, link }) => {
                         <Text>Eşyalı</Text>
                     </View>
                     <View>
-                        <Text>Price</Text>
+                        <Text>{price}</Text>
                     </View>
                 </View>
                 <TouchableOpacity style={postStyles.sendMessageView}>

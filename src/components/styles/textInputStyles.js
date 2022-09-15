@@ -9,6 +9,7 @@ export const textInputStyles = StyleSheet.create({
         width: usualWidth,
         height: usualHeight,
         borderWidth: 1,
-        borderColor: 'grey'
+        borderColor: 'grey',
+        padding: wp('3%')
     }
 });

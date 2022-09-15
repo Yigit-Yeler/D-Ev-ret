@@ -1,26 +1,32 @@
-import { setDoc, getDoc, doc, getFirestore, collection, collectionGroup, getDocs } from 'firebase/firestore'
+import { setDoc, addDoc, getDoc, doc, getFirestore, collection, collectionGroup, getDocs } from 'firebase/firestore'
 
 
 export const insertDataFirestore = (
     coll,
-    docReference,
-    data
+    data,
+    docReference
 ) => {
-    const { name, surname, email } = data
-    let insert = {
-        'name': name,
-        'surname': surname,
-        'email': email
-    }
     const db = getFirestore()
 
-    setDoc(doc(db, coll, docReference), insert)
-        .then(() => {
-            console.log('Inserted Data')
-        })
-        .catch((e) => {
-            console.log('Erroorr', e)
-        })
+    if (docReference == null) {
+        addDoc(collection(db, coll), data)
+            .then(() => {
+                console.log('Inserted Data')
+            })
+            .catch((e) => {
+                console.log('Erroorr', e)
+            })
+    }
+    else {
+        setDoc(doc(db, coll, docReference), data)
+            .then(() => {
+                console.log('Inserted Data')
+            })
+            .catch((e) => {
+                console.log('Erroorr', e)
+            })
+    }
+
 }
 
 export const getDataFirestore = (coll, docReference) => {
@@ -64,3 +70,7 @@ export const getDataFirestore = (coll, docReference) => {
     })
 
 }
+
+export const insertNestedDataFirestore = (coll, docReference, data) => {
+
+} 
