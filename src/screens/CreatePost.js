@@ -17,18 +17,14 @@ const CreatePost = ({ navigation }) => {
     const dispatch = useDispatch()
     const location = useSelector(state => state.location.location)
     const userInfo = useSelector(state => state.userInfo.userInfo)
+    const [selectedImages, setSelectedImages] = useState()
     const [text, setText] = useState({
         'title': '',
         'desc': '',
         'adress': '',
         'price': '',
         'isFurnished': '',
-        'room': '',
-        'images': [
-            'https://static.wikia.nocookie.net/hunterxhunter/images/b/bd/HxH2011_EP147_Killua_Portrait.png/revision/latest?cb=20220624211000',
-            'https://p16-sign-sg.tiktokcdn.com/aweme/720x720/tos-alisg-avt-0068/e7c5dbd4a9ede04b7ceaf66add81d335.jpeg?x-expires=1663340400&x-signature=ACeX4aFt3TWoqYXXHCQ1%2FoUO6kU%3D',
-            'https://i.pinimg.com/564x/07/9e/6b/079e6b3220ef9b4994c58b560f64ea25.jpg'
-        ]
+        'room': ''
     })
 
     const furnished = [
@@ -69,28 +65,27 @@ const CreatePost = ({ navigation }) => {
     }
 
     const submitPost = () => {
-        console.log("submitttt")
         let tmpData = { ...text, location }
         tmpData = { ...tmpData, 'name': userInfo.name }
-        insertDataFirestore('posts', tmpData)
-        dispatch(clearLocation())
-        // TODO: delete location data in redux
+        uploadImg(selectedImages)
+            .then((res) => {
+                tmpData = { ...tmpData, 'images': res }
+                insertDataFirestore('posts', tmpData)
+                dispatch(clearLocation())
+            })
     }
 
     const pickImage = async () => {
         // No permissions request is necessary for launching the image library
+
         let result = await ImagePicker.launchImageLibraryAsync({
-            mediaTypes: ImagePicker.MediaTypeOptions.All,
+            mediaTypes: ImagePicker.MediaTypeOptions.Images,
             allowsMultipleSelection: true,
-            aspect: [4, 3],
-            quality: 1,
+            quality: 0.1
         });
 
-        if (!result.cancelled && typeof result == 'object') {
-            uploadImg(result);
-        }
-        else {
-            uploadImg(result.selected);
+        if (!result.cancelled) {
+            setSelectedImages(result)
         }
     };
 
@@ -158,7 +153,7 @@ const CreatePost = ({ navigation }) => {
                     }
 
                 </TouchableOpacity>
-                <SelectPhotoButton onPress={() => pickImage} />
+                <SelectPhotoButton photos={selectedImages} onPress={() => pickImage} />
             </View>
 
             <ApproveButton onPress={submitPost} text={'Share'} />
