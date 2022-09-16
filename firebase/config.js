@@ -3,6 +3,7 @@ import {
     initializeAuth,
     getReactNativePersistence
 } from 'firebase/auth/react-native';
+import { getStorage } from 'firebase/storage'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
@@ -19,6 +20,7 @@ export const app = initializeApp(firebaseConfig);
 export const initAuth = initializeAuth(app, {
     persistence: getReactNativePersistence(AsyncStorage)
 });
+export const storage = getStorage(app)
 // export const fireAuth = getAuth()
 
 // import 'dotenv/config';

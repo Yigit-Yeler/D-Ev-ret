@@ -1,30 +1,30 @@
 import { View, Text, TouchableOpacity, FlatList, Image } from 'react-native'
 import React from 'react'
 import { selectPhotoButtonStyles } from './styles/selectPhotoButtonStyles'
-const SelectPhotoButton = ({ photos }) => {
+const SelectPhotoButton = ({ photos, onPress }) => {
 
     const listData = [
-        {
-            'img': 'https://static.wikia.nocookie.net/hunterxhunter/images/b/bd/HxH2011_EP147_Killua_Portrait.png/revision/latest?cb=20220624211000'
-        },
-        {
-            'img': 'https://static.wikia.nocookie.net/hunterxhunter/images/b/bd/HxH2011_EP147_Killua_Portrait.png/revision/latest?cb=20220624211000'
-        },
-        {
-            'img': 'https://static.wikia.nocookie.net/hunterxhunter/images/b/bd/HxH2011_EP147_Killua_Portrait.png/revision/latest?cb=20220624211000'
-        },
-        {
-            'img': 'https://static.wikia.nocookie.net/hunterxhunter/images/b/bd/HxH2011_EP147_Killua_Portrait.png/revision/latest?cb=20220624211000'
-        },
-        {
-            'img': 'https://static.wikia.nocookie.net/hunterxhunter/images/b/bd/HxH2011_EP147_Killua_Portrait.png/revision/latest?cb=20220624211000'
-        },
-        {
-            'img': 'https://static.wikia.nocookie.net/hunterxhunter/images/b/bd/HxH2011_EP147_Killua_Portrait.png/revision/latest?cb=20220624211000'
-        },
-        {
-            'img': 'https://static.wikia.nocookie.net/hunterxhunter/images/b/bd/HxH2011_EP147_Killua_Portrait.png/revision/latest?cb=20220624211000'
-        },
+        // {
+        //     'img': 'https://static.wikia.nocookie.net/hunterxhunter/images/b/bd/HxH2011_EP147_Killua_Portrait.png/revision/latest?cb=20220624211000'
+        // },
+        // {
+        //     'img': 'https://static.wikia.nocookie.net/hunterxhunter/images/b/bd/HxH2011_EP147_Killua_Portrait.png/revision/latest?cb=20220624211000'
+        // },
+        // {
+        //     'img': 'https://static.wikia.nocookie.net/hunterxhunter/images/b/bd/HxH2011_EP147_Killua_Portrait.png/revision/latest?cb=20220624211000'
+        // },
+        // {
+        //     'img': 'https://static.wikia.nocookie.net/hunterxhunter/images/b/bd/HxH2011_EP147_Killua_Portrait.png/revision/latest?cb=20220624211000'
+        // },
+        // {
+        //     'img': 'https://static.wikia.nocookie.net/hunterxhunter/images/b/bd/HxH2011_EP147_Killua_Portrait.png/revision/latest?cb=20220624211000'
+        // },
+        // {
+        //     'img': 'https://static.wikia.nocookie.net/hunterxhunter/images/b/bd/HxH2011_EP147_Killua_Portrait.png/revision/latest?cb=20220624211000'
+        // },
+        // {
+        //     'img': 'https://static.wikia.nocookie.net/hunterxhunter/images/b/bd/HxH2011_EP147_Killua_Portrait.png/revision/latest?cb=20220624211000'
+        // },
     ]
 
     return (
@@ -63,7 +63,10 @@ const SelectPhotoButton = ({ photos }) => {
                     </View>
 
                 ) : (
-                    <TouchableOpacity style={selectPhotoButtonStyles.selectPhotoButton}>
+                    <TouchableOpacity
+                        style={selectPhotoButtonStyles.selectPhotoButton}
+                        onPress={onPress()}
+                    >
                         <Text style={{ color: 'white' }}>Select Photos</Text>
                     </TouchableOpacity>
                 )

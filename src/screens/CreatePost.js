@@ -11,6 +11,8 @@ import { useSelector, useDispatch } from 'react-redux'
 import SelectPhotoButton from '../components/SelectPhotoButton'
 import { insertDataFirestore } from '../../core/firebase/firebaseFirestore'
 import { clearLocation } from '../store/slices/locationSlice'
+import * as ImagePicker from 'expo-image-picker';
+import { uploadImg } from '../../core/firebase/firebaseStorage'
 const CreatePost = ({ navigation }) => {
     const dispatch = useDispatch()
     const location = useSelector(state => state.location.location)
@@ -74,6 +76,23 @@ const CreatePost = ({ navigation }) => {
         dispatch(clearLocation())
         // TODO: delete location data in redux
     }
+
+    const pickImage = async () => {
+        // No permissions request is necessary for launching the image library
+        let result = await ImagePicker.launchImageLibraryAsync({
+            mediaTypes: ImagePicker.MediaTypeOptions.All,
+            allowsMultipleSelection: true,
+            aspect: [4, 3],
+            quality: 1,
+        });
+
+        if (!result.cancelled && typeof result == 'object') {
+            uploadImg(result);
+        }
+        else {
+            uploadImg(result.selected);
+        }
+    };
 
     return (
 
@@ -139,7 +158,7 @@ const CreatePost = ({ navigation }) => {
                     }
 
                 </TouchableOpacity>
-                <SelectPhotoButton />
+                <SelectPhotoButton onPress={() => pickImage} />
             </View>
 
             <ApproveButton onPress={submitPost} text={'Share'} />
