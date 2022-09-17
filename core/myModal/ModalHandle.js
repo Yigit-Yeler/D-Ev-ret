@@ -5,6 +5,7 @@ export const modalHandle = (text, visible, isSuccess, onPress) => {
     if (isSuccess == 1) {
         return (
             <SuccessModal
+                text={text}
                 isVisible={visible}
                 onPress={() => {
                     onPress()

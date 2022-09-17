@@ -13,11 +13,15 @@ import { insertDataFirestore } from '../../core/firebase/firebaseFirestore'
 import { clearLocation } from '../store/slices/locationSlice'
 import * as ImagePicker from 'expo-image-picker';
 import { uploadImg } from '../../core/firebase/firebaseStorage'
+import { modalHandle } from '../../core/myModal/ModalHandle'
 const CreatePost = ({ navigation }) => {
     const dispatch = useDispatch()
     const location = useSelector(state => state.location.location)
     const userInfo = useSelector(state => state.userInfo.userInfo)
     const [selectedImages, setSelectedImages] = useState()
+    const [isSuccess, setIsSuccess] = useState(0)
+    const [resText, setResText] = useState('')
+    const [visible, setVisible] = useState(true)
     const [text, setText] = useState({
         'title': '',
         'desc': '',
@@ -53,7 +57,6 @@ const CreatePost = ({ navigation }) => {
             ...text,
             ...updatedValue
         }));
-        console.log(text)
     }
 
     const handleDropDownR = (value) => {
@@ -64,6 +67,17 @@ const CreatePost = ({ navigation }) => {
         }));
     }
 
+    const modalEvents = () => {
+        setIsSuccess(0)
+        setVisible(false)
+        if (isSuccess == 1) {
+            navigation.replace(
+                NavigationPathEnum.bottomTab,
+                { screen: NavigationPathEnum.home }
+            )
+        }
+    }
+
     const submitPost = () => {
         let tmpData = { ...text, location }
         tmpData = { ...tmpData, 'name': userInfo.name }
@@ -71,7 +85,15 @@ const CreatePost = ({ navigation }) => {
             .then((res) => {
                 tmpData = { ...tmpData, 'images': res }
                 insertDataFirestore('posts', tmpData)
-                dispatch(clearLocation())
+                    .then((res) => {
+                        setIsSuccess(1)
+                        setVisible(true)
+                        setResText(res)
+                        dispatch(clearLocation())
+                    })
+                    .catch((e) => {
+                        setResText(e.toString())
+                    })
             })
     }
 
@@ -92,6 +114,9 @@ const CreatePost = ({ navigation }) => {
     return (
 
         <View style={createPostStyles.main}>
+            {
+                modalHandle(resText, visible, isSuccess, modalEvents)
+            }
             <TextInput
                 placeholder='Başlık'
                 style={textInputStyles.textInput}

@@ -9,22 +9,31 @@ export const insertDataFirestore = (
     const db = getFirestore()
 
     if (docReference == null) {
-        addDoc(collection(db, coll), data)
-            .then(() => {
-                console.log('Inserted Data')
-            })
-            .catch((e) => {
-                console.log('Erroorr', e)
-            })
+        return new Promise((resolve, rej) => {
+            addDoc(collection(db, coll), data)
+                .then(() => {
+                    console.log('Inserted Data')
+                    resolve('Inserted Data')
+                })
+                .catch((e) => {
+                    console.log('Erroorr', e)
+                    rej(e)
+                })
+        })
+
     }
     else {
-        setDoc(doc(db, coll, docReference), data)
-            .then(() => {
-                console.log('Inserted Data')
-            })
-            .catch((e) => {
-                console.log('Erroorr', e)
-            })
+        return new Promise((resolve, rej) => {
+            setDoc(doc(db, coll, docReference), data)
+                .then(() => {
+                    console.log('Inserted Data')
+                    resolve('Inserted Data')
+                })
+                .catch((e) => {
+                    console.log('Erroorr', e)
+                    rej(e)
+                })
+        })
     }
 
 }
