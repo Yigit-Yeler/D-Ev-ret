@@ -1,10 +1,12 @@
 import { View, Text } from 'react-native'
 import React from 'react'
+import { chatStyles } from '../styles/chatStyles'
 
-const Chat = () => {
+const Chat = ({ route }) => {
+    const { data } = route.params
     return (
-        <View>
-            <Text>Chat</Text>
+        <View style={chatStyles.main}>
+            <Text>{data}</Text>
         </View>
     )
 }

@@ -53,6 +53,7 @@ const Home = ({ navigation }) => {
                                 photos={item.images}
                                 adress={item.adress}
                                 price={item.price}
+                                navigation={navigation}
                             />
                         )}
                     />

@@ -1,26 +1,16 @@
 import { View, Text, FlatList, Image, ScrollView, TouchableOpacity } from 'react-native'
 import React from 'react'
 import { postStyles } from './styles/postStyles'
+import { NavigationPathEnum } from '../../core/enum/navigationPathEnum'
 
-const Post = ({ title, desc, name, photos, adress, price }) => {
-    const listData = [
-        {
-            'img': 'https://static.wikia.nocookie.net/hunterxhunter/images/b/bd/HxH2011_EP147_Killua_Portrait.png/revision/latest?cb=20220624211000'
-        },
-        {
-            'img': 'https://static.wikia.nocookie.net/hunterxhunter/images/b/bd/HxH2011_EP147_Killua_Portrait.png/revision/latest?cb=20220624211000'
-        },
-        {
-            'img': 'https://static.wikia.nocookie.net/hunterxhunter/images/b/bd/HxH2011_EP147_Killua_Portrait.png/revision/latest?cb=20220624211000'
-        },
-        {
-            'img': 'https://static.wikia.nocookie.net/hunterxhunter/images/b/bd/HxH2011_EP147_Killua_Portrait.png/revision/latest?cb=20220624211000'
-        },
-        {
-            'img': 'https://static.wikia.nocookie.net/hunterxhunter/images/b/bd/HxH2011_EP147_Killua_Portrait.png/revision/latest?cb=20220624211000'
-        }
-    ]
+const Post = ({ navigation, title, desc, name, photos, adress, price }) => {
 
+    const openChatScreen = () => {
+        navigation.navigate(
+            NavigationPathEnum.chat,
+            { data: 'chat data' }
+        )
+    }
 
     return (
         <View style={postStyles.main}>
@@ -62,7 +52,9 @@ const Post = ({ title, desc, name, photos, adress, price }) => {
                         <Text>{price}</Text>
                     </View>
                 </View>
-                <TouchableOpacity style={postStyles.sendMessageView}>
+                <TouchableOpacity
+                    onPress={openChatScreen}
+                    style={postStyles.sendMessageView}>
                     <Text>Send Message</Text>
                 </TouchableOpacity>
             </View>
