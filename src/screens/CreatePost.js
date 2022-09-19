@@ -18,6 +18,7 @@ const CreatePost = ({ navigation }) => {
     const dispatch = useDispatch()
     const location = useSelector(state => state.location.location)
     const userInfo = useSelector(state => state.userInfo.userInfo)
+    const userAuth = useSelector(state => state.auth.userAuth)
     const [selectedImages, setSelectedImages] = useState()
     const [isSuccess, setIsSuccess] = useState(0)
     const [resText, setResText] = useState('')
@@ -28,7 +29,8 @@ const CreatePost = ({ navigation }) => {
         'adress': '',
         'price': '',
         'isFurnished': '',
-        'room': ''
+        'room': '',
+        'userId': userAuth.uid
     })
 
     const furnished = [
