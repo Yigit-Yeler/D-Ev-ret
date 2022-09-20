@@ -5,7 +5,7 @@ const usualWidth = wp('100%')
 export const messageStyles = StyleSheet.create({
     main: {
         width: usualWidth,
-        minHeight: hp('15%'),
+        minHeight: hp('13%'),
         flexDirection: 'row',
         alignItems: 'center'
     },
