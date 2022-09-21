@@ -9,7 +9,7 @@ import MapView, { Marker } from 'react-native-maps'
 import { NavigationPathEnum } from '../../core/enum/navigationPathEnum'
 import { useSelector, useDispatch } from 'react-redux'
 import SelectPhotoButton from '../components/SelectPhotoButton'
-import { insertDataFirestore } from '../../core/firebase/firebaseFirestore'
+import { insertDataFirestore, insertNestedDataFirestore, insertPostFirestore } from '../../core/firebase/firebaseFirestore'
 import { clearLocation } from '../store/slices/locationSlice'
 import * as ImagePicker from 'expo-image-picker';
 import { uploadImg } from '../../core/firebase/firebaseStorage'
@@ -86,15 +86,16 @@ const CreatePost = ({ navigation }) => {
         uploadImg(selectedImages)
             .then((res) => {
                 tmpData = { ...tmpData, 'images': res }
-                insertDataFirestore('posts', tmpData)
+                insertPostFirestore('users', userAuth.uid, 'posts', tmpData)
                     .then((res) => {
+                        setResText(res)
                         setIsSuccess(1)
                         setVisible(true)
-                        setResText(res)
                         dispatch(clearLocation())
                     })
                     .catch((e) => {
                         setResText(e.toString())
+                        setIsSuccess(2)
                     })
             })
     }

@@ -48,6 +48,7 @@ export const getDataFirestore = (coll, docReference) => {
                     let datas = []
                     elements.forEach((item) => {
                         datas.push(item.data())
+                        // console.log(item.id)
                     })
                     resolve(datas)
 
@@ -80,6 +81,30 @@ export const getDataFirestore = (coll, docReference) => {
 
 }
 
-export const insertNestedDataFirestore = (coll, docReference, data) => {
+export const insertPostFirestore = (
+    coll,
+    docReference,
+    docReference2,
+    data,
+) => {
+    const db = getFirestore()
+    return new Promise((resolve, rej) => {
 
-} 
+        addDoc(collection(db, coll, docReference, docReference2), data)
+            .then(() => {
+                addDoc(collection(db, docReference2), data)
+                    .then(() => {
+                        console.log('Inserted Data Fulll')
+                        resolve('Inserted Data ')
+                    })
+                    .catch((e) => {
+                        console.log('Erroorr', e)
+                        rej(e)
+                    })
+            })
+            .catch((e) => {
+                console.log('Erroorr', e)
+                rej(e)
+            })
+    })
+}
