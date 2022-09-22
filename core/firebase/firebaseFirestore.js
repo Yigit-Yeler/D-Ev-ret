@@ -108,3 +108,52 @@ export const insertPostFirestore = (
             })
     })
 }
+
+export const insertUserRoomFirestore = (
+    coll,
+    docReference,
+    coll2,
+    docReference2,
+    data,
+) => {
+    const db = getFirestore()
+
+    setDoc(collection(db, coll, docReference, coll2, docReference2), data)
+        .then(() => {
+            console.log('kullanıcııı')
+            // resolve('Inserted Data')
+        })
+        .catch((e) => {
+            console.log('Erroorr', e)
+            // rej(e)
+        })
+}
+
+export const createRoom = (
+    coll,
+    data,
+) => {
+    const db = getFirestore()
+
+    return new Promise((resolve, rej) => {
+        addDoc(collection(db, coll), {})
+            .then((res) => {
+                // console.log('Inserted Data')
+                console.log(typeof res.id)
+                setDoc(doc(db, coll, res.id, 'users'), data)
+                    .then((res2) => {
+                        resolve('Inserted Data')
+                    })
+                    .catch((err) => {
+                        rej(err)
+                    })
+            })
+            .catch((e) => {
+                console.log('Erroorr', e)
+                rej(e)
+            })
+    })
+
+
+
+}

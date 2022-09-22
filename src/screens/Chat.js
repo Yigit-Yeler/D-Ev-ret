@@ -8,6 +8,7 @@ import { textInputStyles } from '../components/styles/textInputStyles'
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { useState } from 'react'
 import { useSelector } from 'react-redux'
+import { createRoom, insertDataFirestore, insertUserRoomFirestore } from '../../core/firebase/firebaseFirestore'
 const Chat = ({ route, navigation }) => {
     const { postOwnerId } = route.params
     const userAuth = useSelector(state => state.auth.userAuth)
@@ -87,8 +88,28 @@ const Chat = ({ route, navigation }) => {
     }
 
     const sendMessage = () => {
-        console.log(postOwnerId)
-        console.log(message)
+
+        createRoom('rooms', {
+            'users': [postOwnerId, userAuth.uid]
+        })
+            .then((res) => {
+                console.log(res)
+            })
+            .catch((e) => {
+                console.log(e)
+            })
+        // .then((roomId) => {
+        //     console.log(roomId)
+        //     createRoom('rooms', roomId, 'messages', message)
+        //     createRoom('rooms', roomId, 'users', {
+        //         'users':[]
+        //     })
+        // })
+        // .catch((e) => {
+
+        // })
+        // console.log(postOwnerId)
+        // console.log(message)
     }
 
     return (
