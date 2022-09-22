@@ -6,10 +6,15 @@ import { useLayoutEffect } from 'react'
 import Message from '../components/Message'
 import { textInputStyles } from '../components/styles/textInputStyles'
 import Ionicons from '@expo/vector-icons/Ionicons';
+import { useState } from 'react'
+import { useSelector } from 'react-redux'
 const Chat = ({ route, navigation }) => {
-    const { data } = route.params
-    var listRef;
-
+    const { postOwnerId } = route.params
+    const userAuth = useSelector(state => state.auth.userAuth)
+    const [message, setMessage] = useState({
+        'message': '',
+        'uid': userAuth.uid
+    })
     const array = [
         {
             'name': 'asdasdqwf İLKKKLŞASFLŞKWLŞFKLASKŞFLKQWOFKŞALSKFŞLKWŞAF',
@@ -73,6 +78,19 @@ const Chat = ({ route, navigation }) => {
 
     }, [])
 
+    const textHandle = (value) => {
+        let updatedValue = { 'message': value };
+        setMessage(message => ({
+            ...message,
+            ...updatedValue
+        }));
+    }
+
+    const sendMessage = () => {
+        console.log(postOwnerId)
+        console.log(message)
+    }
+
     return (
         <View style={chatStyles.main}>
             <View style={chatStyles.flatView}>
@@ -88,9 +106,12 @@ const Chat = ({ route, navigation }) => {
             </View>
             <View style={chatStyles.messageInput}>
                 <TextInput
+                    onChangeText={(text) => textHandle(text)}
                     style={chatStyles.textInput}
                 />
-                <TouchableOpacity>
+                <TouchableOpacity
+                    onPress={sendMessage}
+                >
                     <Ionicons name="paper-plane" size={32} color="purple" />
                 </TouchableOpacity>
             </View>

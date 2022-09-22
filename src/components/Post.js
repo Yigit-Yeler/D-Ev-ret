@@ -3,12 +3,12 @@ import React from 'react'
 import { postStyles } from './styles/postStyles'
 import { NavigationPathEnum } from '../../core/enum/navigationPathEnum'
 
-const Post = ({ navigation, title, desc, name, photos, adress, price }) => {
+const Post = ({ navigation, userId, title, desc, name, photos, adress, price }) => {
 
     const openChatScreen = () => {
         navigation.navigate(
             NavigationPathEnum.chat,
-            { data: 'chat data' }
+            { postOwnerId: userId }
         )
     }
 
