@@ -1,10 +1,8 @@
 import { View, Text, FlatList, TouchableOpacity, TextInput } from 'react-native'
 import React from 'react'
 import { chatStyles } from '../styles/chatStyles'
-import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen'
 import { useLayoutEffect } from 'react'
 import Message from '../components/Message'
-import { textInputStyles } from '../components/styles/textInputStyles'
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { useState } from 'react'
 import { useSelector } from 'react-redux'
@@ -98,18 +96,6 @@ const Chat = ({ route, navigation }) => {
             .catch((e) => {
                 console.log(e)
             })
-        // .then((roomId) => {
-        //     console.log(roomId)
-        //     createRoom('rooms', roomId, 'messages', message)
-        //     createRoom('rooms', roomId, 'users', {
-        //         'users':[]
-        //     })
-        // })
-        // .catch((e) => {
-
-        // })
-        // console.log(postOwnerId)
-        // console.log(message)
     }
 
     return (

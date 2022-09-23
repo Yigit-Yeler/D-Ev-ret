@@ -138,7 +138,6 @@ export const createRoom = (
     return new Promise((resolve, rej) => {
         addDoc(collection(db, coll), {})
             .then((res) => {
-                // console.log('Inserted Data')
                 console.log(typeof res.id)
                 setDoc(doc(db, coll, res.id, 'users'), data)
                     .then((res2) => {
