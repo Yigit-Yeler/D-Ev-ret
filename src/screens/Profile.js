@@ -3,23 +3,23 @@ import React from 'react'
 import { profileStyles } from '../styles/profileStyles'
 import Post from '../components/Post'
 import { useSelector } from 'react-redux'
-const Profile = () => {
+import { useEffect } from 'react'
+import { getMyPostsFirestore } from '../../core/firebase/firebaseFirestore'
+import { useState } from 'react'
+const Profile = ({ navigation }) => {
     const userInfo = useSelector(state => state.userInfo.userInfo)
-    const listData = [
-        {
-            'name': "asdasdqf"
-        },
-        {
-            'name': "asdasdqf"
-        },
-        {
-            'name': "asdasdqf"
-        },
-        {
-            'name': "asdasdqf"
-        }
-    ]
+    const userAuth = useSelector(state => state.auth.userAuth)
+    const [myPosts, setMyPosts] = useState([])
 
+    useEffect(() => {
+        getMyPostsFirestore('users', userAuth.uid, 'posts')
+            .then((res) => {
+                setMyPosts(res)
+            })
+            .catch((e) => {
+                console.log(e)
+            })
+    }, [])
 
     return (
         <View style={profileStyles.main}>
@@ -32,10 +32,20 @@ const Profile = () => {
                 <Text>MyPosts</Text>
             </View>
             <FlatList
-                data={listData}
+                data={myPosts}
                 renderItem={({ item, index }) => {
                     return (
-                        <Post />
+                        <Post
+                            title={item.title}
+                            key={item.title}
+                            desc={item.desc}
+                            name={item.name}
+                            photos={item.images}
+                            adress={item.adress}
+                            price={item.price}
+                            navigation={navigation}
+                            userId={item.userId}
+                        />
                     )
                 }}
             />

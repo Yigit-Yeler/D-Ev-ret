@@ -2,8 +2,10 @@ import { View, Text, FlatList, Image, ScrollView, TouchableOpacity } from 'react
 import React from 'react'
 import { postStyles } from './styles/postStyles'
 import { NavigationPathEnum } from '../../core/enum/navigationPathEnum'
+import { useSelector } from 'react-redux'
 
 const Post = ({ navigation, userId, title, desc, name, photos, adress, price }) => {
+    const userAuth = useSelector(state => state.auth.userAuth)
 
     const openChatScreen = () => {
         navigation.navigate(
@@ -52,11 +54,16 @@ const Post = ({ navigation, userId, title, desc, name, photos, adress, price }) 
                         <Text>{price}</Text>
                     </View>
                 </View>
-                <TouchableOpacity
-                    onPress={openChatScreen}
-                    style={postStyles.sendMessageView}>
-                    <Text>Send Message</Text>
-                </TouchableOpacity>
+                {
+                    userAuth.uid == userId ? (<View></View>) : (
+                        <TouchableOpacity
+                            onPress={openChatScreen}
+                            style={postStyles.sendMessageView}>
+                            <Text>Send Message</Text>
+                        </TouchableOpacity>
+                    )
+                }
+
             </View>
         </View>
     )
