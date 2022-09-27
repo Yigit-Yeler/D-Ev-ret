@@ -6,9 +6,9 @@ import Message from '../components/Message'
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { useState } from 'react'
 import { useSelector } from 'react-redux'
-import { createRoom, insertDataFirestore, insertUserRoomFirestore } from '../../core/firebase/firebaseFirestore'
+import { createRoom, insertDataFirestore, insertMessageFirestore, insertUserRoomFirestore } from '../../core/firebase/firebaseFirestore'
 const Chat = ({ route, navigation }) => {
-    const { postOwnerId } = route.params
+    const { postOwnerId, roomId } = route.params
     const userAuth = useSelector(state => state.auth.userAuth)
     const [message, setMessage] = useState({
         'message': '',
@@ -74,7 +74,7 @@ const Chat = ({ route, navigation }) => {
     ]
 
     useLayoutEffect(() => {
-
+        console.log(roomId)
     }, [])
 
     const textHandle = (value) => {
@@ -87,15 +87,11 @@ const Chat = ({ route, navigation }) => {
 
     const sendMessage = () => {
 
-        createRoom('rooms', {
-            'users': [postOwnerId, userAuth.uid]
-        })
-            .then((res) => {
-                console.log(res)
+        insertMessageFirestore('rooms', roomId, 'messages', message)
+            .then(() => {
+                console.log('mesaj gönderildi')
             })
-            .catch((e) => {
-                console.log(e)
-            })
+
     }
 
     return (

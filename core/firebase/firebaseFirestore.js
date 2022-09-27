@@ -134,21 +134,37 @@ export const createRoom = (
     data,
 ) => {
     const db = getFirestore()
+    return new Promise((resolve, rej) => {
+        addDoc(collection(db, coll), data)
+            .then((res) => {
+                // console.log('Olduu')
+                resolve(res)
+            })
+            .catch((e) => {
+                console.log('Erroorr', e)
+                rej(e)
+            })
+    })
+}
 
-    // return new Promise((resolve, rej) => {
-    addDoc(collection(db, coll), data)
-        .then((res) => {
-            console.log('Olduu')
-
-        })
-        .catch((e) => {
-            console.log('Erroorr', e)
-            rej(e)
-        })
-    // })
-
-
-
+export const insertMessageFirestore = (
+    coll,//rooms
+    docReference,//roomId
+    coll2,//messages
+    data
+) => {
+    const db = getFirestore()
+    return new Promise((resolve, rej) => {
+        addDoc(collection(db, coll, docReference, coll2), data)
+            .then((res) => {
+                // console.log('Olduu')
+                resolve(res)
+            })
+            .catch((e) => {
+                console.log('Erroorr', e)
+                rej(e)
+            })
+    })
 }
 
 export const getMyPostsFirestore = (

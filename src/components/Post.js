@@ -18,10 +18,17 @@ const Post = ({ navigation, userId, title, desc, name, photos, adress, price }) 
             }
         ]
         createRoom('rooms', { users })
-        navigation.navigate(
-            NavigationPathEnum.chat,
-            { postOwnerId: userId }
-        )
+            .then((res) => {
+                // console.log(res)
+                navigation.navigate(
+                    NavigationPathEnum.chat,
+                    { postOwnerId: userId, roomId: res.id }
+                )
+            })
+            .catch((e) => {
+
+            })
+
     }
 
     return (
