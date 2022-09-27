@@ -135,23 +135,17 @@ export const createRoom = (
 ) => {
     const db = getFirestore()
 
-    return new Promise((resolve, rej) => {
-        addDoc(collection(db, coll), {})
-            .then((res) => {
-                console.log(typeof res.id)
-                setDoc(doc(db, coll, res.id, 'users'), data)
-                    .then((res2) => {
-                        resolve('Inserted Data')
-                    })
-                    .catch((err) => {
-                        rej(err)
-                    })
-            })
-            .catch((e) => {
-                console.log('Erroorr', e)
-                rej(e)
-            })
-    })
+    // return new Promise((resolve, rej) => {
+    addDoc(collection(db, coll), data)
+        .then((res) => {
+            console.log('Olduu')
+
+        })
+        .catch((e) => {
+            console.log('Erroorr', e)
+            rej(e)
+        })
+    // })
 
 
 
