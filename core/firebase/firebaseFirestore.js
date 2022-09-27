@@ -1,4 +1,4 @@
-import { setDoc, addDoc, getDoc, doc, getFirestore, collection, collectionGroup, getDocs } from 'firebase/firestore'
+import { setDoc, addDoc, getDoc, doc, getFirestore, collection, collectionGroup, getDocs, deleteDoc } from 'firebase/firestore'
 
 
 export const insertDataFirestore = (
@@ -144,6 +144,23 @@ export const createRoom = (
                 console.log('Erroorr', e)
                 rej(e)
             })
+    })
+}
+
+export const deleteRoom = (
+    coll,
+    docReference
+) => {
+    const db = getFirestore()
+    return new Promise((resolve, rej) => {
+        deleteDoc(doc(db, coll, docReference))
+            .then(() => {
+                resolve('Oda silindi')
+            })
+            .catch((e) => {
+                rej(e)
+            })
+
     })
 }
 

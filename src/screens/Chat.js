@@ -1,12 +1,13 @@
 import { View, Text, FlatList, TouchableOpacity, TextInput } from 'react-native'
 import React from 'react'
 import { chatStyles } from '../styles/chatStyles'
-import { useLayoutEffect } from 'react'
+import { useEffect } from 'react'
+import { useFocusEffect } from '@react-navigation/native';
 import Message from '../components/Message'
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { useState } from 'react'
 import { useSelector } from 'react-redux'
-import { createRoom, insertDataFirestore, insertMessageFirestore, insertUserRoomFirestore } from '../../core/firebase/firebaseFirestore'
+import { createRoom, deleteRoom, insertDataFirestore, insertMessageFirestore, insertUserRoomFirestore } from '../../core/firebase/firebaseFirestore'
 const Chat = ({ route, navigation }) => {
     const { postOwnerId, roomId } = route.params
     const userAuth = useSelector(state => state.auth.userAuth)
@@ -73,9 +74,21 @@ const Chat = ({ route, navigation }) => {
         },
     ]
 
-    useLayoutEffect(() => {
-        console.log(roomId)
-    }, [])
+    useFocusEffect(
+        React.useCallback(() => {
+            const unsubscribe = function () {
+                deleteRoom('rooms', roomId)
+                    .then((res) => {
+                        console.log(res)
+                    })
+                    .catch((e) => {
+                        console.log(e)
+                    })
+            };
+
+            return () => unsubscribe();
+        }, [])
+    );
 
     const textHandle = (value) => {
         let updatedValue = { 'message': value };
