@@ -7,10 +7,13 @@ import Message from '../components/Message'
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { useState } from 'react'
 import { useSelector } from 'react-redux'
-import { createRoom, deleteRoom, insertDataFirestore, insertMessageFirestore, insertUserRoomFirestore } from '../../core/firebase/firebaseFirestore'
+import { orderBy, Timestamp } from 'firebase/firestore';
+import { createRoom, deleteRoom, getMessagesFirestore, insertMessageFirestore } from '../../core/firebase/firebaseFirestore'
+import { collection, getFirestore, onSnapshot, query } from 'firebase/firestore';
 const Chat = ({ route, navigation }) => {
     const { postOwnerId, roomId } = route.params
     const userAuth = useSelector(state => state.auth.userAuth)
+    const [chat, setChat] = useState([])
     const [message, setMessage] = useState({
         'message': '',
         'uid': userAuth.uid
@@ -74,16 +77,33 @@ const Chat = ({ route, navigation }) => {
         },
     ]
 
+    useEffect(() => {
+        const db = getFirestore()
+
+        const q = query(collection(db, "rooms", roomId, 'messages'), orderBy('date'));
+        onSnapshot(q, async (querySnapshot) => {
+            const messages = [];
+            await querySnapshot.forEach((doc) => {
+                messages.push(doc.data());
+            });
+            console.log(messages)
+            setChat(messages)
+        }, [])
+
+    }, []);
+
     useFocusEffect(
         React.useCallback(() => {
             const unsubscribe = function () {
-                deleteRoom('rooms', roomId)
-                    .then((res) => {
-                        console.log(res)
-                    })
-                    .catch((e) => {
-                        console.log(e)
-                    })
+                if (chat == []) {
+                    deleteRoom('rooms', roomId)
+                        .then((res) => {
+                            console.log(res)
+                        })
+                        .catch((e) => {
+                            console.log(e)
+                        })
+                }
             };
 
             return () => unsubscribe();
@@ -99,8 +119,8 @@ const Chat = ({ route, navigation }) => {
     }
 
     const sendMessage = () => {
-
-        insertMessageFirestore('rooms', roomId, 'messages', message)
+        let tmpMessage = { ...message, 'date': Timestamp.fromMillis(Date.now()) }
+        insertMessageFirestore('rooms', roomId, 'messages', tmpMessage)
             .then(() => {
                 console.log('mesaj gönderildi')
             })
@@ -111,11 +131,15 @@ const Chat = ({ route, navigation }) => {
         <View style={chatStyles.main}>
             <View style={chatStyles.flatView}>
                 <FlatList
-                    data={array}
+                    data={chat}
                     keyExtractor={(item, index) => index.toString()}
                     renderItem={({ item, index }) => {
                         return (
-                            <Message text={item.name} />
+                            <Message
+                                text={item.message}
+                                userId={userAuth.uid}
+                                messageUserId={item.uid}
+                            />
                         )
                     }}
                 />

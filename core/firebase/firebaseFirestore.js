@@ -184,6 +184,28 @@ export const insertMessageFirestore = (
     })
 }
 
+export const getMessagesFirestore = (
+    coll,
+    docReference,
+    coll2
+) => {
+    const db = getFirestore()
+    return new Promise((resolve, rej) => {
+        getDocs(collection(db, coll, docReference, coll2))
+            .then((elements) => {
+                let datas = []
+                elements.forEach((item) => {
+                    datas.push(item.data())
+                    // console.log(item.id)
+                })
+                resolve(datas)
+            })
+            .catch((e) => {
+                rej(e)
+            })
+    })
+}
+
 export const getMyPostsFirestore = (
     coll,
     docReference,

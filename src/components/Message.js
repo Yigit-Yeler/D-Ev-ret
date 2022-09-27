@@ -2,8 +2,8 @@ import { View, Text } from 'react-native'
 import React from 'react'
 import { messageStyles } from './styles/messageStyles'
 
-const Message = ({ text }) => {
-    if (text == 'sa') {
+const Message = ({ text, userId, messageUserId }) => {
+    if (userId == messageUserId) {
         return (
             <View style={[messageStyles.main, { justifyContent: 'flex-end' }]}>
                 <View style={messageStyles.message}>
@@ -13,7 +13,6 @@ const Message = ({ text }) => {
         )
     }
     else {
-
         return (
             <View style={[messageStyles.main, { justifyContent: 'flex-start' }]}>
                 <View style={messageStyles.message}>
