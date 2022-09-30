@@ -3,23 +3,22 @@ import React from 'react'
 import { postStyles } from './styles/postStyles'
 import { NavigationPathEnum } from '../../core/enum/navigationPathEnum'
 import { useSelector } from 'react-redux'
-import { createRoom } from '../../core/firebase/firebaseFirestore'
+import { createRoom, setChatUsers } from '../../core/firebase/firebaseFirestore'
 
 const Post = ({ navigation, userId, title, desc, name, photos, adress, price }) => {
     const userAuth = useSelector(state => state.auth.userAuth)
 
     const openChatScreen = () => {
-        let users = [
-            {
-                'uid': userId
-            },
-            {
-                'uid': userAuth.uid
-            }
-        ]
+        let users = {
+            users: [
+                userId,
+                userAuth.uid
+            ]
+        }
         createRoom('rooms', { users })
             .then((res) => {
                 // console.log(res)
+                setChatUsers('users', userAuth.uid, 'chatUsers', res.id, users)
                 navigation.navigate(
                     NavigationPathEnum.chat,
                     { postOwnerId: userId, roomId: res.id }
