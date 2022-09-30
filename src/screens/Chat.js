@@ -8,7 +8,7 @@ import Ionicons from '@expo/vector-icons/Ionicons';
 import { useState } from 'react'
 import { useSelector } from 'react-redux'
 import { orderBy, Timestamp } from 'firebase/firestore';
-import { createRoom, deleteRoom, getMessagesFirestore, insertMessageFirestore } from '../../core/firebase/firebaseFirestore'
+import { createRoom, deleteRoom, getMessagesFirestore, insertMessageFirestore, setChatUsers, setLastMessage } from '../../core/firebase/firebaseFirestore'
 import { collection, getFirestore, onSnapshot, query } from 'firebase/firestore';
 const Chat = ({ route, navigation }) => {
     const { postOwnerId, roomId } = route.params
@@ -119,10 +119,19 @@ const Chat = ({ route, navigation }) => {
     }
 
     const sendMessage = () => {
+
         let tmpMessage = { ...message, 'date': Timestamp.fromMillis(Date.now()) }
         insertMessageFirestore('rooms', roomId, 'messages', tmpMessage)
             .then(() => {
                 console.log('mesaj gönderildi')
+                let lastMessageData = {
+                    users: [userAuth.uid, postOwnerId],
+                    lastMessage: { ...tmpMessage }
+                }
+                setChatUsers('users', userAuth.uid, 'chatUsers', roomId, lastMessageData)
+                    .then(() => {
+                        setMessage({ ...message, 'message': '' })
+                    })
             })
 
     }
@@ -146,6 +155,7 @@ const Chat = ({ route, navigation }) => {
             </View>
             <View style={chatStyles.messageInput}>
                 <TextInput
+                    value={message.message}
                     onChangeText={(text) => textHandle(text)}
                     style={chatStyles.textInput}
                 />

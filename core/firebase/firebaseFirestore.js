@@ -169,6 +169,28 @@ export const setChatUsers = (
     })
 }
 
+export const setLastMessage = (
+    coll,
+    docReference,
+    coll2,
+    docReference2,
+    data
+) => {
+    const db = getFirestore()
+
+    return new Promise((resolve, rej) => {
+        setDoc(doc(db, coll, docReference, coll2, docReference2), data)
+            .then((res) => {
+                // console.log('Olduu')
+                resolve('olduu')
+            })
+            .catch((e) => {
+                console.log('Erroorr', e)
+                rej(e)
+            })
+    })
+}
+
 export const deleteRoom = (
     coll,
     docReference
