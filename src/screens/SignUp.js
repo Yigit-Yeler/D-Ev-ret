@@ -44,7 +44,7 @@ const SignUp = ({ navigation }) => {
                     setIsSuccess(1)
                     dispatch(signUp(res))
                     setVisible(true)
-                    insertDataFirestore('users', res.uid, userInfo)
+                    insertDataFirestore('users', userInfo, res.uid,)
                 })
                 .catch((e) => {
                     setResText(e.toString())

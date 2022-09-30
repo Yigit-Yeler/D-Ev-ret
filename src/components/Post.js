@@ -23,10 +23,11 @@ const Post = ({ navigation, userId, title, desc, name, photos, adress, price }) 
                 // console.log(res)
 
                 await res.forEach(element => {
-                    // console.log(element.data.users[0])
+                    console.log(userAuth.uid)
 
-                    if (element.data.users[0] == userAuth.uid && element.data.users[0] == userId) {
+                    if (element.data.users[0] == userAuth.uid && element.data.users[1] == userId) {
                         isRoomCreated = true
+                        console.log('true')
                         sendRoomId = element.id
                     }
                 });
