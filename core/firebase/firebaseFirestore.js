@@ -250,6 +250,33 @@ export const getMessagesFirestore = (
     })
 }
 
+export const getRoomIsCreated = (
+    coll,
+    docReference,
+    coll2,
+
+) => {
+    const db = getFirestore()
+    return new Promise((resolve, rej) => {
+        getDocs(collection(db, coll, docReference, coll2))
+            .then((elements) => {
+                let datas = []
+                elements.forEach((item) => {
+                    let pushData = {
+                        'id': item.id,
+                        'data': item.data()
+                    }
+                    datas.push(pushData)
+                    // console.log(item.id)
+                })
+                resolve(datas)
+            })
+            .catch((e) => {
+                rej(e)
+            })
+    })
+}
+
 export const getMyPostsFirestore = (
     coll,
     docReference,
