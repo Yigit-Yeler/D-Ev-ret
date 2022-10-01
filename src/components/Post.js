@@ -7,13 +7,18 @@ import { createRoom, getRoomIsCreated, setChatUsers } from '../../core/firebase/
 
 const Post = ({ navigation, userId, title, desc, name, photos, adress, price }) => {
     const userAuth = useSelector(state => state.auth.userAuth)
+    const userInfo = useSelector(state => state.userInfo.userInfo)
 
     const openChatScreen = () => {
         let users = {
-            users: [
-                userAuth.uid,
-                userId
-            ]
+            users: [{
+                'uid': userAuth.uid,
+                'name': userInfo.name
+            },
+            {
+                'uid': userId,
+                'name': name
+            }],
         }
 
         getRoomIsCreated('users', userAuth.uid, 'chatUsers')
@@ -23,11 +28,10 @@ const Post = ({ navigation, userId, title, desc, name, photos, adress, price }) 
                 // console.log(res)
 
                 await res.forEach(element => {
-                    console.log(userAuth.uid)
+                    // console.log(element.data.users[0].uid)
 
-                    if (element.data.users[0] == userAuth.uid && element.data.users[1] == userId) {
+                    if (element.data.users[0].uid == userAuth.uid && element.data.users[1].uid == userId) {
                         isRoomCreated = true
-                        console.log('true')
                         sendRoomId = element.id
                     }
                 });
@@ -38,23 +42,22 @@ const Post = ({ navigation, userId, title, desc, name, photos, adress, price }) 
                             // console.log(res)
                             navigation.navigate(
                                 NavigationPathEnum.chat,
-                                { postOwnerId: userId, roomId: res2.id }
+                                { postOwnerId: userId, roomId: res2.id, postOwnerName: name }
                             )
                         })
                         .catch((e) => {
-
+                            console.log(e)
                         })
                 }
                 else {
-                    console.log('sifdalşf')
                     navigation.navigate(
                         NavigationPathEnum.chat,
-                        { postOwnerId: userId, roomId: sendRoomId }
+                        { postOwnerId: userId, roomId: sendRoomId, postOwnerName: name }
                     )
                 }
             })
-            .catch(() => {
-
+            .catch((e) => {
+                console.log(e)
             })
 
 

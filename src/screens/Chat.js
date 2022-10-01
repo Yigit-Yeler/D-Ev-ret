@@ -11,8 +11,9 @@ import { orderBy, Timestamp } from 'firebase/firestore';
 import { createRoom, deleteRoom, getMessagesFirestore, insertMessageFirestore, setChatUsers, setLastMessage } from '../../core/firebase/firebaseFirestore'
 import { collection, getFirestore, onSnapshot, query } from 'firebase/firestore';
 const Chat = ({ route, navigation }) => {
-    const { postOwnerId, roomId } = route.params
+    const { postOwnerId, roomId, postOwnerName } = route.params
     const userAuth = useSelector(state => state.auth.userAuth)
+    const userInfo = useSelector(state => state.userInfo.userInfo)
     const [chat, setChat] = useState([])
     const [message, setMessage] = useState({
         'message': '',
@@ -121,16 +122,39 @@ const Chat = ({ route, navigation }) => {
     const sendMessage = () => {
 
         let tmpMessage = { ...message, 'date': Timestamp.fromMillis(Date.now()) }
+        setMessage({ ...message, 'message': '' })
         insertMessageFirestore('rooms', roomId, 'messages', tmpMessage)
             .then(() => {
                 console.log('mesaj gönderildi')
                 let lastMessageData = {
-                    users: [userAuth.uid, postOwnerId],
+                    users: [{
+                        'uid': userAuth.uid,
+                        'name': userInfo.name
+                    },
+                    {
+                        'uid': postOwnerId,
+                        'name': postOwnerName
+                    }],
                     lastMessage: { ...tmpMessage }
                 }
                 setChatUsers('users', userAuth.uid, 'chatUsers', roomId, lastMessageData)
                     .then(() => {
-                        setMessage({ ...message, 'message': '' })
+                    })
+
+                lastMessageData = {
+                    users: [{
+                        'uid': postOwnerId,
+                        'name': postOwnerName
+                    },
+                    {
+                        'uid': userAuth.uid,
+                        'name': userInfo.name
+                    }],
+                    lastMessage: { ...tmpMessage }
+                }
+                setChatUsers('users', postOwnerId, 'chatUsers', roomId, lastMessageData)
+                    .then(() => {
+
                     })
             })
 
