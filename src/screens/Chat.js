@@ -127,6 +127,7 @@ const Chat = ({ route, navigation }) => {
             .then(() => {
                 console.log('mesaj gönderildi')
                 let lastMessageData = {
+                    roomId: roomId,
                     users: [{
                         'uid': userAuth.uid,
                         'name': userInfo.name
@@ -142,6 +143,7 @@ const Chat = ({ route, navigation }) => {
                     })
 
                 lastMessageData = {
+                    roomId: roomId,
                     users: [{
                         'uid': postOwnerId,
                         'name': postOwnerName

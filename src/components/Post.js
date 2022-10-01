@@ -103,15 +103,15 @@ const Post = ({ navigation, userId, title, desc, name, photos, adress, price }) 
                         <Text>{price}</Text>
                     </View>
                 </View>
-                {/* {
-                    userAuth.uid == userId ? (<View></View>) : ( */}
-                <TouchableOpacity
-                    onPress={openChatScreen}
-                    style={postStyles.sendMessageView}>
-                    <Text>Send Message</Text>
-                </TouchableOpacity>
-                {/* //     )
-                // } */}
+                {
+                    userAuth.uid == userId ? (<View></View>) : (
+                        <TouchableOpacity
+                            onPress={openChatScreen}
+                            style={postStyles.sendMessageView}>
+                            <Text>Send Message</Text>
+                        </TouchableOpacity>
+                    )
+                }
 
             </View>
         </View>
