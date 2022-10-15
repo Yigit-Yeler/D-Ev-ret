@@ -55,6 +55,7 @@ const Home = ({ navigation }) => {
                                 price={item.price}
                                 navigation={navigation}
                                 userId={item.userId}
+                                location={item.location}
                             />
                         )}
                     />

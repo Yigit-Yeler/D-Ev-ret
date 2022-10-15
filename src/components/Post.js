@@ -5,7 +5,7 @@ import { NavigationPathEnum } from '../../core/enum/navigationPathEnum'
 import { useSelector } from 'react-redux'
 import { createRoom, getRoomIsCreated, setChatUsers } from '../../core/firebase/firebaseFirestore'
 
-const Post = ({ navigation, userId, title, desc, name, photos, adress, price }) => {
+const Post = ({ navigation, userId, title, desc, name, photos, adress, price, location }) => {
     const userAuth = useSelector(state => state.auth.userAuth)
     const userInfo = useSelector(state => state.userInfo.userInfo)
 
@@ -63,6 +63,13 @@ const Post = ({ navigation, userId, title, desc, name, photos, adress, price }) 
 
     }
 
+    const showHomeLocation = () => {
+        navigation.navigate(
+            NavigationPathEnum.showLocation,
+            { location: location }
+        )
+    }
+
     return (
         <View style={postStyles.main}>
             <View style={postStyles.imgView}>
@@ -88,7 +95,9 @@ const Post = ({ navigation, userId, title, desc, name, photos, adress, price }) 
                 <View style={postStyles.adress}>
                     <Text >{adress}</Text>
                 </View>
-                <TouchableOpacity style={postStyles.location}>
+                <TouchableOpacity
+                    onPress={showHomeLocation}
+                    style={postStyles.location}>
                     <Text>Location</Text>
                 </TouchableOpacity>
             </View>

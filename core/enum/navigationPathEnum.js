@@ -9,5 +9,6 @@ export const NavigationPathEnum = {
     'myPosts': 'MyPosts',
     'updateProfile': 'Update Profile',
     'bottomTab': 'BottomTab',
-    'selectLocation': 'Select Location'
+    'selectLocation': 'Select Location',
+    'showLocation': 'ShowLocation'
 }

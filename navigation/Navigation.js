@@ -11,6 +11,7 @@ import UpdateProfile from '../src/screens/UpdateProfile';
 import SelectLocation from '../src/screens/SelectLocation';
 
 import BottomTabNavigation from './BottomTabNavigation';
+import ShowLocation from '../src/screens/ShowLocation';
 
 const Stack = createNativeStackNavigator();
 
@@ -21,6 +22,7 @@ const Navigation = () => {
                 <Stack.Screen name="SignUp" component={SignUp} />
                 <Stack.Screen name="SignIn" component={SignIn} />
                 <Stack.Screen name="BottomTab" component={BottomTabNavigation} />
+                <Stack.Screen name="ShowLocation" component={ShowLocation} />
                 <Stack.Screen name="Update Profile" component={UpdateProfile} />
                 <Stack.Screen name="Select Location" component={SelectLocation} />
                 <Stack.Screen name="MyPosts" component={MyPosts} />
