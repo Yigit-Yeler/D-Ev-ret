@@ -9,8 +9,9 @@ import { useDispatch, useSelector } from 'react-redux'
 import { signUp } from '../store/slices/authSlice'
 import BottomText from '../components/BottomText'
 import { modalHandle } from '../../core/myModal/ModalHandle'
-
+import { themeColors } from '../../core/enum/themeColorsEnum'
 const SignUp = ({ navigation }) => {
+    const { primary, secondary } = themeColors
     const dispatch = useDispatch()
     const user = useSelector(state => state.auth.user)
 

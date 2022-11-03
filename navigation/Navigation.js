@@ -12,15 +12,31 @@ import SelectLocation from '../src/screens/SelectLocation';
 
 import BottomTabNavigation from './BottomTabNavigation';
 import ShowLocation from '../src/screens/ShowLocation';
+import { themeColors } from '../core/enum/themeColorsEnum';
 
 const Stack = createNativeStackNavigator();
 
 const Navigation = () => {
     return (
         <NavigationContainer>
-            <Stack.Navigator>
-                <Stack.Screen name="SignUp" component={SignUp} />
-                <Stack.Screen name="SignIn" component={SignIn} />
+            <Stack.Navigator
+                screenOptions={{ headerTitleAlign: 'center' }}>
+                <Stack.Screen
+                    name="SignUp"
+                    options={{
+                        title: 'Sign Up', headerStyle: {
+                            backgroundColor: themeColors.primary,
+                        }
+                    }}
+                    component={SignUp}
+                />
+                <Stack.Screen name="SignIn"
+                    options={{
+                        title: 'Sign In', headerStyle: {
+                            backgroundColor: themeColors.primary,
+                        }
+                    }}
+                    component={SignIn} />
                 <Stack.Screen name="BottomTab" component={BottomTabNavigation} />
                 <Stack.Screen name="ShowLocation" component={ShowLocation} />
                 <Stack.Screen name="Update Profile" component={UpdateProfile} />
