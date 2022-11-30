@@ -1,5 +1,6 @@
 import { StyleSheet } from "react-native";
 import { widthPercentageToDP as wp } from "react-native-responsive-screen";
+import { themeColors } from "../../../core/enum/themeColorsEnum";
 
 const usualWidth = wp('100%')
 export const selectPhotoButtonStyles = StyleSheet.create({
@@ -8,7 +9,9 @@ export const selectPhotoButtonStyles = StyleSheet.create({
         height: usualWidth * 0.38,
         backgroundColor: 'black',
         justifyContent: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
+        borderWidth: 3,
+        borderColor: themeColors.secondary,
     },
     img: {
         width: usualWidth * 0.19,

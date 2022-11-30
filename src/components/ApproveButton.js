@@ -11,7 +11,7 @@ const ApproveButton = ({ onPress, text, isDisable }) => {
                 onPress()
             }}
         >
-            <Text>{text}</Text>
+            <Text style={{ color: 'white' }}>{text}</Text>
         </TouchableOpacity>
     )
 }

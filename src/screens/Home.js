@@ -39,7 +39,6 @@ const Home = ({ navigation }) => {
 
     return (
         <View style={homeStyles.main}>
-            <Text>Home</Text>
             {
                 posts[0] ? (
                     <FlatList
@@ -56,6 +55,8 @@ const Home = ({ navigation }) => {
                                 navigation={navigation}
                                 userId={item.userId}
                                 location={item.location}
+                                isFurnished={item.isFurnished}
+                                room={item.room}
                             />
                         )}
                     />

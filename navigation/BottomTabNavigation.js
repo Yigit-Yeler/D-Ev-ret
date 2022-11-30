@@ -8,6 +8,7 @@ import MyDm from '../src/screens/MyDm';
 import CreatePost from '../src/screens/CreatePost';
 import Home from '../src/screens/Home';
 import Profile from '../src/screens/Profile';
+import { themeColors } from '../core/enum/themeColorsEnum';
 
 const Tab = createMaterialBottomTabNavigator();
 
@@ -15,8 +16,8 @@ const BottomTabNavigation = () => {
     return (
         <Tab.Navigator
             initialRouteName="Home"
-            activeColor="white"
-            barStyle={{ backgroundColor: 'black' }}
+            activeColor={themeColors.secondary}
+            barStyle={{ backgroundColor: 'white' }}
         >
             <Tab.Screen
                 name="Home"

@@ -4,8 +4,10 @@ import { postStyles } from './styles/postStyles'
 import { NavigationPathEnum } from '../../core/enum/navigationPathEnum'
 import { useSelector } from 'react-redux'
 import { createRoom, getRoomIsCreated, setChatUsers } from '../../core/firebase/firebaseFirestore'
+import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 
-const Post = ({ navigation, userId, title, desc, name, photos, adress, price, location }) => {
+
+const Post = ({ navigation, userId, title, desc, name, photos, adress, price, location, isFurnished, room }) => {
     const userAuth = useSelector(state => state.auth.userAuth)
     const userInfo = useSelector(state => state.userInfo.userInfo)
 
@@ -72,6 +74,7 @@ const Post = ({ navigation, userId, title, desc, name, photos, adress, price, lo
 
     return (
         <View style={postStyles.main}>
+
             <View style={postStyles.imgView}>
                 <FlatList
                     horizontal
@@ -84,8 +87,9 @@ const Post = ({ navigation, userId, title, desc, name, photos, adress, price, lo
                 />
             </View>
             <View style={postStyles.name}>
-                <Text>{name}</Text>
+                <Text style={{ color: 'white', fontSize: wp('5%') }} >{name}</Text>
             </View>
+
             <View style={postStyles.titleView}>
                 <Text style={postStyles.titleText}>{title}</Text>
                 <Text style={postStyles.descText}>{desc}</Text>
@@ -93,23 +97,22 @@ const Post = ({ navigation, userId, title, desc, name, photos, adress, price, lo
 
             <View style={postStyles.adressView}>
                 <View style={postStyles.adress}>
-                    <Text >{adress}</Text>
+                    <Text style={{ color: 'white' }} >{adress}</Text>
                 </View>
                 <TouchableOpacity
                     onPress={showHomeLocation}
                     style={postStyles.location}>
-                    <Text>Location</Text>
+                    <Text style={{ color: 'white' }}>Location</Text>
                 </TouchableOpacity>
             </View>
             <View style={postStyles.featuresView}>
                 <View style={postStyles.features}>
                     <View style={postStyles.featureView}>
-                        <Text>Eşyalı</Text>
-                        <Text>Eşyalı</Text>
-                        <Text>Eşyalı</Text>
+                        <Text style={{ color: 'white' }}>{isFurnished}</Text>
+                        <Text style={{ color: 'white', paddingHorizontal: wp('3%') }}>{room}</Text>
                     </View>
                     <View>
-                        <Text>{price}</Text>
+                        <Text style={{ color: 'white' }}>{price}</Text>
                     </View>
                 </View>
                 {
@@ -117,7 +120,7 @@ const Post = ({ navigation, userId, title, desc, name, photos, adress, price, lo
                         <TouchableOpacity
                             onPress={openChatScreen}
                             style={postStyles.sendMessageView}>
-                            <Text>Send Message</Text>
+                            <Text style={{ color: 'white' }}>Send Message</Text>
                         </TouchableOpacity>
                     )
                 }

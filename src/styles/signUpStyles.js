@@ -7,7 +7,7 @@ export const signUpStyles = StyleSheet.create({
         flex: 1,
         alignItems: 'center',
         justifyContent: 'space-evenly',
-        backgroundColor: primary
+        backgroundColor: 'white'
     },
     logo: {
         width: wp('100%'),

@@ -161,6 +161,8 @@ const CreatePost = ({ navigation }) => {
                                     latitudeDelta: 0.0001,
                                     longitudeDelta: 0.0001,
                                 }}
+                                zoomEnabled={false}
+                                scrollEnabled={false}
                             >
                                 <Marker
                                     coordinate={location}

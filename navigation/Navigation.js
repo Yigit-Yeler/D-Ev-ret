@@ -24,20 +24,37 @@ const Navigation = () => {
                 <Stack.Screen
                     name="SignUp"
                     options={{
-                        title: 'Sign Up', headerStyle: {
-                            backgroundColor: themeColors.primary,
-                        }
+                        title: 'Sign Up',
+                        headerStyle: {
+                            backgroundColor: themeColors.secondary,
+                        },
+                        headerTitleStyle: {
+                            color: 'white'
+                        },
                     }}
                     component={SignUp}
                 />
                 <Stack.Screen name="SignIn"
                     options={{
-                        title: 'Sign In', headerStyle: {
-                            backgroundColor: themeColors.primary,
-                        }
+                        title: 'Sign In',
+                        headerStyle: {
+                            backgroundColor: themeColors.secondary,
+                        },
+                        headerTitleStyle: {
+                            color: 'white'
+                        },
                     }}
                     component={SignIn} />
-                <Stack.Screen name="BottomTab" component={BottomTabNavigation} />
+                <Stack.Screen
+                    options={{
+                        headerStyle: {
+                            backgroundColor: themeColors.secondary,
+                        },
+                        headerTitleStyle: {
+                            color: 'white'
+                        },
+                    }}
+                    name="House Transferer" component={BottomTabNavigation} />
                 <Stack.Screen name="ShowLocation" component={ShowLocation} />
                 <Stack.Screen name="Update Profile" component={UpdateProfile} />
                 <Stack.Screen name="Select Location" component={SelectLocation} />
