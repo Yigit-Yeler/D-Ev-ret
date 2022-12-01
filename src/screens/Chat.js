@@ -87,7 +87,6 @@ const Chat = ({ route, navigation }) => {
             await querySnapshot.forEach((doc) => {
                 messages.push(doc.data());
             });
-            console.log(messages)
             setChat(messages)
         }, [])
 

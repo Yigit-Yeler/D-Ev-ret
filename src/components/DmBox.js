@@ -4,12 +4,13 @@ import { dmBoxStyles } from './styles/dmBoxStyles'
 import { NavigationPathEnum } from '../../core/enum/navigationPathEnum'
 import { useSelector } from 'react-redux'
 
-const DmBox = ({ navigation, roomId, comeFrom, lastMassage }) => {
+const DmBox = ({ navigation, roomId, comeFrom, lastMassage, time }) => {
     const userAuth = useSelector(state => state.auth.userAuth)
 
     return (
         <TouchableOpacity
             onPress={() => {
+                console.log(roomId, comeFrom.uid, comeFrom.name)
                 navigation.navigate(
                     NavigationPathEnum.chat,
                     { postOwnerId: comeFrom.uid, roomId: roomId, postOwnerName: comeFrom.name }
@@ -20,9 +21,15 @@ const DmBox = ({ navigation, roomId, comeFrom, lastMassage }) => {
             <View style={dmBoxStyles.title}>
                 <Text style={dmBoxStyles.titleText}>{comeFrom.name}</Text>
             </View>
-            <View style={dmBoxStyles.lastMassage}>
-                <Text style={dmBoxStyles.lastMassageText}>{lastMassage}</Text>
+            <View style={dmBoxStyles.content}>
+                <View style={dmBoxStyles.lastMassage}>
+                    <Text style={dmBoxStyles.lastMassageText}>{lastMassage}</Text>
+                </View>
+                <View style={dmBoxStyles.time}>
+                    <Text>{time}</Text>
+                </View>
             </View>
+
         </TouchableOpacity>
     )
 }

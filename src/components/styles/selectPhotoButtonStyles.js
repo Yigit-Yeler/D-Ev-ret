@@ -5,8 +5,8 @@ import { themeColors } from "../../../core/enum/themeColorsEnum";
 const usualWidth = wp('100%')
 export const selectPhotoButtonStyles = StyleSheet.create({
     selectPhotoButton: {
-        width: usualWidth * 0.38,
-        height: usualWidth * 0.38,
+        width: usualWidth * 0.40,
+        height: usualWidth * 0.40,
         backgroundColor: 'black',
         justifyContent: 'center',
         alignItems: 'center',
@@ -14,13 +14,13 @@ export const selectPhotoButtonStyles = StyleSheet.create({
         borderColor: themeColors.secondary,
     },
     img: {
-        width: usualWidth * 0.19,
-        height: usualWidth * 0.19,
+        width: usualWidth * 0.20,
+        height: usualWidth * 0.20,
     },
     otherImgCount: {
         position: 'absolute',
-        width: usualWidth * 0.19,
-        height: usualWidth * 0.19,
+        width: usualWidth * 0.20,
+        height: usualWidth * 0.20,
         justifyContent: 'center',
         alignItems: 'center',
         backgroundColor: 'black',
@@ -33,8 +33,8 @@ export const selectPhotoButtonStyles = StyleSheet.create({
     },
     otherImgCountText: {
         position: 'absolute',
-        width: usualWidth * 0.19,
-        height: usualWidth * 0.19,
+        width: usualWidth * 0.20,
+        height: usualWidth * 0.20,
         justifyContent: 'center',
         alignItems: 'center',
     }

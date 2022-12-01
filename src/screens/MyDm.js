@@ -68,12 +68,14 @@ const MyDm = ({ navigation }) => {
                 data={dmBox}
                 showsVerticalScrollIndicator={false}
                 renderItem={({ item, index }) => {
+                    console.log(item.lastMessage.date.toDate().toLocaleTimeString())
                     return (
                         <DmBox
                             navigation={navigation}
                             roomId={item.roomId}
                             comeFrom={item.users[1]}
                             lastMassage={item.lastMessage.message}
+                            time={item.lastMessage.date.toDate().toLocaleTimeString()}
                         />
                     )
                 }}

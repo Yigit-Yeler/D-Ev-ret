@@ -73,7 +73,7 @@ const Post = ({ navigation, userId, title, desc, name, photos, adress, price, lo
     }
 
     return (
-        <View style={postStyles.main}>
+        <View style={[postStyles.main, userAuth.uid == userId ? { height: wp('93%') * 1.35 } : {}]}>
 
             <View style={postStyles.imgView}>
                 <FlatList

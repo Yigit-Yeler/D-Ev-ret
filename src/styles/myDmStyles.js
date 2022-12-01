@@ -6,7 +6,7 @@ const usualHeight = hp('20%')
 export const myDmStyles = StyleSheet.create({
     main: {
         flex: 1,
-        backgroundColor: 'red',
+        backgroundColor: 'white',
         alignItems: 'center',
     }
 
