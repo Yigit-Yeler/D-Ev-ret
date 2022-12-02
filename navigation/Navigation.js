@@ -55,7 +55,17 @@ const Navigation = () => {
                         },
                     }}
                     name="House Transferer" component={BottomTabNavigation} />
-                <Stack.Screen name="ShowLocation" component={ShowLocation} />
+                <Stack.Screen
+                    name="Show Location"
+                    options={{
+                        headerStyle: {
+                            backgroundColor: themeColors.secondary,
+                        },
+                        headerTitleStyle: {
+                            color: 'white'
+                        },
+                    }}
+                    component={ShowLocation} />
                 <Stack.Screen name="Update Profile" component={UpdateProfile} />
                 <Stack.Screen name="Select Location" component={SelectLocation} />
                 <Stack.Screen name="MyPosts" component={MyPosts} />

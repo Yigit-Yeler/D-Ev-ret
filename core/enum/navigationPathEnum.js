@@ -10,5 +10,5 @@ export const NavigationPathEnum = {
     'updateProfile': 'Update Profile',
     'bottomTab': 'House Transferer',
     'selectLocation': 'Select Location',
-    'showLocation': 'ShowLocation'
+    'showLocation': 'Show Location'
 }

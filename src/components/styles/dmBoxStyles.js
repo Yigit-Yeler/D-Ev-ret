@@ -24,15 +24,13 @@ export const dmBoxStyles = StyleSheet.create({
         fontWeight: '900',
         color: 'white'
     },
-    lastMassage: {
-        justifyContent: 'center',
-
-    },
     content: {
         width: usualWidth,
         flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'space-between'
+        alignItems: 'flex-end',
+        justifyContent: 'space-between',
+        height: usualHeight * 0.35,
+        paddingHorizontal: usualWidth * 0.07
     },
     lastMassageText: {
         fontSize: hp('1.7%'),

@@ -22,12 +22,10 @@ const DmBox = ({ navigation, roomId, comeFrom, lastMassage, time }) => {
                 <Text style={dmBoxStyles.titleText}>{comeFrom.name}</Text>
             </View>
             <View style={dmBoxStyles.content}>
-                <View style={dmBoxStyles.lastMassage}>
-                    <Text style={dmBoxStyles.lastMassageText}>{lastMassage}</Text>
-                </View>
-                <View style={dmBoxStyles.time}>
-                    <Text>{time}</Text>
-                </View>
+                <Text style={dmBoxStyles.lastMassageText}>{lastMassage}</Text>
+
+                <Text>{time}</Text>
+
             </View>
 
         </TouchableOpacity>
