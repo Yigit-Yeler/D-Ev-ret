@@ -24,7 +24,7 @@ const DmBox = ({ navigation, roomId, comeFrom, lastMassage, time }) => {
             <View style={dmBoxStyles.content}>
                 <Text style={dmBoxStyles.lastMassageText}>{lastMassage}</Text>
 
-                <Text>{time}</Text>
+                <Text style={{ color: 'white' }}>{time}</Text>
 
             </View>
 

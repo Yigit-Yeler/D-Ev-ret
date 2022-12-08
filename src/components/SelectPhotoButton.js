@@ -9,34 +9,39 @@ const SelectPhotoButton = ({ photos, onPress }) => {
                     <TouchableOpacity
                         onPress={onPress()}
                         style={selectPhotoButtonStyles.selectPhotoButton}>
-                        <FlatList
-                            data={photos.selected}
-                            renderItem={({ item, index }) => {
-                                if (photos.selected.length > 4 && index == 3) {
-                                    return (
-                                        <View>
+                        {photos.selected == undefined ? (
+                            <Image style={selectPhotoButtonStyles.oneImg} source={{ uri: photos.uri }} />
+                        ) : (
+                            <FlatList
+                                data={photos.selected}
+                                renderItem={({ item, index }) => {
+                                    if (photos.selected.length > 4 && index == 3) {
+                                        return (
+                                            <View>
+                                                <Image style={selectPhotoButtonStyles.img} source={{ uri: item.uri }} />
+                                                <View style={selectPhotoButtonStyles.otherImgCount} >
+
+                                                </View>
+                                                <View style={selectPhotoButtonStyles.otherImgCountText} >
+                                                    <Text style={selectPhotoButtonStyles.numText}>
+                                                        +{photos.selected.length - 4}
+                                                    </Text>
+                                                </View>
+                                            </View>
+                                        )
+                                    }
+                                    else if (index < 4) {
+                                        return (
                                             <Image style={selectPhotoButtonStyles.img} source={{ uri: item.uri }} />
-                                            <View style={selectPhotoButtonStyles.otherImgCount} >
+                                        )
+                                    }
 
-                                            </View>
-                                            <View style={selectPhotoButtonStyles.otherImgCountText} >
-                                                <Text style={selectPhotoButtonStyles.numText}>
-                                                    +{photos.selected.length - 4}
-                                                </Text>
-                                            </View>
-                                        </View>
-                                    )
-                                }
-                                else if (index < 4) {
-                                    return (
-                                        <Image style={selectPhotoButtonStyles.img} source={{ uri: item.uri }} />
-                                    )
-                                }
+                                }}
+                                numColumns={2}
 
-                            }}
-                            numColumns={2}
+                            />
+                        )}
 
-                        />
                     </TouchableOpacity>
 
                 ) : (

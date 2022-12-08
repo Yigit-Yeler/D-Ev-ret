@@ -51,7 +51,6 @@ const MyDm = ({ navigation }) => {
             getLastMessage('users', userAuth.uid, 'chatUsers')
                 .then((res) => {
                     setDmBox(res)
-                    console.log(res)
                 })
         });
         return unsubscribe
@@ -68,7 +67,6 @@ const MyDm = ({ navigation }) => {
                 data={dmBox}
                 showsVerticalScrollIndicator={false}
                 renderItem={({ item, index }) => {
-                    console.log(item.lastMessage.date.toDate().toLocaleTimeString())
                     return (
                         <DmBox
                             navigation={navigation}

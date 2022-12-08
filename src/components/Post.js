@@ -61,8 +61,6 @@ const Post = ({ navigation, userId, title, desc, name, photos, adress, price, lo
             .catch((e) => {
                 console.log(e)
             })
-
-
     }
 
     const showHomeLocation = () => {
@@ -76,15 +74,20 @@ const Post = ({ navigation, userId, title, desc, name, photos, adress, price, lo
         <View style={[postStyles.main, userAuth.uid == userId ? { height: wp('93%') * 1.35 } : {}]}>
 
             <View style={postStyles.imgView}>
-                <FlatList
-                    horizontal
-                    data={photos}
-                    renderItem={({ item, index }) => {
-                        return (
-                            <Image style={postStyles.img} source={{ uri: item }} />
-                        )
-                    }}
-                />
+                {photos[1] == undefined ? (
+                    <Image style={postStyles.img} source={{ uri: photos[0] }} />
+                ) : (
+                    <FlatList
+                        horizontal
+                        data={photos}
+                        renderItem={({ item, index }) => {
+                            return (
+                                <Image style={postStyles.img} source={{ uri: item }} />
+                            )
+                        }}
+                    />
+                )}
+
             </View>
             <View style={postStyles.name}>
                 <Text style={{ color: 'white', fontSize: wp('5%') }} >{name}</Text>

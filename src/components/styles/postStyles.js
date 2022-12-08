@@ -43,7 +43,7 @@ export const postStyles = StyleSheet.create({
     imgView: {
         width: contentUsualWidth,
         height: wp('50%'),
-        borderColor: 'white'
+        alignItems: 'center'
     },
     img: {
         width: wp('50%'),

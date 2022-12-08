@@ -16,8 +16,6 @@ const Profile = ({ navigation }) => {
         getMyPostsFirestore('users', userAuth.uid, 'posts')
             .then((res) => {
                 setMyPosts(res)
-                console.log(res)
-
             })
             .catch((e) => {
                 console.log(e)
@@ -38,11 +36,6 @@ const Profile = ({ navigation }) => {
                         <Text style={{ color: 'white' }}>Log Out</Text>
                     </TouchableOpacity>
                 </View>
-
-
-                {/* <Text>{userInfo.name}</Text>
-                <Text>{userInfo.surname}</Text>
-                <Text>{userInfo.email}</Text> */}
             </View>
             <View style={profileStyles.myPostsHeader}>
                 <Text style={{ color: 'white' }}>My Posts</Text>
@@ -63,6 +56,8 @@ const Profile = ({ navigation }) => {
                             navigation={navigation}
                             userId={item.userId}
                             location={item.location}
+                            isFurnished={item.isFurnished}
+                            room={item.room}
                         />
                     )
                 }}

@@ -17,6 +17,10 @@ export const selectPhotoButtonStyles = StyleSheet.create({
         width: usualWidth * 0.20,
         height: usualWidth * 0.20,
     },
+    oneImg: {
+        width: usualWidth * 0.38,
+        height: usualWidth * 0.38,
+    },
     otherImgCount: {
         position: 'absolute',
         width: usualWidth * 0.20,
