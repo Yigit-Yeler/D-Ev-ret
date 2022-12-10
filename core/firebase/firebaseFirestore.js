@@ -20,7 +20,6 @@ export const insertDataFirestore = (
                     rej(e)
                 })
         })
-
     }
     else {
         return new Promise((resolve, rej) => {
@@ -76,7 +75,6 @@ export const getDataFirestore = (coll, docReference) => {
                     rej(e)
                 })
         }
-
     })
 
 }

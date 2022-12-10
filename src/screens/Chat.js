@@ -10,7 +10,9 @@ import { useSelector } from 'react-redux'
 import { orderBy, Timestamp } from 'firebase/firestore';
 import { createRoom, deleteRoom, getMessagesFirestore, insertMessageFirestore, setChatUsers, setLastMessage } from '../../core/firebase/firebaseFirestore'
 import { collection, getFirestore, onSnapshot, query } from 'firebase/firestore';
+import { useRef } from 'react';
 const Chat = ({ route, navigation }) => {
+    const flatList = useRef(null);
     const { postOwnerId, roomId, postOwnerName } = route.params
     const userAuth = useSelector(state => state.auth.userAuth)
     const userInfo = useSelector(state => state.userInfo.userInfo)
@@ -19,64 +21,6 @@ const Chat = ({ route, navigation }) => {
         'message': '',
         'uid': userAuth.uid
     })
-    const array = [
-        {
-            'name': 'asdasdqwf İLKKKLŞASFLŞKWLŞFKLASKŞFLKQWOFKŞALSKFŞLKWŞAF',
-            'id': 0
-        },
-        {
-            'name': 'asdasdqwf',
-            'id': 0
-        },
-        {
-            'name': 'asdasdqwf',
-            'id': 0
-        },
-        {
-            'name': 'asdasdqwf',
-            'id': 0
-        },
-        {
-            'name': 'asdasdqwf',
-            'id': 0
-        },
-        {
-            'name': 'asdasdqwf',
-            'id': 0
-        },
-        {
-            'name': 'asdasdqwf',
-            'id': 0
-        },
-        {
-            'name': 'sa',
-            'id': 0
-        },
-        {
-            'name': 'asdasdqwf',
-            'id': 0
-        },
-        {
-            'name': 'asdasdqwf',
-            'id': 0
-        },
-        {
-            'name': 'asdasdqwf',
-            'id': 0
-        },
-        {
-            'name': 'asdasdqwf',
-            'id': 0
-        },
-        {
-            'name': 'asdasdqwf',
-            'id': 0
-        },
-        {
-            'name': 'asdasdqwf SONN',
-            'id': 0
-        },
-    ]
 
     useEffect(() => {
         const db = getFirestore()
@@ -124,7 +68,6 @@ const Chat = ({ route, navigation }) => {
         setMessage({ ...message, 'message': '' })
         insertMessageFirestore('rooms', roomId, 'messages', tmpMessage)
             .then(() => {
-                console.log('mesaj gönderildi')
                 let lastMessageData = {
                     roomId: roomId,
                     users: [{
@@ -176,13 +119,17 @@ const Chat = ({ route, navigation }) => {
                             />
                         )
                     }}
+                    ref={flatList}
+                    onContentSizeChange={() => flatList.current.scrollToEnd()}
                 />
             </View>
             <View style={chatStyles.messageInput}>
                 <TextInput
+                    placeholder='Enter Message'
                     value={message.message}
                     onChangeText={(text) => textHandle(text)}
                     style={chatStyles.textInput}
+                    maxLength={35}
                 />
                 <TouchableOpacity
                     onPress={sendMessage}

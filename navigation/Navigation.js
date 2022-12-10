@@ -69,7 +69,17 @@ const Navigation = () => {
                 <Stack.Screen name="Update Profile" component={UpdateProfile} />
                 <Stack.Screen name="Select Location" component={SelectLocation} />
                 <Stack.Screen name="MyPosts" component={MyPosts} />
-                <Stack.Screen name="Chat" component={Chat} />
+                <Stack.Screen
+                    name="Chat"
+                    options={{
+                        headerStyle: {
+                            backgroundColor: themeColors.secondary,
+                        },
+                        headerTitleStyle: {
+                            color: 'white'
+                        },
+                    }}
+                    component={Chat} />
             </Stack.Navigator>
         </NavigationContainer>
     )

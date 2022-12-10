@@ -7,7 +7,7 @@ const Message = ({ text, userId, messageUserId }) => {
         return (
             <View style={[messageStyles.main, { justifyContent: 'flex-end' }]}>
                 <View style={messageStyles.message}>
-                    <Text>{text}</Text>
+                    <Text style={{ color: 'white' }}>{text}</Text>
                 </View>
             </View>
         )
@@ -16,7 +16,7 @@ const Message = ({ text, userId, messageUserId }) => {
         return (
             <View style={[messageStyles.main, { justifyContent: 'flex-start' }]}>
                 <View style={messageStyles.message}>
-                    <Text>{text}</Text>
+                    <Text style={{ color: 'white' }}>{text}</Text>
                 </View>
             </View>
         )
