@@ -8,6 +8,7 @@ import { getMyPostsFirestore } from '../../core/firebase/firebaseFirestore'
 import { useState } from 'react'
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen'
 import { themeColors } from '../../core/enum/themeColorsEnum'
+import { firebaseSignOut } from '../../core/firebase/firebaseAuth'
 const Profile = ({ navigation }) => {
     const userInfo = useSelector(state => state.userInfo.userInfo)
     const userAuth = useSelector(state => state.auth.userAuth)
@@ -91,7 +92,9 @@ const Profile = ({ navigation }) => {
                 <View style={profileStyles.profileCardHeaderContent}>
                     <Text style={{ color: 'white', paddingBottom: wp('2%') }}>{userInfo.name} {userInfo.surname}</Text>
                     <Text style={{ color: 'white', paddingBottom: wp('6%') }}>{userInfo.email}</Text>
-                    <TouchableOpacity style={profileStyles.logout}>
+                    <TouchableOpacity
+                        onPress={() => firebaseSignOut(navigation)}
+                        style={profileStyles.logout}>
                         <Text style={{ color: 'white' }}>Log Out</Text>
                     </TouchableOpacity>
                 </View>

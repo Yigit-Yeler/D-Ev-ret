@@ -1,7 +1,8 @@
 import {
     getAuth,
     createUserWithEmailAndPassword,
-    signInWithEmailAndPassword
+    signInWithEmailAndPassword,
+    signOut
 } from 'firebase/auth';
 import { NavigationPathEnum } from '../enum/navigationPathEnum';
 import { signIn, signUp } from '../../src/store/slices/authSlice';
@@ -28,4 +29,15 @@ export const firebaseSignIn = ({ email, password }) => {
                 rej(e)
             })
     })
+}
+
+export const firebaseSignOut = (navigation) => {
+    const auth = getAuth();
+    signOut(auth).then(() => {
+        // Sign-out successful.
+        navigation.replace(NavigationPathEnum.signIn)
+    }).catch((error) => {
+        // An error happened.
+        console.log(error)
+    });
 }
