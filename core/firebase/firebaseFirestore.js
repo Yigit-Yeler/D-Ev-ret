@@ -46,8 +46,11 @@ export const getDataFirestore = (coll, docReference) => {
                 .then((elements) => {
                     let datas = []
                     elements.forEach((item) => {
-                        datas.push(item.data())
-                        // console.log(item.id)
+                        let pushData = {
+                            'id': item.id,
+                            'data': item.data()
+                        }
+                        datas.push(pushData)
                     })
                     resolve(datas)
 
@@ -89,10 +92,9 @@ export const insertPostFirestore = (
     return new Promise((resolve, rej) => {
 
         addDoc(collection(db, coll, docReference, docReference2), data)
-            .then(() => {
-                addDoc(collection(db, docReference2), data)
+            .then((res) => {
+                setDoc(doc(db, docReference2, res.id), data)
                     .then(() => {
-                        console.log('Inserted Data Fulll')
                         resolve('Inserted Data ')
                     })
                     .catch((e) => {
@@ -211,7 +213,7 @@ export const getLastMessage = (
     })
 }
 
-export const deleteRoom = (
+export const deleteDocFirestore = (
     coll,
     docReference
 ) => {
@@ -219,7 +221,26 @@ export const deleteRoom = (
     return new Promise((resolve, rej) => {
         deleteDoc(doc(db, coll, docReference))
             .then(() => {
-                resolve('Oda silindi')
+                resolve('Success')
+            })
+            .catch((e) => {
+                rej(e)
+            })
+
+    })
+}
+
+export const deletePostByUser = (
+    coll,
+    docReference,
+    coll2,
+    docReference2
+) => {
+    const db = getFirestore()
+    return new Promise((resolve, rej) => {
+        deleteDoc(doc(db, coll, docReference, coll2, docReference2))
+            .then(() => {
+                resolve('Success')
             })
             .catch((e) => {
                 rej(e)
@@ -308,8 +329,11 @@ export const getMyPostsFirestore = (
             .then((elements) => {
                 let datas = []
                 elements.forEach((item) => {
-                    datas.push(item.data())
-                    // console.log(item.id)
+                    let pushData = {
+                        'id': item.id,
+                        'data': item.data()
+                    }
+                    datas.push(pushData)
                 })
                 resolve(datas)
             })

@@ -11,40 +11,6 @@ import { NavigationPathEnum } from '../../core/enum/navigationPathEnum'
 const MyDm = ({ navigation }) => {
     const userAuth = useSelector(state => state.auth.userAuth)
     const [dmBox, setDmBox] = useState([])
-    const listData = [
-        {
-            'username': 'Yiğit Yeler',
-            'lastMassage': 'Merhabalar'
-        },
-        {
-            'username': 'Yiğit Yeler',
-            'lastMassage': 'Merhabalar'
-        },
-        {
-            'username': 'Yiğit Yeler',
-            'lastMassage': 'Merhabalar'
-        },
-        {
-            'username': 'Yiğit Yeler',
-            'lastMassage': 'Merhabalar'
-        },
-        {
-            'username': 'Yiğit Yeler',
-            'lastMassage': 'Merhabalar'
-        },
-        {
-            'username': 'Yiğit Yeler',
-            'lastMassage': 'Merhabalar'
-        },
-        {
-            'username': 'Yiğit Yeler',
-            'lastMassage': 'Merhabalar'
-        },
-        {
-            'username': 'Yiğit Yeler',
-            'lastMassage': 'Merhabalar'
-        }
-    ]
 
     useEffect(() => {
         const unsubscribe = navigation.addListener('focus', () => {
@@ -55,11 +21,6 @@ const MyDm = ({ navigation }) => {
         });
         return unsubscribe
     }, [])
-
-    const navigateToRoom = () => {
-
-    }
-
 
     return (
         <View style={myDmStyles.main}>

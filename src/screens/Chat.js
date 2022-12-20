@@ -8,7 +8,7 @@ import Ionicons from '@expo/vector-icons/Ionicons';
 import { useState } from 'react'
 import { useSelector } from 'react-redux'
 import { orderBy, Timestamp } from 'firebase/firestore';
-import { createRoom, deleteRoom, getMessagesFirestore, insertMessageFirestore, setChatUsers, setLastMessage } from '../../core/firebase/firebaseFirestore'
+import { createRoom, deleteDocFirestore, getMessagesFirestore, insertMessageFirestore, setChatUsers, setLastMessage } from '../../core/firebase/firebaseFirestore'
 import { collection, getFirestore, onSnapshot, query } from 'firebase/firestore';
 import { useRef } from 'react';
 const Chat = ({ route, navigation }) => {
@@ -40,7 +40,7 @@ const Chat = ({ route, navigation }) => {
         React.useCallback(() => {
             const unsubscribe = function () {
                 if (chat == []) {
-                    deleteRoom('rooms', roomId)
+                    deleteDocFirestore('rooms', roomId)
                         .then((res) => {
                             console.log(res)
                         })

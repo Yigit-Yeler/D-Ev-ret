@@ -12,16 +12,74 @@ const Profile = ({ navigation }) => {
     const userInfo = useSelector(state => state.userInfo.userInfo)
     const userAuth = useSelector(state => state.auth.userAuth)
     const [myPosts, setMyPosts] = useState([])
+    const [isLoading, setIsLoading] = useState(true)
+    const [isEmpty, setIsEmpty] = useState(false)
 
     useEffect(() => {
-        getMyPostsFirestore('users', userAuth.uid, 'posts')
-            .then((res) => {
-                setMyPosts(res)
-            })
-            .catch((e) => {
-                console.log(e)
-            })
+        const unsubscribe = navigation.addListener('focus', () => {
+            getMyPostsFirestore('users', userAuth.uid, 'posts')
+                .then((res) => {
+                    setMyPosts(res)
+                    setIsLoading(false)
+                    if (res == '') {
+                        setIsEmpty(true)
+                    }
+                })
+                .catch((e) => {
+                    console.log(e)
+                })
+        });
+
+        return unsubscribe;
+
     }, [])
+
+    const renderPost = () => {
+        if (isLoading == false) {
+            if (isEmpty) {
+                return (
+                    <View>
+                        <Text>You don't have any post</Text>
+                    </View>
+                )
+            }
+            else {
+                return (
+                    <FlatList
+                        style={profileStyles.myPosts}
+                        data={myPosts}
+                        renderItem={({ item, index }) => {
+                            return (
+                                <Post
+                                    title={item.data.title}
+                                    key={item.data.title}
+                                    desc={item.data.desc}
+                                    name={item.data.name}
+                                    photos={item.data.images}
+                                    adress={item.data.adress}
+                                    price={item.data.price}
+                                    navigation={navigation}
+                                    userId={item.data.userId}
+                                    location={item.data.location}
+                                    isFurnished={item.data.isFurnished}
+                                    room={item.data.room}
+                                    postId={item.id}
+                                    isHomePage={false}
+                                />
+                            )
+                        }}
+                    />
+                )
+
+            }
+        }
+        else {
+            return (
+                <ActivityIndicator size="large" color={themeColors.secondary} />
+
+            )
+        }
+    }
 
     return (
         <View style={profileStyles.main}>
@@ -42,32 +100,7 @@ const Profile = ({ navigation }) => {
                 <Text style={{ color: 'white' }}>My Posts</Text>
             </View>
             {
-                myPosts[0] ? (
-                    <FlatList
-                        style={profileStyles.myPosts}
-                        data={myPosts}
-                        renderItem={({ item, index }) => {
-                            return (
-                                <Post
-                                    title={item.title}
-                                    key={item.title}
-                                    desc={item.desc}
-                                    name={item.name}
-                                    photos={item.images}
-                                    adress={item.adress}
-                                    price={item.price}
-                                    navigation={navigation}
-                                    userId={item.userId}
-                                    location={item.location}
-                                    isFurnished={item.isFurnished}
-                                    room={item.room}
-                                />
-                            )
-                        }}
-                    />
-                ) : (
-                    <ActivityIndicator size="large" color={themeColors.secondary} />
-                )
+                renderPost()
             }
 
 

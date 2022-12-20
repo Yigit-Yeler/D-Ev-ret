@@ -1,4 +1,5 @@
 export const themeColors = {
     'primary': 'black',
-    'secondary': 'mediumorchid'
+    'secondary': 'mediumorchid',
+    'danger': '#ff4040'
 }

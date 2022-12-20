@@ -91,7 +91,6 @@ export const postStyles = StyleSheet.create({
         height: wp('14%'),
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: 'purple',
         borderRadius: wp('3%')
 
     }

@@ -45,22 +45,28 @@ const Home = ({ navigation }) => {
                 posts[0] ? (
                     <FlatList
                         data={posts}
-                        renderItem={({ item, index }) => (
-                            <Post
-                                title={item.title}
-                                key={item.title}
-                                desc={item.desc}
-                                name={item.name}
-                                photos={item.images}
-                                adress={item.adress}
-                                price={item.price}
-                                navigation={navigation}
-                                userId={item.userId}
-                                location={item.location}
-                                isFurnished={item.isFurnished}
-                                room={item.room}
-                            />
-                        )}
+                        renderItem={({ item, index }) => {
+                            return (
+                                <Post
+                                    title={item.data.title}
+                                    key={item.data.title}
+                                    desc={item.data.desc}
+                                    name={item.data.name}
+                                    photos={item.data.images}
+                                    adress={item.data.adress}
+                                    price={item.data.price}
+                                    navigation={navigation}
+                                    userId={item.data.userId}
+                                    location={item.data.location}
+                                    isFurnished={item.data.isFurnished}
+                                    room={item.data.room}
+                                    postId={item.id}
+                                    isHomePage={true}
+                                />
+                            )
+                        }
+
+                        }
                     />
                 ) : (
                     <ActivityIndicator size="large" color={themeColors.secondary} />

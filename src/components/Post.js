@@ -3,11 +3,12 @@ import React from 'react'
 import { postStyles } from './styles/postStyles'
 import { NavigationPathEnum } from '../../core/enum/navigationPathEnum'
 import { useSelector } from 'react-redux'
-import { createRoom, getRoomIsCreated, setChatUsers } from '../../core/firebase/firebaseFirestore'
+import { createRoom, deleteDocFirestore, deletePostByUser, getRoomIsCreated, setChatUsers } from '../../core/firebase/firebaseFirestore'
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
+import { themeColors } from '../../core/enum/themeColorsEnum'
 
 
-const Post = ({ navigation, userId, title, desc, name, photos, adress, price, location, isFurnished, room }) => {
+const Post = ({ navigation, isHomePage, postId, userId, title, desc, name, photos, adress, price, location, isFurnished, room }) => {
     const userAuth = useSelector(state => state.auth.userAuth)
     const userInfo = useSelector(state => state.userInfo.userInfo)
 
@@ -70,8 +71,53 @@ const Post = ({ navigation, userId, title, desc, name, photos, adress, price, lo
         )
     }
 
+    const deletePost = () => {
+        deleteDocFirestore('posts', postId)
+            .then(() => {
+                deletePostByUser('users', userAuth.uid, 'posts', postId)
+                    .then((res) => console.log(res))
+                    .catch((e) => console.log(e))
+            })
+            .catch((e) => {
+                console.log(e)
+            })
+    }
+
+    const returnButton = () => {
+        if (isHomePage) {
+            if (userAuth.uid == userId) {
+                return (
+                    <TouchableOpacity
+                        onPress={deletePost}
+                        style={[postStyles.sendMessageView, { backgroundColor: themeColors.danger }]}>
+                        <Text style={{ color: 'white' }}>Delete This Post</Text>
+                    </TouchableOpacity>
+                )
+
+            }
+            else {
+                return (
+                    <TouchableOpacity
+                        onPress={openChatScreen}
+                        style={[postStyles.sendMessageView, { backgroundColor: 'purple' }]}>
+                        <Text style={{ color: 'white' }}>Send Message</Text>
+                    </TouchableOpacity>
+                )
+            }
+        }
+        else {
+            return (
+                <TouchableOpacity
+                    onPress={deletePost}
+                    style={[postStyles.sendMessageView, { backgroundColor: themeColors.danger }]}>
+                    <Text style={{ color: 'white' }}>Delete This Post</Text>
+                </TouchableOpacity>
+            )
+        }
+    }
+
     return (
-        <View style={[postStyles.main, userAuth.uid == userId ? { height: wp('93%') * 1.35 } : {}]}>
+        <View style={postStyles.main}>
 
             <View style={postStyles.imgView}>
                 {photos[1] == undefined ? (
@@ -119,13 +165,7 @@ const Post = ({ navigation, userId, title, desc, name, photos, adress, price, lo
                     </View>
                 </View>
                 {
-                    userAuth.uid == userId ? (<View></View>) : (
-                        <TouchableOpacity
-                            onPress={openChatScreen}
-                            style={postStyles.sendMessageView}>
-                            <Text style={{ color: 'white' }}>Send Message</Text>
-                        </TouchableOpacity>
-                    )
+                    returnButton()
                 }
 
             </View>
