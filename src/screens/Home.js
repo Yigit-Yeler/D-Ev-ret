@@ -1,4 +1,4 @@
-import { View, Text, FlatList } from 'react-native'
+import { View, Text, FlatList, ActivityIndicator } from 'react-native'
 import React, { useEffect } from 'react'
 import { homeStyles } from '../styles/homeStyles'
 import Post from '../components/Post'
@@ -7,6 +7,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { setUser } from '../store/slices/userInfoSlice'
 import { setPosts } from '../store/slices/postsSlice'
 import { useState } from 'react'
+import { themeColors } from '../../core/enum/themeColorsEnum'
 
 const Home = ({ navigation }) => {
     const dispatch = useDispatch()
@@ -39,6 +40,7 @@ const Home = ({ navigation }) => {
 
     return (
         <View style={homeStyles.main}>
+
             {
                 posts[0] ? (
                     <FlatList
@@ -60,7 +62,9 @@ const Home = ({ navigation }) => {
                             />
                         )}
                     />
-                ) : (<View><Text>Loading...</Text></View>)
+                ) : (
+                    <ActivityIndicator size="large" color={themeColors.secondary} />
+                )
             }
 
         </View>
