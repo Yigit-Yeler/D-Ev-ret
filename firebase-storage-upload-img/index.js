@@ -1,6 +1,6 @@
 import { getDownloadURL, getStorage, ref, uploadBytes, uploadString } from "firebase/storage";
 
-export const uploadImg = async (data) => {
+export const uploadImgToFirebase = async (data) => {
     const storage = getStorage();
     return new Promise(async (resolve, rej) => {
         if (data.selected == undefined) {
@@ -32,27 +32,6 @@ export const uploadImg = async (data) => {
                 }
             });
         }
-
-
-
     })
-
-    const storageRef = ref(storage, 'myImg.jpg');
-
-
-
-    uploadBytes(storageRef, bytes).then((snapshot) => {
-        console.log('asdas')
-        getDownloadURL(storageRef).then((res) => {
-            console.log(res)
-        })
-    });
-
-
-
-    // const message4 = 'data:text/plain;base64,5b6p5Y+344GX44G+44GX44Gf77yB44GK44KB44Gn44Go44GG77yB';
-    // if (typeof data == 'object') {
-
-    // }
 
 } 

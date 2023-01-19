@@ -1,0 +1,18 @@
+{
+  "name": "firebase-storage-upload-img",
+  "version": "1.0.7",
+  "description": "If you use expo-image-picker for upload image to firebase, this library definitely for you.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "javascript",
+    "react-native-expo",
+    "expo",
+    "react",
+    "npm"
+  ],
+  "author": "Yiğit Yeler <yeleryigit40@gmail.com>",
+  "license": "ISC"
+}

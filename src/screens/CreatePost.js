@@ -12,7 +12,8 @@ import SelectPhotoButton from '../components/SelectPhotoButton'
 import { insertDataFirestore, insertNestedDataFirestore, insertPostFirestore } from '../../core/firebase/firebaseFirestore'
 import { clearLocation } from '../store/slices/locationSlice'
 import * as ImagePicker from 'expo-image-picker';
-import { uploadImg } from '../../core/firebase/firebaseStorage'
+// import { uploadImg } from '../../core/firebase/firebaseStorage'
+import { uploadImgToFirebase } from 'firebase-storage-upload-img'
 import { modalHandle } from '../../core/myModal/ModalHandle'
 const CreatePost = ({ navigation }) => {
     const dispatch = useDispatch()
@@ -83,7 +84,7 @@ const CreatePost = ({ navigation }) => {
     const submitPost = () => {
         let tmpData = { ...text, location }
         tmpData = { ...tmpData, 'name': userInfo.name }
-        uploadImg(selectedImages)
+        uploadImgToFirebase(selectedImages)
             .then((res) => {
                 tmpData = { ...tmpData, 'images': res }
                 insertPostFirestore('users', userAuth.uid, 'posts', tmpData)
