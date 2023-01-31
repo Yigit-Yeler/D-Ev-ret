@@ -1,7 +1,7 @@
+import 'react-native-gesture-handler';
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
 import Navigation from './navigation/Navigation';
-
 import { Provider } from 'react-redux';
 import { store } from './src/store';
 import './firebase/config';

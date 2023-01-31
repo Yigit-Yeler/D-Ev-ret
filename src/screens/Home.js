@@ -1,4 +1,4 @@
-import { View, Text, FlatList, ActivityIndicator } from 'react-native'
+import { View, Text, FlatList, ActivityIndicator, TouchableOpacity } from 'react-native'
 import React, { useEffect } from 'react'
 import { homeStyles } from '../styles/homeStyles'
 import Post from '../components/Post'
@@ -8,6 +8,7 @@ import { setUser } from '../store/slices/userInfoSlice'
 import { setPosts } from '../store/slices/postsSlice'
 import { useState } from 'react'
 import { themeColors } from '../../core/enum/themeColorsEnum'
+import FilterModal from '../components/FilterModal'
 
 const Home = ({ navigation }) => {
     const dispatch = useDispatch()
@@ -72,7 +73,7 @@ const Home = ({ navigation }) => {
                     <ActivityIndicator size="large" color={themeColors.secondary} />
                 )
             }
-
+            <FilterModal />
         </View>
     )
 }

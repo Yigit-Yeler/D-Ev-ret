@@ -2,6 +2,7 @@ import { View, Text } from 'react-native'
 import React from 'react'
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { createDrawerNavigator } from '@react-navigation/drawer';
 
 import Chat from '../src/screens/Chat';
 import SignIn from '../src/screens/SignIn';
@@ -15,7 +16,6 @@ import ShowLocation from '../src/screens/ShowLocation';
 import { themeColors } from '../core/enum/themeColorsEnum';
 
 const Stack = createNativeStackNavigator();
-
 const Navigation = () => {
     return (
         <NavigationContainer>
@@ -81,6 +81,7 @@ const Navigation = () => {
                     }}
                     component={Chat} />
             </Stack.Navigator>
+
         </NavigationContainer>
     )
 }
