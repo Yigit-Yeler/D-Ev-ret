@@ -90,7 +90,7 @@ const Post = ({ navigation, isHomePage, postId, userId, title, desc, name, photo
                     <TouchableOpacity
                         onPress={deletePost}
                         style={[postStyles.sendMessageView, { backgroundColor: themeColors.danger }]}>
-                        <Text style={{ color: 'white' }}>Delete This Post</Text>
+                        <Text style={{ color: 'white' }}>Gönderiyi Sil</Text>
                     </TouchableOpacity>
                 )
 
@@ -100,7 +100,7 @@ const Post = ({ navigation, isHomePage, postId, userId, title, desc, name, photo
                     <TouchableOpacity
                         onPress={openChatScreen}
                         style={[postStyles.sendMessageView, { backgroundColor: 'purple' }]}>
-                        <Text style={{ color: 'white' }}>Send Message</Text>
+                        <Text style={{ color: 'white' }}>Mesaj Gönder</Text>
                     </TouchableOpacity>
                 )
             }
@@ -110,7 +110,7 @@ const Post = ({ navigation, isHomePage, postId, userId, title, desc, name, photo
                 <TouchableOpacity
                     onPress={deletePost}
                     style={[postStyles.sendMessageView, { backgroundColor: themeColors.danger }]}>
-                    <Text style={{ color: 'white' }}>Delete This Post</Text>
+                    <Text style={{ color: 'white' }}>Gönderiyi Sil</Text>
                 </TouchableOpacity>
             )
         }
@@ -151,7 +151,7 @@ const Post = ({ navigation, isHomePage, postId, userId, title, desc, name, photo
                 <TouchableOpacity
                     onPress={showHomeLocation}
                     style={postStyles.location}>
-                    <Text style={{ color: 'white' }}>Location</Text>
+                    <Text style={{ color: 'white' }}>Konum</Text>
                 </TouchableOpacity>
             </View>
             <View style={postStyles.featuresView}>
@@ -161,7 +161,7 @@ const Post = ({ navigation, isHomePage, postId, userId, title, desc, name, photo
                         <Text style={{ color: 'white', paddingHorizontal: wp('3%') }}>{room}</Text>
                     </View>
                     <View>
-                        <Text style={{ color: 'white' }}>{price}</Text>
+                        <Text style={{ color: 'white' }}>{price} ₺</Text>
                     </View>
                 </View>
                 {

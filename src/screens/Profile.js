@@ -95,12 +95,12 @@ const Profile = ({ navigation }) => {
                     <TouchableOpacity
                         onPress={() => firebaseSignOut(navigation)}
                         style={profileStyles.logout}>
-                        <Text style={{ color: 'white' }}>Log Out</Text>
+                        <Text style={{ color: 'white' }}>Çıkış Yap</Text>
                     </TouchableOpacity>
                 </View>
             </View>
             <View style={profileStyles.myPostsHeader}>
-                <Text style={{ color: 'white' }}>My Posts</Text>
+                <Text style={{ color: 'white' }}>Postlarım</Text>
             </View>
             {
                 renderPost()

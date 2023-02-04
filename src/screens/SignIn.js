@@ -44,12 +44,14 @@ const SignIn = ({ navigation }) => {
     const signInHandle = () => {
         firebaseSignIn(userInfo)
             .then((res) => {
+                setResText("Giriş Yapıldı!")
                 setIsSuccess(1)
-                dispatch(signIn(res))
                 setVisible(true)
+                dispatch(signIn(res))
+
             })
             .catch((e) => {
-                setResText(e.toString())
+                setResText("Email veya Şifreniz Yanlış")
                 setIsSuccess(2)
                 setVisible(true)
             })
@@ -74,17 +76,17 @@ const SignIn = ({ navigation }) => {
                     onChangeText={(text) => handleTextInputs(text, 'email')}
                 />
                 <TextInput
-                    placeholder='Password'
+                    placeholder='Şifre'
                     style={signInStyles.textInput}
                     onChangeText={(text) => handleTextInputs(text, 'password')}
                 />
             </View>
             <View style={signInStyles.signUpView}>
-                <ApproveButton text={'Sign In'} onPress={signInHandle} />
+                <ApproveButton text={'Giriş Yap'} onPress={signInHandle} />
             </View>
             <BottomText
-                text={"You don't have any account!"}
-                clickText={'Sign Up'}
+                text={"Bir hesabınız yok mu?"}
+                clickText={'Kayıt Olun'}
                 onPress={navigateToSignUp}
             />
 

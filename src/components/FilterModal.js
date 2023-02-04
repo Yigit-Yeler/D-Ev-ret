@@ -12,9 +12,9 @@ const FilterModal = ({ isVisible, sortHighToLow, sortLowToHigh, closeModal }) =>
             backdropOpacity={0}
         >
             <View style={filterModalStyles.main}>
-                <ApproveButton text={'High Price To Low'} onPress={sortHighToLow} />
-                <ApproveButton text={'Low Price To High'} onPress={sortLowToHigh} />
-                <ApproveButton text={'Close'} onPress={closeModal} isDanger={true} />
+                <ApproveButton text={'Yüksek Fiyattan Düşük Fiyata Sırala'} onPress={sortHighToLow} />
+                <ApproveButton text={'Düşük Fiyattan Yüksek Fiyata Sırala'} onPress={sortLowToHigh} />
+                <ApproveButton text={'Kapat'} onPress={closeModal} isDanger={true} />
             </View>
         </Modal>
     )

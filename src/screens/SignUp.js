@@ -77,12 +77,12 @@ const SignUp = ({ navigation }) => {
             }
 
             <TextInput
-                placeholder='Name'
+                placeholder='İsim'
                 style={signUpStyles.textInput}
                 onChangeText={(text) => handleTextInputs(text, 'name')}
             />
             <TextInput
-                placeholder='Surname'
+                placeholder='Soy İsim'
                 style={signUpStyles.textInput}
                 onChangeText={(text) => handleTextInputs(text, 'surname')}
             />
@@ -92,21 +92,21 @@ const SignUp = ({ navigation }) => {
                 onChangeText={(text) => handleTextInputs(text, 'email')}
             />
             <TextInput
-                placeholder='Password'
+                placeholder='Şifre'
                 style={signUpStyles.textInput}
                 onChangeText={(text) => handleTextInputs(text, 'password')}
             />
             <TextInput
-                placeholder='Password Again'
+                placeholder='Şifre Tekrar'
                 style={signUpStyles.textInput}
                 onChangeText={(text) => { setRePassword(text) }}
             />
 
             <View style={signUpStyles.signUpView}>
-                <ApproveButton text={'Sign Up'} onPress={signUpHandle} />
+                <ApproveButton text={'Kayıt Ol'} onPress={signUpHandle} />
             </View>
 
-            <BottomText text={'Have you already an acount?'} clickText={'Sign In'}
+            <BottomText text={'Zaten bir hesabınız var mı?'} clickText={'Giriş Yapın'}
                 onPress={navigateToSignIn} />
 
         </View>

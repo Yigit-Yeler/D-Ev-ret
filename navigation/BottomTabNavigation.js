@@ -23,7 +23,7 @@ const BottomTabNavigation = () => {
                 name="Home"
                 component={Home}
                 options={{
-                    tabBarLabel: 'Home',
+                    tabBarLabel: 'Ana Sayfa',
                     tabBarIcon: ({ color }) => (
                         <MaterialCommunityIcons name="home" color={color} size={26} />
                     ),
@@ -33,7 +33,7 @@ const BottomTabNavigation = () => {
                 name="CreatePost"
                 component={CreatePost}
                 options={{
-                    tabBarLabel: 'Create Post',
+                    tabBarLabel: 'Paylaş',
                     tabBarIcon: ({ color }) => (
                         <MaterialCommunityIcons name="plus-box" color={color} size={26} />
                     ),
@@ -43,7 +43,7 @@ const BottomTabNavigation = () => {
                 name="MyDm"
                 component={MyDm}
                 options={{
-                    tabBarLabel: 'Messages',
+                    tabBarLabel: 'Mesajlar',
                     tabBarIcon: ({ color }) => (
                         <MaterialCommunityIcons name="message-text" color={color} size={26} />
                     ),
@@ -53,7 +53,7 @@ const BottomTabNavigation = () => {
                 name="Profile"
                 component={Profile}
                 options={{
-                    tabBarLabel: 'Profile',
+                    tabBarLabel: 'Profil',
                     tabBarIcon: ({ color }) => (
                         <MaterialCommunityIcons name="account" color={color} size={26} />
                     ),

@@ -62,12 +62,12 @@ const SelectLocation = ({ navigation }) => {
             >
                 {
                     location.latitude ? (
-                        <ApproveButton text={'Done'} onPress={done} />
+                        <ApproveButton text={'Seç'} onPress={done} />
 
                     )
                         :
                         (
-                            <ApproveButton text={'Done'} onPress={done} isDisable={true} />
+                            <ApproveButton text={'Seç'} onPress={done} isDisable={true} />
 
                         )
                 }

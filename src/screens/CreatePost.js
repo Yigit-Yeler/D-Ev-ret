@@ -99,13 +99,13 @@ const CreatePost = ({ navigation }) => {
                 tmpData = { ...tmpData, 'images': res }
                 insertPostFirestore('users', userAuth.uid, 'posts', tmpData)
                     .then((res) => {
-                        setResText(res)
+                        setResText("Gönderi Paylaşıldı!")
                         setIsSuccess(1)
                         setVisible(true)
                         dispatch(clearLocation())
                     })
                     .catch((e) => {
-                        setResText(e.toString())
+                        setResText("Gönderi Paylaşılamadı :(")
                         setIsSuccess(2)
                     })
             })
@@ -154,8 +154,8 @@ const CreatePost = ({ navigation }) => {
                 onChangeText={(text) => handleTextInputs(text, 'price')}
             />
             <View style={createPostStyles.dropDownButtonsView}>
-                <MyDropDownButton placeholder={'Furnish'} data={furnished} value={text.isFurnished} handleDropDown={handleDropDownF} />
-                <MyDropDownButton placeholder={'Rooms'} data={rooms} value={text.room} handleDropDown={handleDropDownR} />
+                <MyDropDownButton placeholder={'Eşya'} data={furnished} value={text.isFurnished} handleDropDown={handleDropDownF} />
+                <MyDropDownButton placeholder={'Oda'} data={rooms} value={text.room} handleDropDown={handleDropDownR} />
             </View>
             <View
                 style={createPostStyles.mapAndPhotoView}
@@ -198,7 +198,7 @@ const CreatePost = ({ navigation }) => {
                 <SelectPhotoButton photos={selectedImages} onPress={() => pickImage} />
             </View>
 
-            <ApproveButton onPress={submitPost} text={'Share'} />
+            <ApproveButton onPress={submitPost} text={'Paylaş'} />
 
         </View>
     )

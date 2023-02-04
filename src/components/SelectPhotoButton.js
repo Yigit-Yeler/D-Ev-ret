@@ -49,7 +49,7 @@ const SelectPhotoButton = ({ photos, onPress }) => {
                         style={selectPhotoButtonStyles.selectPhotoButton}
                         onPress={onPress()}
                     >
-                        <Text style={{ color: 'white' }}>Select Photos</Text>
+                        <Text style={{ color: 'white' }}>Fotoğraf Seçin</Text>
                     </TouchableOpacity>
                 )
             }

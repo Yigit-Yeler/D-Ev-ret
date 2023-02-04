@@ -42,7 +42,6 @@ const Chat = ({ route, navigation }) => {
                 if (chat == []) {
                     deleteDocFirestore('rooms', roomId)
                         .then((res) => {
-                            console.log(res)
                         })
                         .catch((e) => {
                             console.log(e)
@@ -125,7 +124,7 @@ const Chat = ({ route, navigation }) => {
             </View>
             <View style={chatStyles.messageInput}>
                 <TextInput
-                    placeholder='Enter Message'
+                    placeholder='Mesajı Griniz'
                     value={message.message}
                     onChangeText={(text) => textHandle(text)}
                     style={chatStyles.textInput}
