@@ -20,7 +20,7 @@ const SuccessModal = ({ onPress, title, text, isVisible }) => {
                         onPress()
                     }}
                 >
-                    <Text>Close</Text>
+                    <Text>Kapat</Text>
                 </TouchableOpacity>
             </View>
         </Modal>
