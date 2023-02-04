@@ -6,10 +6,12 @@ const { primary, secondary } = themeColors
 export const filterModalStyles = StyleSheet.create({
     main: {
         width: wp('100%'),
-        height: hp('80%'),
+        height: hp('40%'),
         backgroundColor: 'white',
         borderTopEndRadius: wp('100%') / 10,
         borderTopStartRadius: wp('100%') / 10,
-        opacity: 0.8
+        opacity: 0.8,
+        justifyContent: 'space-evenly',
+        alignItems: 'center'
     },
 });

@@ -2,19 +2,22 @@ import { View, Text, FlatList, ActivityIndicator, TouchableOpacity } from 'react
 import React, { useEffect } from 'react'
 import { homeStyles } from '../styles/homeStyles'
 import Post from '../components/Post'
-import { getDataFirestore } from '../../core/firebase/firebaseFirestore'
+import { getDataFirestore, sortPrice } from '../../core/firebase/firebaseFirestore'
 import { useSelector, useDispatch } from 'react-redux'
 import { setUser } from '../store/slices/userInfoSlice'
 import { setPosts } from '../store/slices/postsSlice'
 import { useState } from 'react'
 import { themeColors } from '../../core/enum/themeColorsEnum'
 import FilterModal from '../components/FilterModal'
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+
 
 const Home = ({ navigation }) => {
     const dispatch = useDispatch()
     const userAuth = useSelector(state => state.auth.userAuth)
     // const posts = useSelector(state => state.posts.posts)
     const [posts, setPosts] = useState([])
+    const [filterVisible, setFilterVisible] = useState(false)
     useEffect(() => {
         const unsubscribe = navigation.addListener('focus', () => {
             getDataFirestore('posts')
@@ -39,9 +42,38 @@ const Home = ({ navigation }) => {
 
     }, [])
 
+    const closeModal = () => {
+        setFilterVisible(false)
+    }
+
+    const sortHighToLow = () => {
+        sortPrice('posts', 'desc')
+            .then((res) => {
+                setPosts(res)
+            })
+            .catch((e) => {
+                console.log(e)
+            })
+    }
+
+    const sortLowToHigh = () => {
+        sortPrice('posts', 'asc')
+            .then((res) => {
+                setPosts(res)
+            })
+            .catch((e) => {
+                console.log(e)
+            })
+    }
+
     return (
         <View style={homeStyles.main}>
-
+            <FilterModal
+                isVisible={filterVisible}
+                closeModal={closeModal}
+                sortHighToLow={sortHighToLow}
+                sortLowToHigh={sortLowToHigh}
+            />
             {
                 posts[0] ? (
                     <FlatList
@@ -73,7 +105,12 @@ const Home = ({ navigation }) => {
                     <ActivityIndicator size="large" color={themeColors.secondary} />
                 )
             }
-            <FilterModal />
+            <TouchableOpacity
+                style={homeStyles.filterButton}
+                onPress={() => setFilterVisible(true)}
+            >
+                <MaterialCommunityIcons name='filter-outline' size={35} />
+            </TouchableOpacity>
         </View>
     )
 }

@@ -1,4 +1,4 @@
-import { setDoc, addDoc, getDoc, doc, getFirestore, collection, collectionGroup, getDocs, deleteDoc } from 'firebase/firestore'
+import { setDoc, query, addDoc, orderBy, getDoc, doc, getFirestore, collection, collectionGroup, getDocs, deleteDoc } from 'firebase/firestore'
 
 
 export const insertDataFirestore = (
@@ -342,4 +342,30 @@ export const getMyPostsFirestore = (
             })
     })
 
+}
+
+export const sortPrice = (
+    coll,
+    type
+) => {
+    const db = getFirestore()
+    const q = query(collection(db, coll), orderBy('price', type));
+    return new Promise(async (resolve, rej) => {
+        getDocs(q)
+            .then((elements) => {
+                let datas = []
+                elements.forEach((item) => {
+                    let pushData = {
+                        'id': item.id,
+                        'data': item.data()
+                    }
+                    datas.push(pushData)
+                })
+                resolve(datas)
+
+            })
+            .catch((e) => {
+                rej(e)
+            })
+    })
 }

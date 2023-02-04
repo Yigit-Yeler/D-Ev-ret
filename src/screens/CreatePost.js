@@ -47,11 +47,21 @@ const CreatePost = ({ navigation }) => {
     ];
 
     const handleTextInputs = (value, name) => {
-        let updatedValue = { [name]: value };
-        setText(text => ({
-            ...text,
-            ...updatedValue
-        }));
+        if (name == 'price') {
+            let updatedValue = { [name]: Number(value) };
+            setText(text => ({
+                ...text,
+                ...updatedValue
+            }));
+        }
+        else {
+            let updatedValue = { [name]: value };
+            setText(text => ({
+                ...text,
+                ...updatedValue
+            }));
+        }
+
     }
 
     const handleDropDownF = (value) => {
@@ -138,13 +148,14 @@ const CreatePost = ({ navigation }) => {
             />
 
             <TextInput
+                keyboardType='phone-pad'
                 placeholder='Fiyat'
                 style={textInputStyles.textInput}
                 onChangeText={(text) => handleTextInputs(text, 'price')}
             />
             <View style={createPostStyles.dropDownButtonsView}>
-                <MyDropDownButton data={furnished} value={text.isFurnished} handleDropDown={handleDropDownF} />
-                <MyDropDownButton data={rooms} value={text.room} handleDropDown={handleDropDownR} />
+                <MyDropDownButton placeholder={'Furnish'} data={furnished} value={text.isFurnished} handleDropDown={handleDropDownF} />
+                <MyDropDownButton placeholder={'Rooms'} data={rooms} value={text.room} handleDropDown={handleDropDownR} />
             </View>
             <View
                 style={createPostStyles.mapAndPhotoView}
