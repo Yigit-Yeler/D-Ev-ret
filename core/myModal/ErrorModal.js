@@ -12,7 +12,7 @@ const ErrorModal = ({ onPress, title, text, isVisible }) => {
             <View style={errorModalStyles.main}>
 
                 <Text style={errorModalStyles.titleText}>ERROR</Text>
-                <Text>{text}</Text>
+                <Text style={{ color: 'white' }}>{text}</Text>
 
                 <TouchableOpacity
                     style={errorModalStyles.button}
@@ -20,7 +20,7 @@ const ErrorModal = ({ onPress, title, text, isVisible }) => {
                         onPress()
                     }}
                 >
-                    <Text>Kapat</Text>
+                    <Text style={{ color: 'white' }}>Kapat</Text>
                 </TouchableOpacity>
             </View>
         </Modal>

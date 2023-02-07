@@ -43,15 +43,33 @@ const SignUp = ({ navigation }) => {
             await firebaseSignUp(userInfo)
                 .then((res) => {
                     setIsSuccess(1)
+                    setResText('Kayıt Başarılı')
                     dispatch(signUp(res))
                     setVisible(true)
                     insertDataFirestore('users', userInfo, res.uid,)
                 })
                 .catch((e) => {
-                    setResText(e.toString())
+                    if (e.toString().includes('Password should be at least 6 characters')) {
+                        setResText("Şifreniz en az 6 karakter olmalıdır!")
+                    }
+                    else if (e.toString().includes('auth/invalid-email')) {
+                        setResText("Email formatı düzgün değil!")
+                    }
+                    else if (e.toString().includes('auth/email-already-in-use')) {
+                        setResText("Bu email zaten sistemde kayıtlı!")
+                    }
+                    else {
+                        setResText(e.toString())
+
+                    }
                     setIsSuccess(2)
                     setVisible(true)
                 })
+        }
+        else {
+            setResText("Şifreler uyuşmuyor!")
+            setIsSuccess(2)
+            setVisible(true)
         }
     }
 

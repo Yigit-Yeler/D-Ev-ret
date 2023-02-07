@@ -22,6 +22,7 @@ export const errorModalStyles = StyleSheet.create({
         borderRadius: usualWidth * 0.07
     },
     titleText: {
-        fontSize: usualWidth * 0.1
+        fontSize: usualWidth * 0.1,
+        color: 'white'
     }
 })

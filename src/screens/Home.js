@@ -109,7 +109,7 @@ const Home = ({ navigation }) => {
                 style={homeStyles.filterButton}
                 onPress={() => setFilterVisible(true)}
             >
-                <MaterialCommunityIcons name='filter-outline' size={35} />
+                <MaterialCommunityIcons name='filter-outline' color={'white'} size={35} />
             </TouchableOpacity>
         </View>
     )

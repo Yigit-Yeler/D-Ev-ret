@@ -12,7 +12,7 @@ const SuccessModal = ({ onPress, title, text, isVisible }) => {
             <View style={successModalStyles.main}>
 
                 <Text style={successModalStyles.titleText}>SUCCESS</Text>
-                <Text>{text}</Text>
+                <Text style={{ color: 'white' }}>{text}</Text>
 
                 <TouchableOpacity
                     style={successModalStyles.button}
@@ -20,7 +20,7 @@ const SuccessModal = ({ onPress, title, text, isVisible }) => {
                         onPress()
                     }}
                 >
-                    <Text>Kapat</Text>
+                    <Text style={{ color: 'white' }}>Kapat</Text>
                 </TouchableOpacity>
             </View>
         </Modal>
