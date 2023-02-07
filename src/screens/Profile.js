@@ -40,7 +40,7 @@ const Profile = ({ navigation }) => {
             if (isEmpty) {
                 return (
                     <View>
-                        <Text>You don't have any post</Text>
+                        <Text>Henüz bir gönderi paylaşmadınız.</Text>
                     </View>
                 )
             }

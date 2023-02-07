@@ -76,6 +76,7 @@ const SignIn = ({ navigation }) => {
                     onChangeText={(text) => handleTextInputs(text, 'email')}
                 />
                 <TextInput
+                    secureTextEntry={true}
                     placeholder='Şifre'
                     style={signInStyles.textInput}
                     onChangeText={(text) => handleTextInputs(text, 'password')}

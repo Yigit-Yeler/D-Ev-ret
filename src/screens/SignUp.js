@@ -110,11 +110,13 @@ const SignUp = ({ navigation }) => {
                 onChangeText={(text) => handleTextInputs(text, 'email')}
             />
             <TextInput
+                secureTextEntry={true}
                 placeholder='Şifre'
                 style={signUpStyles.textInput}
                 onChangeText={(text) => handleTextInputs(text, 'password')}
             />
             <TextInput
+                secureTextEntry={true}
                 placeholder='Şifre Tekrar'
                 style={signUpStyles.textInput}
                 onChangeText={(text) => { setRePassword(text) }}

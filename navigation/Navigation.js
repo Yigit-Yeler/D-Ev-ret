@@ -38,7 +38,7 @@ const Navigation = () => {
                 <Stack.Screen
                     name="SignUp"
                     options={{
-                        title: 'Sign Up',
+                        title: 'Kayıt Ol',
                         headerStyle: {
                             backgroundColor: themeColors.secondary,
                         },
@@ -50,7 +50,7 @@ const Navigation = () => {
                 />
                 <Stack.Screen name="SignIn"
                     options={{
-                        title: 'Sign In',
+                        title: 'Giriş Yap',
                         headerStyle: {
                             backgroundColor: themeColors.secondary,
                         },
