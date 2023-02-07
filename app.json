@@ -2,7 +2,7 @@
   "expo": {
     "name": "Ev Devir",
     "slug": "house-transferer",
-    "version": "1.0.1",
+    "version": "1.0.2",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
@@ -42,7 +42,7 @@
         "android.permission.RECORD_AUDIO"
       ],
       "package": "com.etopes.housetransferer",
-      "versionCode": 2
+      "versionCode": 5
     },
     "web": {
       "favicon": "./assets/favicon.png"
