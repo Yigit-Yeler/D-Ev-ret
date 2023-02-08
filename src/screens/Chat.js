@@ -1,4 +1,4 @@
-import { View, Text, FlatList, TouchableOpacity, TextInput } from 'react-native'
+import { View, Text, FlatList, TouchableOpacity, TextInput, Keyboard, SafeAreaView } from 'react-native'
 import React from 'react'
 import { chatStyles } from '../styles/chatStyles'
 import { useEffect } from 'react'
@@ -11,6 +11,7 @@ import { orderBy, Timestamp } from 'firebase/firestore';
 import { createRoom, deleteDocFirestore, getMessagesFirestore, insertMessageFirestore, setChatUsers, setLastMessage } from '../../core/firebase/firebaseFirestore'
 import { collection, getFirestore, onSnapshot, query } from 'firebase/firestore';
 import { useRef } from 'react';
+import { heightPercentageToDP as hp } from 'react-native-responsive-screen';
 const Chat = ({ route, navigation }) => {
     const flatList = useRef(null);
     const { postOwnerId, roomId, postOwnerName } = route.params
@@ -21,6 +22,8 @@ const Chat = ({ route, navigation }) => {
         'message': '',
         'uid': userAuth.uid
     })
+    const [isKeyboardVisible, setKeyboardVisible] = useState(false);
+    const [keybordHeight, setKeyboardHeight] = useState(0);
 
     useEffect(() => {
         const db = getFirestore()
@@ -34,6 +37,27 @@ const Chat = ({ route, navigation }) => {
             setChat(messages)
         }, [])
 
+    }, []);
+
+
+    useEffect(() => {
+        const keyboardDidShowListener = Keyboard.addListener(
+            'keyboardDidShow',
+            (e) => {
+                setKeyboardVisible(true);
+            }
+        );
+        const keyboardDidHideListener = Keyboard.addListener(
+            'keyboardDidHide',
+            () => {
+                setKeyboardVisible(false);
+            }
+        );
+
+        return () => {
+            keyboardDidHideListener.remove();
+            keyboardDidShowListener.remove();
+        };
     }, []);
 
     useFocusEffect(
@@ -104,8 +128,8 @@ const Chat = ({ route, navigation }) => {
     }
 
     return (
-        <View style={chatStyles.main}>
-            <View style={chatStyles.flatView}>
+        <SafeAreaView style={chatStyles.main}>
+            <View style={[chatStyles.flatView, isKeyboardVisible ? { height: hp('52%') } : {}]}>
                 <FlatList
                     data={chat}
                     keyExtractor={(item, index) => index.toString()}
@@ -119,7 +143,9 @@ const Chat = ({ route, navigation }) => {
                         )
                     }}
                     ref={flatList}
-                    onContentSizeChange={() => flatList.current.scrollToEnd()}
+                    onContentSizeChange={() => flatList.current.scrollToEnd({ animated: true })}
+                    onLayout={() => flatList.current.scrollToEnd({ animated: true })}
+
                 />
             </View>
             <View style={chatStyles.messageInput}>
@@ -136,7 +162,7 @@ const Chat = ({ route, navigation }) => {
                     <Ionicons name="paper-plane" size={32} color="purple" />
                 </TouchableOpacity>
             </View>
-        </View>
+        </SafeAreaView>
     )
 }
 

@@ -68,7 +68,7 @@ const Navigation = () => {
                             color: 'white'
                         },
                     }}
-                    name="Ev Devir" component={BottomTabNavigation} />
+                    name="D-Ev-ret" component={BottomTabNavigation} />
                 <Stack.Screen
                     name="Show Location"
                     options={{
