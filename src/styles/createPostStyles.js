@@ -6,10 +6,10 @@ const usualWidth = wp('100%')
 const usualHeight = hp('20%')
 export const createPostStyles = StyleSheet.create({
     main: {
-        flex: 1,
         backgroundColor: 'white',
         alignItems: 'center',
-        justifyContent: 'space-evenly'
+        justifyContent: 'space-evenly',
+        height: hp('100%')
     },
     dropDownButtonsView: {
         width: usualWidth,

@@ -1,4 +1,4 @@
-import { View, TextInput } from 'react-native'
+import { View, TextInput, ActivityIndicator } from 'react-native'
 import React, { useState } from 'react'
 import { signInStyles } from '../styles/signInStyles'
 import ApproveButton from '../components/ApproveButton'
@@ -8,6 +8,7 @@ import { modalHandle } from '../../core/myModal/ModalHandle'
 import { NavigationPathEnum } from '../../core/enum/navigationPathEnum'
 import { useDispatch } from 'react-redux'
 import { signIn } from '../store/slices/authSlice'
+import { themeColors } from '../../core/enum/themeColorsEnum'
 
 
 const SignIn = ({ navigation }) => {
@@ -20,6 +21,7 @@ const SignIn = ({ navigation }) => {
     const [isSuccess, setIsSuccess] = useState(0)
     const [resText, setResText] = useState('')
     const [visible, setVisible] = useState(true)
+    const [ready, setReady] = useState(false)
 
     const handleTextInputs = (value, name) => {
         let updatedValue = { [name]: value };
@@ -42,6 +44,7 @@ const SignIn = ({ navigation }) => {
 
     // "firebase": "^9.9.3",
     const signInHandle = () => {
+        setReady(true)
         firebaseSignIn(userInfo)
             .then((res) => {
                 setResText("Giriş Yapıldı!")
@@ -54,6 +57,7 @@ const SignIn = ({ navigation }) => {
                 setResText("Email veya Şifreniz Yanlış")
                 setIsSuccess(2)
                 setVisible(true)
+                setReady(false)
             })
     }
 
@@ -83,7 +87,14 @@ const SignIn = ({ navigation }) => {
                 />
             </View>
             <View style={signInStyles.signUpView}>
-                <ApproveButton text={'Giriş Yap'} onPress={signInHandle} />
+                {
+                    ready ? (
+                        <ActivityIndicator size="large" color={themeColors.secondary} />
+                    ) : (
+                        <ApproveButton text={'Giriş Yap'} onPress={signInHandle} />
+                    )
+                }
+
             </View>
             <BottomText
                 text={"Bir hesabınız yok mu?"}

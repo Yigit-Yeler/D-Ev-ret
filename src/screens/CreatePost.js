@@ -1,4 +1,4 @@
-import { View, Text, TextInput, TouchableOpacity, ScrollView } from 'react-native'
+import { View, Text, TextInput, TouchableOpacity, ScrollView, ActivityIndicator } from 'react-native'
 import React, { useState } from 'react'
 import { createPostStyles } from '../styles/createPostStyles'
 import { textInputStyles } from '../components/styles/textInputStyles'
@@ -15,6 +15,8 @@ import * as ImagePicker from 'expo-image-picker';
 // import { uploadImg } from '../../core/firebase/firebaseStorage'
 import { uploadImgToFirebase } from 'firebase-storage-upload-img'
 import { modalHandle } from '../../core/myModal/ModalHandle'
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
+import { themeColors } from '../../core/enum/themeColorsEnum'
 const CreatePost = ({ navigation }) => {
     const dispatch = useDispatch()
     const location = useSelector(state => state.location.location)
@@ -24,6 +26,7 @@ const CreatePost = ({ navigation }) => {
     const [isSuccess, setIsSuccess] = useState(0)
     const [resText, setResText] = useState('')
     const [visible, setVisible] = useState(true)
+    const [ready, setReady] = useState(false)
     const [text, setText] = useState({
         'title': '',
         'desc': '',
@@ -92,6 +95,7 @@ const CreatePost = ({ navigation }) => {
     }
 
     const submitPost = () => {
+        setReady(true)
         let tmpData = { ...text, location }
         tmpData = { ...tmpData, 'name': userInfo.name }
         uploadImgToFirebase(selectedImages)
@@ -126,81 +130,88 @@ const CreatePost = ({ navigation }) => {
     };
 
     return (
+        <KeyboardAwareScrollView>
+            <View style={createPostStyles.main}>
+                {
+                    modalHandle(resText, visible, isSuccess, modalEvents)
+                }
+                <TextInput
+                    placeholder='Başlık'
+                    style={textInputStyles.textInput}
+                    onChangeText={(text) => handleTextInputs(text, 'title')}
+                />
+                <TextInput
+                    placeholder='Açıklama'
+                    style={textInputStyles.textInput}
+                    onChangeText={(text) => handleTextInputs(text, 'desc')}
+                />
+                <TextInput
+                    placeholder='Adres'
+                    style={textInputStyles.textInput}
+                    onChangeText={(text) => handleTextInputs(text, 'adress')}
+                />
 
-        <View style={createPostStyles.main}>
-            {
-                modalHandle(resText, visible, isSuccess, modalEvents)
-            }
-            <TextInput
-                placeholder='Başlık'
-                style={textInputStyles.textInput}
-                onChangeText={(text) => handleTextInputs(text, 'title')}
-            />
-            <TextInput
-                placeholder='Açıklama'
-                style={textInputStyles.textInput}
-                onChangeText={(text) => handleTextInputs(text, 'desc')}
-            />
-            <TextInput
-                placeholder='Adres'
-                style={textInputStyles.textInput}
-                onChangeText={(text) => handleTextInputs(text, 'adress')}
-            />
-
-            <TextInput
-                keyboardType='phone-pad'
-                placeholder='Fiyat'
-                style={textInputStyles.textInput}
-                onChangeText={(text) => handleTextInputs(text, 'price')}
-            />
-            <View style={createPostStyles.dropDownButtonsView}>
-                <MyDropDownButton placeholder={'Eşya'} data={furnished} value={text.isFurnished} handleDropDown={handleDropDownF} />
-                <MyDropDownButton placeholder={'Oda'} data={rooms} value={text.room} handleDropDown={handleDropDownR} />
-            </View>
-            <View
-                style={createPostStyles.mapAndPhotoView}
-            >
-                <TouchableOpacity
-                    onPress={() => { navigation.navigate(NavigationPathEnum.selectLocation) }}
-                    style={createPostStyles.selectLocation}>
-                    {
-                        location.latitude ? (
-                            <MapView
-                                style={createPostStyles.mapView}
-                                region={{
-                                    latitude: location.latitude,
-                                    longitude: location.longitude,
-                                    latitudeDelta: 0.0001,
-                                    longitudeDelta: 0.0001,
-                                }}
-                                zoomEnabled={false}
-                                scrollEnabled={false}
-                            >
-                                <Marker
-                                    coordinate={location}
-                                />
-                            </MapView>
-                        ) :
-                            (
+                <TextInput
+                    keyboardType='phone-pad'
+                    placeholder='Fiyat'
+                    style={textInputStyles.textInput}
+                    onChangeText={(text) => handleTextInputs(text, 'price')}
+                />
+                <View style={createPostStyles.dropDownButtonsView}>
+                    <MyDropDownButton placeholder={'Eşya'} data={furnished} value={text.isFurnished} handleDropDown={handleDropDownF} />
+                    <MyDropDownButton placeholder={'Oda'} data={rooms} value={text.room} handleDropDown={handleDropDownR} />
+                </View>
+                <View
+                    style={createPostStyles.mapAndPhotoView}
+                >
+                    <TouchableOpacity
+                        onPress={() => { navigation.navigate(NavigationPathEnum.selectLocation) }}
+                        style={createPostStyles.selectLocation}>
+                        {
+                            location.latitude ? (
                                 <MapView
                                     style={createPostStyles.mapView}
                                     region={{
-                                        latitude: 17.6868,
-                                        longitude: 83.2185,
-                                        latitudeDelta: 10,
-                                        longitudeDelta: 10
+                                        latitude: location.latitude,
+                                        longitude: location.longitude,
+                                        latitudeDelta: 0.0001,
+                                        longitudeDelta: 0.0001,
                                     }}
-                                />
-                            )
-                    }
+                                    zoomEnabled={false}
+                                    scrollEnabled={false}
+                                >
+                                    <Marker
+                                        coordinate={location}
+                                    />
+                                </MapView>
+                            ) :
+                                (
+                                    <MapView
+                                        style={createPostStyles.mapView}
+                                        region={{
+                                            latitude: 17.6868,
+                                            longitude: 83.2185,
+                                            latitudeDelta: 10,
+                                            longitudeDelta: 10
+                                        }}
+                                    />
+                                )
+                        }
 
-                </TouchableOpacity>
-                <SelectPhotoButton photos={selectedImages} onPress={() => pickImage} />
+                    </TouchableOpacity>
+                    <SelectPhotoButton photos={selectedImages} onPress={() => pickImage} />
+                </View>
+                {
+                    ready ? (
+                        <ActivityIndicator size="large" color={themeColors.secondary} />
+                    ) : (
+                        <ApproveButton onPress={submitPost} text={'Paylaş'} />
+                    )
+                }
+
+
             </View>
-
-            <ApproveButton onPress={submitPost} text={'Paylaş'} />
-
-        </View>
+        </KeyboardAwareScrollView>
     )
 }
 

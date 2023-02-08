@@ -1,4 +1,4 @@
-import { View, Text, TextInput, TouchableOpacity } from 'react-native'
+import { View, Text, TextInput, TouchableOpacity, KeyboardAvoidingView, Platform, TouchableWithoutFeedback, Keyboard, ActivityIndicator } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { signUpStyles } from '../styles/signUpStyles'
 import ApproveButton from '../components/ApproveButton'
@@ -10,6 +10,7 @@ import { signUp } from '../store/slices/authSlice'
 import BottomText from '../components/BottomText'
 import { modalHandle } from '../../core/myModal/ModalHandle'
 import { themeColors } from '../../core/enum/themeColorsEnum'
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 const SignUp = ({ navigation }) => {
     const { primary, secondary } = themeColors
     const dispatch = useDispatch()
@@ -18,6 +19,7 @@ const SignUp = ({ navigation }) => {
     const [isSuccess, setIsSuccess] = useState(0) // 0: loading, 1: success, 2: error
     const [resText, setResText] = useState('')
     const [visible, setVisible] = useState(true)
+    const [ready, setReady] = useState(false)
 
     const [rePassword, setRePassword] = useState('')
     const [userInfo, setUserInfo] = useState({
@@ -39,6 +41,7 @@ const SignUp = ({ navigation }) => {
     }
 
     const signUpHandle = async () => {
+        setReady(true)
         if (userInfo.password == rePassword) {
             await firebaseSignUp(userInfo)
                 .then((res) => {
@@ -49,6 +52,7 @@ const SignUp = ({ navigation }) => {
                     insertDataFirestore('users', userInfo, res.uid,)
                 })
                 .catch((e) => {
+                    setReady(false)
                     if (e.toString().includes('Password should be at least 6 characters')) {
                         setResText("Şifreniz en az 6 karakter olmalıdır!")
                     }
@@ -86,50 +90,55 @@ const SignUp = ({ navigation }) => {
     }
 
     return (
-        <View style={signUpStyles.main}>
-            <View style={signUpStyles.logo}>
+        <KeyboardAwareScrollView >
+            <View style={signUpStyles.main}>
+                {
+                    modalHandle(resText, visible, isSuccess, modalEvents)
+                }
 
+                <TextInput
+                    placeholder='İsim'
+                    style={signUpStyles.textInput}
+                    onChangeText={(text) => handleTextInputs(text, 'name')}
+                />
+                <TextInput
+                    placeholder='Soy İsim'
+                    style={signUpStyles.textInput}
+                    onChangeText={(text) => handleTextInputs(text, 'surname')}
+                />
+                <TextInput
+                    placeholder='E-mail'
+                    style={signUpStyles.textInput}
+                    onChangeText={(text) => handleTextInputs(text, 'email')}
+                />
+                <TextInput
+                    secureTextEntry={true}
+                    placeholder='Şifre'
+                    style={signUpStyles.textInput}
+                    onChangeText={(text) => handleTextInputs(text, 'password')}
+                />
+                <TextInput
+                    secureTextEntry={true}
+                    placeholder='Şifre Tekrar'
+                    style={signUpStyles.textInput}
+                    onChangeText={(text) => { setRePassword(text) }}
+                />
+
+                <View style={signUpStyles.signUpView}>
+                    {
+                        ready ? (
+                            <ActivityIndicator size="large" color={themeColors.secondary} />
+                        ) : (
+                            <ApproveButton text={'Kayıt Ol'} onPress={signUpHandle} />
+                        )
+                    }
+
+                </View>
+
+                <BottomText text={'Zaten bir hesabınız var mı?'} clickText={'Giriş Yapın'}
+                    onPress={navigateToSignIn} />
             </View>
-            {
-                modalHandle(resText, visible, isSuccess, modalEvents)
-            }
-
-            <TextInput
-                placeholder='İsim'
-                style={signUpStyles.textInput}
-                onChangeText={(text) => handleTextInputs(text, 'name')}
-            />
-            <TextInput
-                placeholder='Soy İsim'
-                style={signUpStyles.textInput}
-                onChangeText={(text) => handleTextInputs(text, 'surname')}
-            />
-            <TextInput
-                placeholder='E-mail'
-                style={signUpStyles.textInput}
-                onChangeText={(text) => handleTextInputs(text, 'email')}
-            />
-            <TextInput
-                secureTextEntry={true}
-                placeholder='Şifre'
-                style={signUpStyles.textInput}
-                onChangeText={(text) => handleTextInputs(text, 'password')}
-            />
-            <TextInput
-                secureTextEntry={true}
-                placeholder='Şifre Tekrar'
-                style={signUpStyles.textInput}
-                onChangeText={(text) => { setRePassword(text) }}
-            />
-
-            <View style={signUpStyles.signUpView}>
-                <ApproveButton text={'Kayıt Ol'} onPress={signUpHandle} />
-            </View>
-
-            <BottomText text={'Zaten bir hesabınız var mı?'} clickText={'Giriş Yapın'}
-                onPress={navigateToSignIn} />
-
-        </View>
+        </KeyboardAwareScrollView>
     )
 }
 
