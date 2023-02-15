@@ -2,6 +2,7 @@ import { Text, TouchableOpacity } from 'react-native'
 import React from 'react'
 import { approveButtonStyles } from './styles/approveButtonStyles'
 import { themeColors } from '../../core/enum/themeColorsEnum'
+import { LinearGradient } from 'expo-linear-gradient'
 
 const ApproveButton = ({ onPress, text, isDisable, isDanger }) => {
     return (
@@ -16,7 +17,20 @@ const ApproveButton = ({ onPress, text, isDisable, isDanger }) => {
                 onPress()
             }}
         >
-            <Text style={{ color: 'white' }}>{text}</Text>
+            {
+                isDanger ? (
+                    <Text style={{ color: 'white' }}>{text}</Text>
+                )
+                    : (
+                        <LinearGradient
+                            colors={[themeColors.secondary, 'purple']}
+                            start={{ x: 0.7, y: 0 }}
+                            style={approveButtonStyles.approveButton}>
+                            <Text style={{ color: 'white' }}>{text}</Text>
+                        </LinearGradient>
+                    )
+            }
+
         </TouchableOpacity>
     )
 }

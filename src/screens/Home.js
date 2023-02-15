@@ -10,6 +10,7 @@ import { useState } from 'react'
 import { themeColors } from '../../core/enum/themeColorsEnum'
 import FilterModal from '../components/FilterModal'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import { LinearGradient } from 'expo-linear-gradient'
 
 
 const Home = ({ navigation }) => {
@@ -105,12 +106,19 @@ const Home = ({ navigation }) => {
                     <ActivityIndicator size="large" color={themeColors.secondary} />
                 )
             }
-            <TouchableOpacity
+
+            <LinearGradient
                 style={homeStyles.filterButton}
-                onPress={() => setFilterVisible(true)}
+                colors={[themeColors.secondary, 'purple']}
+                start={{ x: 0.7, y: 0 }}
             >
-                <MaterialCommunityIcons name='filter-outline' color={'white'} size={35} />
-            </TouchableOpacity>
+                <TouchableOpacity
+                    onPress={() => setFilterVisible(true)}
+                >
+                    <MaterialCommunityIcons name='filter-outline' color={'white'} size={35} />
+                </TouchableOpacity>
+            </LinearGradient>
+
         </View>
     )
 }

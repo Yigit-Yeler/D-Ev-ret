@@ -9,7 +9,6 @@ export const dmBoxStyles = StyleSheet.create({
     dmBox: {
         width: usualWidth,
         height: usualHeight,
-        backgroundColor: themeColors.secondary,
         alignItems: 'center',
         marginVertical: hp('2%'),
         borderRadius: wp('3%')

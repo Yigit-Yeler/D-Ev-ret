@@ -2,63 +2,56 @@ import { StyleSheet } from 'react-native';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import { themeColors } from '../../../core/enum/themeColorsEnum';
 
-const usualWidth = wp('93%')
+const usualWidth = wp('100%')
 const contentUsualWidth = usualWidth * 0.95
 
 export const postStyles = StyleSheet.create({
     main: {
         width: usualWidth,
-        height: usualWidth * 1.52,
-        backgroundColor: themeColors.secondary,
-        borderWidth: 2,
-        borderColor: 'black',
-        marginVertical: hp('2%'),
-        borderRadius: wp('3%'),
-        borderColor: themeColors.secondary,
+        height: hp('90%'),
         alignItems: 'center',
-        paddingVertical: wp('2%')
     },
     name: {
         width: contentUsualWidth,
-        alignItems: 'center',
-        borderColor: 'white',
-
-        borderBottomWidth: 1
+        flexDirection: 'row',
+        justifyContent: 'flex-start',
+        alignItems: 'center'
+    },
+    pp: {
+        width: wp('7%'),
+        height: wp('7%'),
+        marginRight: wp('2%'),
+        borderRadius: wp('5%'),
+        marginVertical: wp('3%')
     },
     titleView: {
         width: contentUsualWidth,
-        height: wp('15%'),
+        height: wp('25%'),
         justifyContent: 'space-around',
-        borderBottomWidth: 1,
-        borderColor: 'white'
 
     },
     titleText: {
-        color: 'white'
+        fontSize: wp('6%'),
+        fontWeight: '500'
     },
     descText: {
-        color: 'white'
 
     },
     imgView: {
-        width: contentUsualWidth,
-        height: wp('50%'),
+        width: usualWidth,
+        height: wp('70%'),
         alignItems: 'center'
     },
     img: {
-        width: wp('50%'),
-        height: wp('50%'),
-        marginRight: wp('1.5%'),
-        borderRadius: wp('3%')
+        width: wp('100%'),
+        height: wp('70%'),
     },
     adressView: {
         width: contentUsualWidth,
         height: wp('25%'),
-        borderBottomWidth: 1,
         flexDirection: 'row',
         justifyContent: 'space-around',
         alignItems: 'center',
-        borderColor: 'white'
     },
     adress: {
         width: wp('55%')

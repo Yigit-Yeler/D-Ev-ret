@@ -9,7 +9,7 @@ export const chatStyles = StyleSheet.create({
         alignItems: 'center',
     },
     flatView: {
-        height: hp('90%'),
+        height: hp('88%'),
         width: wp('100%'),
         marginBottom: hp('10%')
     },

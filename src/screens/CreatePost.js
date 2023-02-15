@@ -95,24 +95,43 @@ const CreatePost = ({ navigation }) => {
     }
 
     const submitPost = () => {
-        setReady(true)
         let tmpData = { ...text, location }
         tmpData = { ...tmpData, 'name': userInfo.name }
-        uploadImgToFirebase(selectedImages)
-            .then((res) => {
-                tmpData = { ...tmpData, 'images': res }
-                insertPostFirestore('users', userAuth.uid, 'posts', tmpData)
-                    .then((res) => {
-                        setResText("Gönderi Paylaşıldı!")
-                        setIsSuccess(1)
-                        setVisible(true)
-                        dispatch(clearLocation())
-                    })
-                    .catch((e) => {
-                        setResText("Gönderi Paylaşılamadı :(")
-                        setIsSuccess(2)
-                    })
-            })
+        if (
+            text.title == ''
+            || text.adress == ''
+            || text.desc == ''
+            || text.isFurnished == ''
+            || text.price == ''
+            || text.room == ''
+            || !selectedImages
+            || location == {}
+        ) {
+            setResText("Lütfen Tüm Alanları Doldurunuz!")
+            setIsSuccess(2)
+            setVisible(true)
+        }
+        else {
+            setReady(true)
+            uploadImgToFirebase(selectedImages)
+                .then((res) => {
+                    tmpData = { ...tmpData, 'images': res }
+                    insertPostFirestore('users', userAuth.uid, 'posts', tmpData)
+                        .then((res) => {
+                            setResText("Gönderi Paylaşıldı!")
+                            setIsSuccess(1)
+                            setVisible(true)
+                            dispatch(clearLocation())
+                        })
+                        .catch((e) => {
+                            setResText("Gönderi Paylaşılamadı :(")
+                            setIsSuccess(2)
+                        })
+                })
+        }
+
+
+
     }
 
     const pickImage = async () => {
@@ -139,16 +158,19 @@ const CreatePost = ({ navigation }) => {
                     placeholder='Başlık'
                     style={textInputStyles.textInput}
                     onChangeText={(text) => handleTextInputs(text, 'title')}
+                    maxLength={50}
                 />
                 <TextInput
                     placeholder='Açıklama'
                     style={textInputStyles.textInput}
                     onChangeText={(text) => handleTextInputs(text, 'desc')}
+                    maxLength={100}
                 />
                 <TextInput
                     placeholder='Adres'
                     style={textInputStyles.textInput}
                     onChangeText={(text) => handleTextInputs(text, 'adress')}
+                    maxLength={150}
                 />
 
                 <TextInput
@@ -156,6 +178,7 @@ const CreatePost = ({ navigation }) => {
                     placeholder='Fiyat'
                     style={textInputStyles.textInput}
                     onChangeText={(text) => handleTextInputs(text, 'price')}
+                    maxLength={10}
                 />
                 <View style={createPostStyles.dropDownButtonsView}>
                     <MyDropDownButton placeholder={'Eşya'} data={furnished} value={text.isFurnished} handleDropDown={handleDropDownF} />

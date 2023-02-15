@@ -11,7 +11,6 @@ export const approveButtonStyles = StyleSheet.create({
         height: usualHeight,
         borderWidth: 1,
         borderColor: 'grey',
-        backgroundColor: secondary,
         justifyContent: 'center',
         alignItems: 'center',
         borderRadius: wp('3%')

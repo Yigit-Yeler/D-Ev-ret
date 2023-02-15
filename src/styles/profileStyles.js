@@ -40,7 +40,7 @@ export const profileStyles = StyleSheet.create({
         borderRadius: width * 0.5
     },
     logout: {
-        backgroundColor: 'purple',
+        backgroundColor: themeColors.danger,
         width: width * 0.18,
         height: height * 0.05,
         justifyContent: 'center',

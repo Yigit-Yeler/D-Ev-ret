@@ -38,7 +38,7 @@ const SplashScreen = ({ navigation }) => {
                 style={splashStyles.image}
                 source={require('../../assets/icon.png')}
             />
-            <Text style={splashStyles.title}>D-Ev-ret'e Hoşgeldiniz!</Text>
+            <Text style={splashStyles.title}>D-Ev-ret'e Hoş Geldiniz!</Text>
 
             <Text style={splashStyles.text}>Devretmek istediğiniz ev hakkında kolaylıkla bir gönderi paylaşabilirsiniz.
                 Bu şekilde ev tutmak isteyenlere hızlı bir şekilde ulaşabilirsiniz!!</Text>

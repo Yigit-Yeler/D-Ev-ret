@@ -42,7 +42,7 @@
         "android.permission.RECORD_AUDIO"
       ],
       "package": "com.etopes.housetransferer",
-      "versionCode": 7
+      "versionCode": 9
     },
     "web": {
       "favicon": "./assets/favicon.png"
