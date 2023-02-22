@@ -8,7 +8,7 @@ const contentUsualWidth = usualWidth * 0.95
 export const postStyles = StyleSheet.create({
     main: {
         width: usualWidth,
-        height: hp('90%'),
+        height: hp('100%'),
         alignItems: 'center',
     },
     name: {
@@ -39,7 +39,7 @@ export const postStyles = StyleSheet.create({
     },
     imgView: {
         width: usualWidth,
-        height: wp('70%'),
+        height: hp('40%'),
         alignItems: 'center'
     },
     img: {

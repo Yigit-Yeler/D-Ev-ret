@@ -22,7 +22,7 @@ export const profileStyles = StyleSheet.create({
         flex: 0.65
     },
     profileCardHeader: {
-        flex: 0.35,
+        height: hp('22%'),
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'space-evenly',
@@ -31,7 +31,7 @@ export const profileStyles = StyleSheet.create({
         // borderRadius: width * 0.1
     },
     profileCardHeaderContent: {
-        width: width * 0.4,
+        width: width * 0.5,
         height: height * 0.12,
     },
     pp: {
